@@ -7,12 +7,19 @@
 //
 
 #include <iostream>
+#include "OpenGLSetup.h"
+#include "scene.h"
 
-int main(int argc, const char * argv[])
+int main(int argc, char ** argv)
 {
-
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    
+    scene theGame;
+    OpenGLSetup session("MyCCraft", &theGame, 800, 600);
+    
+    session.setupWindow(&argc, argv);
+    
+    
+    
     return 0;
 }
 
