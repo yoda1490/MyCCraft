@@ -9,12 +9,15 @@
 #include <iostream>
 #include "OpenGLSetup.h"
 #include "scene.h"
+#include "engine.h"
 
 int main(int argc, char ** argv)
 {
     
-    scene theGame;
-    OpenGLSetup session("MyCCraft", &theGame, 800, 600);
+    engine engine;
+    scene theGame(&engine);
+    
+    OpenGLSetup session("MyCCraft", &theGame, 800, 600, &engine);
     
     session.setupWindow(&argc, argv);
     

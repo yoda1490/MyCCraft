@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		141F739917035C5C00BB26F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F739817035C5C00BB26F2 /* main.cpp */; };
-		141F739B17035C5C00BB26F2 /* MyCCraft.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 141F739A17035C5C00BB26F2 /* MyCCraft.1 */; };
 		141F73A317035D2700BB26F2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141F73A117035D2700BB26F2 /* GLUT.framework */; };
 		141F73A717035DA000BB26F2 /* TestOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73A517035DA000BB26F2 /* TestOpenGL.cpp */; };
 		141F73A917035EC000BB26F2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141F73A817035EC000BB26F2 /* OpenGL.framework */; };
-		141F73AC1703602300BB26F2 /* OpenGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* OpenGLSetup.cpp */; };
+		141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* openGLSetup.cpp */; };
 		141F73AF1703649600BB26F2 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AD1703649600BB26F2 /* scene.cpp */; };
+		141F73B51703854200BB26F2 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73B31703854200BB26F2 /* engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				141F739B17035C5C00BB26F2 /* MyCCraft.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -32,14 +31,15 @@
 /* Begin PBXFileReference section */
 		141F739517035C5C00BB26F2 /* MyCCraft */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyCCraft; sourceTree = BUILT_PRODUCTS_DIR; };
 		141F739817035C5C00BB26F2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		141F739A17035C5C00BB26F2 /* MyCCraft.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = MyCCraft.1; sourceTree = "<group>"; };
 		141F73A117035D2700BB26F2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../../../System/Library/Frameworks/GLUT.framework; sourceTree = "<group>"; };
 		141F73A517035DA000BB26F2 /* TestOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestOpenGL.cpp; sourceTree = "<group>"; };
 		141F73A817035EC000BB26F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
-		141F73AA1703602300BB26F2 /* OpenGLSetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLSetup.cpp; sourceTree = "<group>"; };
-		141F73AB1703602300BB26F2 /* OpenGLSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLSetup.h; sourceTree = "<group>"; };
+		141F73AA1703602300BB26F2 /* openGLSetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openGLSetup.cpp; sourceTree = "<group>"; };
+		141F73AB1703602300BB26F2 /* openGLSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openGLSetup.h; sourceTree = "<group>"; };
 		141F73AD1703649600BB26F2 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
 		141F73AE1703649600BB26F2 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		141F73B31703854200BB26F2 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
+		141F73B41703854200BB26F2 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +77,13 @@
 			isa = PBXGroup;
 			children = (
 				141F739817035C5C00BB26F2 /* main.cpp */,
-				141F739A17035C5C00BB26F2 /* MyCCraft.1 */,
 				141F73A517035DA000BB26F2 /* TestOpenGL.cpp */,
-				141F73AA1703602300BB26F2 /* OpenGLSetup.cpp */,
-				141F73AB1703602300BB26F2 /* OpenGLSetup.h */,
+				141F73AA1703602300BB26F2 /* openGLSetup.cpp */,
+				141F73AB1703602300BB26F2 /* openGLSetup.h */,
 				141F73AD1703649600BB26F2 /* scene.cpp */,
 				141F73AE1703649600BB26F2 /* scene.h */,
+				141F73B31703854200BB26F2 /* engine.cpp */,
+				141F73B41703854200BB26F2 /* engine.h */,
 			);
 			path = MyCCraft;
 			sourceTree = "<group>";
@@ -140,8 +141,9 @@
 			files = (
 				141F739917035C5C00BB26F2 /* main.cpp in Sources */,
 				141F73A717035DA000BB26F2 /* TestOpenGL.cpp in Sources */,
-				141F73AC1703602300BB26F2 /* OpenGLSetup.cpp in Sources */,
+				141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */,
 				141F73AF1703649600BB26F2 /* scene.cpp in Sources */,
+				141F73B51703854200BB26F2 /* engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
