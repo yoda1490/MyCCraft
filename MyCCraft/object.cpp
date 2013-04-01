@@ -7,3 +7,10 @@
 //
 
 #include "object.h"
+
+
+
+
+object::object(float positionX, float positionY, float positionZ, float orientation){
+    
+}

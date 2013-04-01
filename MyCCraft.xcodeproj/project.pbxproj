@@ -14,6 +14,8 @@
 		141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* openGLSetup.cpp */; };
 		141F73AF1703649600BB26F2 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AD1703649600BB26F2 /* scene.cpp */; };
 		141F73B51703854200BB26F2 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73B31703854200BB26F2 /* engine.cpp */; };
+		149CF502170444CD004C8F3D /* bloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF500170444CD004C8F3D /* bloc.cpp */; };
+		149CF50517045175004C8F3D /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF50317045175004C8F3D /* object.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +42,10 @@
 		141F73AE1703649600BB26F2 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		141F73B31703854200BB26F2 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		141F73B41703854200BB26F2 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		149CF500170444CD004C8F3D /* bloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bloc.cpp; sourceTree = "<group>"; };
+		149CF501170444CD004C8F3D /* bloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bloc.h; sourceTree = "<group>"; };
+		149CF50317045175004C8F3D /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = object.cpp; sourceTree = "<group>"; };
+		149CF50417045175004C8F3D /* object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,10 @@
 				141F73AE1703649600BB26F2 /* scene.h */,
 				141F73B31703854200BB26F2 /* engine.cpp */,
 				141F73B41703854200BB26F2 /* engine.h */,
+				149CF500170444CD004C8F3D /* bloc.cpp */,
+				149CF501170444CD004C8F3D /* bloc.h */,
+				149CF50317045175004C8F3D /* object.cpp */,
+				149CF50417045175004C8F3D /* object.h */,
 			);
 			path = MyCCraft;
 			sourceTree = "<group>";
@@ -144,6 +154,8 @@
 				141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */,
 				141F73AF1703649600BB26F2 /* scene.cpp in Sources */,
 				141F73B51703854200BB26F2 /* engine.cpp in Sources */,
+				149CF502170444CD004C8F3D /* bloc.cpp in Sources */,
+				149CF50517045175004C8F3D /* object.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +254,7 @@
 				141F73A017035C5C00BB26F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

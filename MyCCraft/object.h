@@ -11,4 +11,14 @@
 
 #include <iostream>
 
+class object{
+    float position[3];
+    
+    object();
+    
+    virtual void light() = 0;
+    virtual void draw() = 0;
+    object(float positionX, float positionY, float positionZ, float orientation);
+};
+
 #endif /* defined(__MyCCraft__object__) */

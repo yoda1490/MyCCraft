@@ -10,5 +10,37 @@
 #define __MyCCraft__block__
 
 #include <iostream>
+#include "string"
+
+#ifdef __APPLE__
+#  include <GLUT/glut.h>
+#else
+#  include <GL/glut.h>
+#endif
+
+
+using namespace std;
+
+class bloc{
+    
+public:
+    
+    float diff = 0.1; // red and blue diffuse reflectance of the submarine monster
+    float emi = 0.1; // red and blue emittance of the submarine monster
+    
+    float spec = 1.0; // White specular reflectance.
+    float shi = 30.0; // Shininess.
+    
+    float position[3];
+    float orient = 0;
+    float color[4];
+    string textureURL;
+    
+    bloc(int idBloc, float x, float y, float z, float orientation);
+    bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA);
+    void draw();
+    void light();
+    
+};
 
 #endif /* defined(__MyCCraft__block__) */
