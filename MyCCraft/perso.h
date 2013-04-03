@@ -23,11 +23,15 @@ using namespace std;
 class perso{
     
 public:
-    float angleVision = -3.14/2.5;
+    float angleVision = 3.14/4;
     float positionX = 0, positionY = 0.5, positionZ = 0; //positionY == foot
     float hauteurEye = 1.6;
     string name = "Player";
     float vitesse = 1;
+    
+    
+    float life=10.0;
+    float armur=10.0;
     
     
     float diff = 0.1; // red and blue diffuse reflectance of the submarine monster
@@ -43,8 +47,20 @@ public:
     
     float hitbox = 0.4; //for collision detection, if in a circle of hitbox
     
+    float jump = 0; //time counter for jumping
+    float jumped = 0; //height jumped
+    float jumpMax = 1.9; //max high (in y) that can be jumped
+    
+    float fall = 0; //height fallen
+    
+    void kill(float hurt); //remove life
+    void fight(float hurt); //remove armur
+    bool isDead();
+    
     void draw();
     void light();
+    
+    
     
     
 };

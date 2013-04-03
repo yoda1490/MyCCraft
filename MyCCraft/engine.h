@@ -52,7 +52,9 @@ public:
     float walkMove = 0; //when you move your vision move up/down
     float frequencyMove = 0.0025; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
     
-    float vitesse = 0.5;
+    float gravity = 15.0;
+    
+    float vitesse = 0.25;
     class OpenGLSetup* session;
     int state = 1;
     

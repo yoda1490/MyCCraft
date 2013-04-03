@@ -8,6 +8,24 @@
 
 #include "Perso.h"
 
+void perso::kill(float hurt){
+    life -=hurt;
+}
+void perso::fight(float hurt){
+    armur -= hurt;
+    if(armur > 1.0)
+        life -= hurt-(armur-1.0);
+    else
+        life -= hurt-armur;
+    
+    cout << "fight:" << hurt << endl;
+}
+bool perso::isDead(){
+    if(life <=0)
+        return true;
+    return false;
+}
+
 
 void perso::draw(){
     
