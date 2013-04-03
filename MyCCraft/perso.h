@@ -24,7 +24,7 @@ class perso{
     
 public:
     float angleVision = -3.14/2.5;
-    float positionX = 0, positionY = 1, positionZ = 0;
+    float positionX = 0, positionY = 0.5, positionZ = 0; //positionY == foot
     float hauteurEye = 1.7;
     string name = "Player";
     float vitesse = 1;
@@ -40,6 +40,8 @@ public:
     float tailleX = 0.8;
     float tailleY = 1.8;
     float tailleZ = 0.5;
+    
+    float hitbox = 0.4; //for collision detection, if in a circle of hitbox
     
     void draw();
     void light();

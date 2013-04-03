@@ -13,40 +13,40 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float futurX, float
     
     bool col[3] = {false, false, false};
     
-    if(futurX > aBloc->position[0]-aBloc->size/2
-       && futurX < aBloc->position[0]+aBloc->size/2){
+    if(futurX+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
+       && futurX-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
     
-        if(aPerso->positionY > aBloc->position[1]-aBloc->size/2
-           && aPerso->positionY < aBloc->position[1]+aBloc->size/2){
+        if(aPerso->positionY+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
+           && aPerso->positionY+0.001 < aBloc->position[1]+aBloc->size/2){
                 
-                if(aPerso->positionZ > aBloc->position[2]-aBloc->size/2
-                    && aPerso->positionZ < aBloc->position[2]+aBloc->size/2){
+                if(aPerso->positionZ+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
+                    && aPerso->positionZ-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
                     col[0] = true;
                 }
         }
     }
     
-    if(aPerso->positionX > aBloc->position[0]-aBloc->size/2
-       && aPerso->positionX < aBloc->position[0]+aBloc->size/2){
+    if(aPerso->positionX+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
+       && aPerso->positionX-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
         
-        if(futurY > aBloc->position[1]-aBloc->size/2
-           && futurY < aBloc->position[1]+aBloc->size/2){
+        if(futurY+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
+           && futurY+0.001 < aBloc->position[1]+aBloc->size/2){
             
-            if(aPerso->positionZ > aBloc->position[2]-aBloc->size/2
-               && aPerso->positionZ < aBloc->position[2]+aBloc->size/2){
+            if(aPerso->positionZ+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
+               && aPerso->positionZ-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
                 col[1] = true;
             }
         }
     }
     
-    if(aPerso->positionX > aBloc->position[0]-aBloc->size/2
-       && aPerso->positionX < aBloc->position[0]+aBloc->size/2){
+    if(aPerso->positionX+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
+       && aPerso->positionX-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
         
-        if(aPerso->positionY > aBloc->position[1]-aBloc->size/2
-           && aPerso->positionY < aBloc->position[1]+aBloc->size/2){
+        if(aPerso->positionY+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
+           && aPerso->positionY+0.001 < aBloc->position[1]+aBloc->size/2){
             
-            if(futurZ > aBloc->position[2]-aBloc->size/2
-               && futurZ < aBloc->position[2]+aBloc->size/2){
+            if(futurZ+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
+               && futurZ-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
                 col[2] = true;
             }
         }
@@ -67,8 +67,8 @@ bool* collision::detectCollisions(vector<bloc*>* listBloc, perso* aPerso, float 
         if(colTmp[1]){
             col[1] = true;
         }
-        if(colTmp[1]){
-            col[1] = true;
+        if(colTmp[2]){
+            col[2] = true;
         }
         if(colTmp[0] && colTmp[1] && colTmp[2]){
             return col;

@@ -13,12 +13,45 @@ void perso::draw(){
     
     glPushMatrix();
     light();
-    glTranslatef(positionX+tailleX/2,positionY+tailleY/2,positionZ+tailleZ/2);
+    glTranslatef(positionX,positionY,positionZ);
     glRotatef(360.0-((angleVision/3.14)*180.0), 0.0, 1.0, 0.0);
-    //glutSolidCube(0.5);
-    glutSolidTeapot(0.5);
-    glTranslatef(0.0,0.5,0.0);
-    glutSolidCube(0.4);
+    
+    //foot
+    glTranslatef(0,0.125,-0.13);
+    glutSolidCube(0.25);
+    glTranslatef(0,0,0.26);
+    glutSolidCube(0.25);
+    
+    glTranslatef(0,0.25,-0.26);
+    glutSolidCube(0.25);
+    glTranslatef(0,0,0.26);
+    glutSolidCube(0.25);
+    
+    
+    //body
+    glTranslatef(0,0.25,-0.005);
+    glutSolidCube(0.25);
+    glTranslatef(0,0.25,0);
+    glutSolidCube(0.25);
+    glTranslatef(0,0,-0.25);
+    glutSolidCube(0.25);
+    glTranslatef(0,-0.25,0);
+    glutSolidCube(0.25);
+    
+    //hand
+    glTranslatef(0,0,-0.275);
+    glutSolidCube(0.25);
+    glTranslatef(0,0,0.795);
+    glutSolidCube(0.25);
+    
+    //head
+    glTranslatef(0,0.25,-0.325);
+    glutSolidCube(0.25);
+    
+    
+    
+
+
     glPopMatrix();
     //cout << positionX << ":" << positionZ << endl;
 

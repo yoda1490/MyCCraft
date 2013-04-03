@@ -15,7 +15,14 @@ bloc::bloc(int idBloc, float x, float y, float z, float orientation){
 
 bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize){
     size = aSize;
-    bloc(x, y, z, orientation, colorX, colorY, colorZ, colorA);
+    position[0] = x;
+    position[1] = y;
+    position[2] = z;
+    orient = orientation;
+    color[0] = colorX;
+    color[1] = colorY;
+    color[2] = colorZ;
+    color[3] = colorA;
 }
 
 
@@ -33,7 +40,7 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
 void bloc::draw(){
     glPushMatrix();
     light();
-    glTranslatef(position[0]+size/2,position[1]+size/2,position[2]+size/2);
+    glTranslatef(position[0],position[1],position[2]);
     glRotatef(orient, 0.0, 1.0, 0.0);
     glutSolidCube(size);
     glPopMatrix();

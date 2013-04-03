@@ -36,7 +36,7 @@ void scene::drawScene(){
     if(eng->viewMode == 0){
     gluLookAt(
               eng->player.positionX+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision),
-              eng->player.positionY+eng->player.hauteurEye +(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove),
+              eng->player.positionY+eng->player.hauteurEye ,
               eng->player.positionZ+ (eng->player.tailleX+0.01) * sin(eng->player.angleVision),
               
               eng->visionX,
