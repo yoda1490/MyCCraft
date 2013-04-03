@@ -28,6 +28,9 @@ void scene::drawScene(){
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    
     
     
     eng->visionX = eng->player.positionX + 10 * cos(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
@@ -35,9 +38,9 @@ void scene::drawScene(){
     eng->visionZ = eng->player.positionZ + 10 * sin(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
     if(eng->viewMode == 0){
     gluLookAt(
-              eng->player.positionX+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision),
-              eng->player.positionY+eng->player.hauteurEye ,
-              eng->player.positionZ+ (eng->player.tailleX+0.01) * sin(eng->player.angleVision),
+              eng->player.positionX,
+              eng->player.positionY+eng->player.hauteurEye+(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove) ,
+              eng->player.positionZ,
               
               eng->visionX,
               eng->visionY+(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove),
@@ -59,11 +62,12 @@ void scene::drawScene(){
               0.0,
               1.0,
               0.0);
+        eng->player.draw();
     }else{
         gluLookAt(
-                  eng->player.positionX - 10 * cos(eng->player.angleVision),
-                  eng->player.positionY+3,
-                  eng->player.positionZ - 10 * sin(eng->player.angleVision),
+                  eng->player.positionX - 5 * cos(eng->player.angleVision),
+                  eng->player.positionY+2,
+                  eng->player.positionZ - 5 * sin(eng->player.angleVision),
                   
                   eng->visionX,
                   eng->visionY,
@@ -72,6 +76,7 @@ void scene::drawScene(){
                   0.0,
                   1.0,
                   0.0);
+        eng->player.draw();
     }
     
     lighting();
@@ -87,7 +92,7 @@ void scene::drawScene(){
     
     
     
-    eng->player.draw();
+    
     
     glutSwapBuffers();
      

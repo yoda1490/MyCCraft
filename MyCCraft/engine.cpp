@@ -115,14 +115,17 @@ void engine::loadMap(string fileName){
     listBloc.push_back(new bloc(25.0, 1.0, 25.0, 90.0, 0.6, 0.2, 0.2, 1.0));
     
    
+    for(int cpt=0; cpt < 10; cpt++){
+    listBloc.push_back(new bloc(cpt+5.0, 1.0, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 2.0, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 3.0, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 3.0, 1.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 3.0, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 2.0, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    listBloc.push_back(new bloc(cpt+5.0, 1.0, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
+    }
     
-    listBloc.push_back(new bloc(5.0, 1.0, 0.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 2.0, 0.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 3.0, 0.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 3.0, 1.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 3.0, 2.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 2.0, 2.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
-    listBloc.push_back(new bloc(5.0, 1.0, 2.0, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
+    
 }
 
 

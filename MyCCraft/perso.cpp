@@ -16,37 +16,96 @@ void perso::draw(){
     glTranslatef(positionX,positionY,positionZ);
     glRotatef(360.0-((angleVision/3.14)*180.0), 0.0, 1.0, 0.0);
     
+    
+    glTranslatef(0,0.125,0.0);
     //foot
-    glTranslatef(0,0.125,-0.13);
-    glutSolidCube(0.25);
-    glTranslatef(0,0,0.26);
-    glutSolidCube(0.25);
+    glPushMatrix();
+        glTranslatef(0,0.0,-0.13);
+        glutSolidCube(0.25);
+        glTranslatef(0,0.25,0.0);
+        glutSolidCube(0.25);
+        glTranslatef(0,0.25,0.0);
+        glutSolidCube(0.25);
+    glPopMatrix();
     
-    glTranslatef(0,0.25,-0.26);
-    glutSolidCube(0.25);
-    glTranslatef(0,0,0.26);
-    glutSolidCube(0.25);
+    glPushMatrix();
+        glTranslatef(0,0.0,0.13);
+        glutSolidCube(0.25);
+        glTranslatef(0,0.25,0.0);
+        glutSolidCube(0.25);
+        glTranslatef(0,0.25,0.0);
+        glutSolidCube(0.25);
+    glPopMatrix();
     
     
+    glTranslatef(0,0.25,0.0);
     //body
-    glTranslatef(0,0.25,-0.005);
-    glutSolidCube(0.25);
-    glTranslatef(0,0.25,0);
-    glutSolidCube(0.25);
-    glTranslatef(0,0,-0.25);
-    glutSolidCube(0.25);
-    glTranslatef(0,-0.25,0);
-    glutSolidCube(0.25);
+    glPushMatrix();
+        glTranslatef(0,0.0,-0.125);
+        glutSolidCube(0.25);
     
-    //hand
-    glTranslatef(0,0,-0.275);
-    glutSolidCube(0.25);
-    glTranslatef(0,0,0.795);
-    glutSolidCube(0.25);
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(0,0.0,0.125);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    glPopMatrix();
+    
+    glTranslatef(0,0.50,0.0);
+    
+    //hands
+    glPushMatrix();
+        glTranslatef(0,0.0,-0.290);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(0,0.0,0.290);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    
+        glTranslatef(0,0.25,0);
+        glutSolidCube(0.25);
+    glPopMatrix();
     
     //head
-    glTranslatef(0,0.25,-0.325);
-    glutSolidCube(0.25);
+    glPushMatrix();
+        glTranslatef(0,0.85,0.0);
+        glutSolidCube(0.40);
+    glPopMatrix();
+
+
     
     
     

@@ -76,7 +76,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glViewport(0, 0, (GLsizei)w, (GLsizei)h);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(60.0, (float)w/(float)h, 1.0, 100.0);
+        gluPerspective(60.0, (float)w/(float)h, 0.01, 100.0);
         glMatrixMode(GL_MODELVIEW);
     }
 
