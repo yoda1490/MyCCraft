@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14042E05170C1A3D00441478 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14042E03170C1A3D00441478 /* collision.cpp */; };
+		14042E08170C1AB900441478 /* perso.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14042E06170C1AB900441478 /* perso.cpp */; };
 		141F739917035C5C00BB26F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F739817035C5C00BB26F2 /* main.cpp */; };
 		141F73A317035D2700BB26F2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141F73A117035D2700BB26F2 /* GLUT.framework */; };
 		141F73A717035DA000BB26F2 /* TestOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73A517035DA000BB26F2 /* TestOpenGL.cpp */; };
@@ -31,6 +33,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14042E03170C1A3D00441478 /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
+		14042E04170C1A3D00441478 /* collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision.h; sourceTree = "<group>"; };
+		14042E06170C1AB900441478 /* perso.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perso.cpp; sourceTree = "<group>"; };
+		14042E07170C1AB900441478 /* perso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = perso.h; sourceTree = "<group>"; };
 		141F739517035C5C00BB26F2 /* MyCCraft */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyCCraft; sourceTree = BUILT_PRODUCTS_DIR; };
 		141F739817035C5C00BB26F2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		141F73A117035D2700BB26F2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../../../System/Library/Frameworks/GLUT.framework; sourceTree = "<group>"; };
@@ -94,6 +100,10 @@
 				149CF501170444CD004C8F3D /* bloc.h */,
 				149CF50317045175004C8F3D /* object.cpp */,
 				149CF50417045175004C8F3D /* object.h */,
+				14042E03170C1A3D00441478 /* collision.cpp */,
+				14042E04170C1A3D00441478 /* collision.h */,
+				14042E06170C1AB900441478 /* perso.cpp */,
+				14042E07170C1AB900441478 /* perso.h */,
 			);
 			path = MyCCraft;
 			sourceTree = "<group>";
@@ -156,6 +166,8 @@
 				141F73B51703854200BB26F2 /* engine.cpp in Sources */,
 				149CF502170444CD004C8F3D /* bloc.cpp in Sources */,
 				149CF50517045175004C8F3D /* object.cpp in Sources */,
+				14042E05170C1A3D00441478 /* collision.cpp in Sources */,
+				14042E08170C1AB900441478 /* perso.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
