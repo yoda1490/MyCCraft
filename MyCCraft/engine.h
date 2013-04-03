@@ -13,6 +13,10 @@
 #include "openGLSetup.h"
 #include <vector>
 #include "bloc.h"
+#include <pthread.h>
+#include "openGLSetup.h"
+#include "perso.h"
+#include "collision.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -27,8 +31,7 @@
 #endif
 
 
-#include <pthread.h>
-#include "openGLSetup.h"
+
 
 #if defined(__cplusplus)
 extern "C"
@@ -42,13 +45,19 @@ class engine{
     
     
 public:
-    float angleVision = -3.14/2.5;
-    float positionX = -5, positionY = 6, positionZ = 16;
+    perso player;
+    float futurX=0, futurY=0, futurZ=0;
     float visionX = 0, visionY = 0, visionZ = 0;
-    float vitesse = 1.0;
+    
+    float walkMove = 0; //when you move your vision move up/down
+    float frequencyMove = 0.0025; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+    
+    float vitesse = 0.5;
     class OpenGLSetup* session;
     int state = 1;
     
+    int viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
+    bool viewModePressed = false; //to only change one time until touche is relached
     
     vector<bloc*> listBloc;
     

@@ -30,12 +30,53 @@ void scene::drawScene(){
     
     
     
-    eng->visionX = eng->positionX + 10 * cos(eng->angleVision);
-    eng->visionY = eng->positionY - 5;
-    eng->visionZ = eng->positionZ + 10 * sin(eng->angleVision);
-    gluLookAt(eng->positionX,eng->positionY,eng->positionZ,  eng->visionX,eng->visionY,eng->visionZ,  0.0,1.0,0.0);
+    eng->visionX = eng->player.positionX + 10 * cos(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
+    eng->visionY = eng->player.positionY ;
+    eng->visionZ = eng->player.positionZ + 10 * sin(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
+    if(eng->viewMode == 0){
+    gluLookAt(
+              eng->player.positionX+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision),
+              eng->player.positionY+eng->player.hauteurEye +(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove),
+              eng->player.positionZ+ (eng->player.tailleX+0.01) * sin(eng->player.angleVision),
+              
+              eng->visionX,
+              eng->visionY+(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove),
+              eng->visionZ,
+              
+              0.0,
+              1.0,
+              0.0);
+    }else if(eng->viewMode == 1){
+    gluLookAt(
+              0.0,
+              20.0,
+              0.0,
+              
+              eng->player.positionX,
+              eng->player.positionY+eng->player.hauteurEye,
+              eng->player.positionZ,
+              
+              0.0,
+              1.0,
+              0.0);
+    }else{
+        gluLookAt(
+                  eng->player.positionX - 10 * cos(eng->player.angleVision),
+                  eng->player.positionY+3,
+                  eng->player.positionZ - 10 * sin(eng->player.angleVision),
+                  
+                  eng->visionX,
+                  eng->visionY,
+                  eng->visionZ,
+                  
+                  0.0,
+                  1.0,
+                  0.0);
+    }
     
     lighting();
+    
+    
     
 
     for(int unsigned i=0;i<eng->listBloc.size();i++){
@@ -44,8 +85,9 @@ void scene::drawScene(){
     
     
     
-    bloc bloc(25, 1, 25, 45.0, 0.6, 0.2, 0.2, 1.0);
-    bloc.draw();
+    
+    
+    eng->player.draw();
     
     glutSwapBuffers();
      

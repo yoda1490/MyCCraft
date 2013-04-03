@@ -39,7 +39,7 @@ public:
     
     //lighting
     //light position
-    float light0X = 5.0, light0Y = 2.0, light0Z = -10.0;
+    float light0X = 5.0, light0Y = 5.0, light0Z = 10.0;
     
     float quadAtt0 = 0.01; //quadratic attenuation light 0
 };

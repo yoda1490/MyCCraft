@@ -42,20 +42,64 @@ void* engine::run(void*){
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
+    
     if(key[ESC]){
        exit(0);}
     if (key[DOWN_ARROW]){
-        positionX -= (vitesse * 0.05)*cos(angleVision) ;  positionZ -= (vitesse * 0.05)*sin(angleVision) ;}
+        walkMove +=1*player.vitesse;
+        
+        futurX = player.positionX - (vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ - (vitesse * 0.025)*sin(player.angleVision)  *player.vitesse;
+        futurY = player.positionY;
+        
+        bool* col = collision::detectCollisions(&listBloc, &player, futurX, futurY, futurZ);
+        
+        if(!col[0]){
+            player.positionX = futurX;
+        }
+        if(!col[2]){
+            player.positionZ = futurZ;
+        }
+    }
     if( key[UP_ARROW]){
-        positionX += ( vitesse * 0.05)*cos(angleVision) ;  positionZ += (vitesse * 0.05)*sin(angleVision) ;}
+        walkMove +=1*player.vitesse;
+        
+        futurX = player.positionX + ( vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ + (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
+        futurY = player.positionY;
+        
+        bool* col = collision::detectCollisions(&listBloc, &player, futurX, futurY, futurZ);
+        
+        if(!col[0]){
+            player.positionX = futurX;
+        }
+        if(!col[2]){
+            player.positionZ = futurZ;
+        }
+    }
     if (key[LEFT_ARROW]){
-        angleVision -= 0.005*(vitesse/2.0);}
+        player.angleVision -= 0.0025*vitesse *player.vitesse;
+    }
     if( key[RIGHT_ARROW]){
-        angleVision += 0.005*(vitesse/2.0);}
+        player.angleVision += 0.0025*vitesse *player.vitesse;
+    }
     if (key[GLUT_KEY_PAGE_DOWN]){
-        positionY -= 0.005*(vitesse/2.0);}
+        player.positionY -= 0.0025*vitesse *player.vitesse;
+    }
     if( key[GLUT_KEY_PAGE_UP]){
-        positionY += 0.005*(vitesse/2.0);}
+        player.positionY += 0.0025*vitesse *player.vitesse;
+    }
+    
+    
+    if( !key['v'] && viewModePressed){
+        viewModePressed = false;
+    }
+    if( keyDown['v'] && !viewModePressed){
+        viewMode = (viewMode+1)%3;
+        viewModePressed = true;
+    }
+    
+    
 
 }
 
@@ -67,6 +111,12 @@ void engine::loadMap(string fileName){
             listBloc.push_back(new bloc(x, 0, z, 0.0, 0.2, 0.6, 0.2, 1.0));
         }
     }
+    
+    listBloc.push_back(new bloc(25, 1, 25, 90.0, 0.6, 0.2, 0.2, 1.0));
+    
+    listBloc.push_back(new bloc(10, 2, 10, 90.0, 0.6, 0.2, 0.2, 1.0, 1.0));
+    
+    listBloc.push_back(new bloc(5, 3, 10, 0.0, 0.6, 0.2, 0.2, 1.0, 1.0));
 }
 
 
