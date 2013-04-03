@@ -37,23 +37,37 @@ void perso::draw(){
     
     glTranslatef(0,0.125,0.0);
     //foot
-    glPushMatrix();
-        glTranslatef(0,0.0,-0.13);
-        glutSolidCube(0.25);
-        glTranslatef(0,0.25,0.0);
-        glutSolidCube(0.25);
-        glTranslatef(0,0.25,0.0);
-        glutSolidCube(0.25);
-    glPopMatrix();
     
     glPushMatrix();
-        glTranslatef(0,0.0,0.13);
-        glutSolidCube(0.25);
-        glTranslatef(0,0.25,0.0);
-        glutSolidCube(0.25);
-        glTranslatef(0,0.25,0.0);
-        glutSolidCube(0.25);
+        glTranslatef(0.0, 0.75, 0);
+        glRotatef(20*cos(2*3.14*(frequencyMove/2)*walkMove), 0.0, 0.0, 1.0);
+        glTranslatef(0.0, -0.75, 0);
+    
+        glPushMatrix();
+            glTranslatef(0,0.0,-0.13);
+            glutSolidCube(0.25);
+            glTranslatef(0,0.25,0.0);
+            glutSolidCube(0.25);
+            glTranslatef(0,0.25,0.0);
+            glutSolidCube(0.25);
+        glPopMatrix();
+    
     glPopMatrix();
+    glPushMatrix();
+        glTranslatef(0.0, 0.75, 0);
+        glRotatef(-20*cos(2*3.14*(frequencyMove/2)*walkMove), 0.0, 0.0, 1.0);
+        glTranslatef(0.0, -0.75, 0);
+    
+        glPushMatrix();
+            glTranslatef(0,0.0,0.13);
+            glutSolidCube(0.25);
+            glTranslatef(0,0.25,0.0);
+            glutSolidCube(0.25);
+            glTranslatef(0,0.25,0.0);
+            glutSolidCube(0.25);
+        glPopMatrix();
+    glPopMatrix();
+
     
     
     glTranslatef(0,0.25,0.0);

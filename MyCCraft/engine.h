@@ -17,6 +17,7 @@
 #include "openGLSetup.h"
 #include "perso.h"
 #include "collision.h"
+#include <cmath>
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -49,8 +50,7 @@ public:
     float futurX=0, futurY=0, futurZ=0;
     float visionX = 0, visionY = 0, visionZ = 0;
     
-    float walkMove = 0; //when you move your vision move up/down
-    float frequencyMove = 0.0025; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+    float godX=0, godY=10, godZ=0;
     
     float gravity = 15.0;
     

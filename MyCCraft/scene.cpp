@@ -39,11 +39,11 @@ void scene::drawScene(){
     if(eng->viewMode == 0){
     gluLookAt(
               eng->player.positionX,
-              eng->player.positionY+eng->player.hauteurEye+(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove) ,
+              eng->player.positionY+eng->player.hauteurEye+(eng->player.tailleY/20.0)*sin(6.28*eng->player.frequencyMove*eng->player.walkMove) ,
               eng->player.positionZ,
               
               eng->visionX,
-              eng->visionY+(eng->player.tailleY/20.0)*sin(6.28*eng->frequencyMove*eng->walkMove),
+              eng->visionY+(eng->player.tailleY/20.0)*sin(6.28*eng->player.frequencyMove*eng->player.walkMove),
               eng->visionZ,
               
               0.0,
@@ -51,9 +51,9 @@ void scene::drawScene(){
               0.0);
     }else if(eng->viewMode == 1){
     gluLookAt(
-              0.0,
-              20.0,
-              0.0,
+              eng->godX,
+              eng->godY,
+              eng->godZ,
               
               eng->player.positionX,
               eng->player.positionY+eng->player.hauteurEye,

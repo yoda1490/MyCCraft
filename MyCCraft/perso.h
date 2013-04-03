@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -46,6 +47,9 @@ public:
     float tailleZ = 0.5;
     
     float hitbox = 0.4; //for collision detection, if in a circle of hitbox
+    
+    float walkMove = 0; //when you move your vision move up/down
+    float frequencyMove = 0.0025; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
     
     float jump = 0; //time counter for jumping
     float jumped = 0; //height jumped

@@ -43,6 +43,10 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
+    if(player.walkMove > 360.0){
+        //player.walkMove = 0;
+    }
+    
     if(player.isDead()){
         //menu("dead")
         player = *(new perso);
@@ -67,7 +71,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     if(key[ESC]){
        exit(0);}
     if (key[DOWN_ARROW]){
-        walkMove +=1*player.vitesse;
+        player.walkMove +=1*player.vitesse;
         
         futurX = player.positionX - (vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
         futurZ = player.positionZ - (vitesse * 0.025)*sin(player.angleVision)  *player.vitesse;
@@ -83,7 +87,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         }
     }
     if( key[UP_ARROW]){
-        walkMove +=1*player.vitesse;
+        player.walkMove +=1*player.vitesse;
         
         futurX = player.positionX + ( vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
         futurZ = player.positionZ + (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
@@ -148,6 +152,22 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     if( !key[' '] && player.jump == -1.0){
         player.jump = 0;
     }
+    
+    if( !key['z'])
+       godX-=0.1;
+    if( !key['s'])
+        godX+=0.1;
+    
+    if( !key['a'])
+        godY+=0.1;
+    if( !key['e'])
+        godY-=0.1;
+    
+    
+    if( !key['q'])
+        godZ+=0.1;
+    if( !key['d'])
+        godZ-=0.1;
     
     
 
