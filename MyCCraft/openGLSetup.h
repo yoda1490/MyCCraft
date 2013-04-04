@@ -43,34 +43,46 @@ class OpenGLSetup{
     string windowName = "";
     class scene* theScene ;
     int width, height;
-    class engine * theEngine;
+    class engine * eng;
     
     
         
 public:
+    
+    unsigned int bufferPick[1024]; // Hit buffer.
+    
+    int hits; // Number of entries in hit buffer.
+    
     
     OpenGLSetup(string windowName, scene* aScene, int width, int height,class engine* theEngine);
     static void drawSceneCallback();
     static void idle(void);
     void setupWindow(int *argcp, char **argv);
     static void setupKeyBoard(unsigned char key, int x, int y);
-    static void setupMouse();
+    static void setupMouse(int button, int state, int x, int y);
+    static void setupMouseActiveMotion(int x, int y);
     static void setupSpecialKeyBoard(int key, int x, int y);
+    static void setupMousePassiveMotion(int x, int y);
     static void resize(int w, int h);
     void printInteraction();
     void run();
     
-    
+    unsigned int pickFunction(int x, int y);
+    unsigned int findClosestHit(int hits, unsigned int buffer[]);
     
     
     //keyboard
     
-    Bool    key[NUM_KEY_CODES], keyDown[NUM_KEY_CODES], keyUp[NUM_KEY_CODES];
+    Bool    key[NUM_KEY_CODES+10], keyDown[NUM_KEY_CODES+10], keyUp[NUM_KEY_CODES+10];
     Bool* getKeys();
     Bool* getKeysUp();
     Bool* getKeysDown();
+    
+    void initKeyboardInput(void);
     void resetKeyboardInput(void);
     static void keyboard(unsigned char rawKeyCode, int x, int y);
+    
+    
     
     static void keyboardUp(unsigned char rawKeyCode, int x, int y);
     static void keyboardSpecial(int rawKeyCode, int x, int y);

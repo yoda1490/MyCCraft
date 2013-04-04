@@ -21,6 +21,7 @@ int main(int argc, char ** argv)
     OpenGLSetup session("MyCCraft", &theGame, 800, 600, &engine);
     
     engine.setSession(&session);
+    engine.setScene(&theGame);
     
     engine.loadMap("nothing yet");
     engine.start();

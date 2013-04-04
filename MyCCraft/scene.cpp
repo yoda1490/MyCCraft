@@ -16,7 +16,8 @@ scene::scene(engine* anEngine){
 void scene::setup(){
     glClearColor(0.1, 0.4, 0.5, 1.0);
     glEnable(GL_DEPTH_TEST); // Enable depth testing.
-    
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     initialized = true;
 }
 
@@ -25,11 +26,12 @@ void scene::drawScene(){
     if(!initialized){
         setup();
     }
+    
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     glLoadIdentity();
     
-    glEnable(GL_LINE_SMOOTH);
-    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+   
     
     
     
@@ -81,18 +83,21 @@ void scene::drawScene(){
     
     lighting();
     
+    int unsigned i=0;
     
     
-
-    for(int unsigned i=0;i<eng->listBloc.size();i++){
-        eng->listBloc[i]->draw();
+    
+    if(eng->isSelecting){
+        for(i=0;i<eng->listBloc.size();i++){
+            glLoadName(i);
+            eng->listBloc[i]->draw(eng->selectedBlock==i);
+        }
+    }else{
+        for(i=0;i<eng->listBloc.size();i++){
+            eng->listBloc[i]->draw(eng->selectedBlock==i);
+        }
     }
-    
-    
-    
-    
-    
-    
+
     
     glutSwapBuffers();
      

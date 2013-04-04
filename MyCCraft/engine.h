@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "openGLSetup.h"
+#include "scene.h"
 #include <vector>
 #include "bloc.h"
 #include <pthread.h>
@@ -56,19 +57,36 @@ public:
     
     float vitesse = 0.25;
     class OpenGLSetup* session;
+    class scene* scene;
     int state = 1;
     
     int viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
     bool viewModePressed = false; //to only change one time until touche is relached
     
+    bool contextInitialized = false;//display and other things
+    
+    bool keyboardInitialized = false;
+    bool mouseLeftClicked = false;
+    bool mouseRightClicked = false;
+    int  mouseX=0;
+    int  mouseY=0;
+    
+    bool isSelecting = false; //selection picking mode
+    unsigned int selectedBlock = 0;
+
+     
+     
     vector<bloc*> listBloc;
     
     void setSession(class OpenGLSetup* aSession);
+    void setScene(class scene* aScene);
     void start();
     static void* run(void*);
     
     void perform(Bool* key,Bool* keyUp,Bool* keyDown);
     void loadMap(string fileName);
+    
+
     
 
 

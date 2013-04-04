@@ -37,12 +37,15 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     color[3] = colorA;
 }
 
-void bloc::draw(){
+void bloc::draw(bool selected){
     glPushMatrix();
     light();
     glTranslatef(position[0],position[1],position[2]);
     glRotatef(orient, 0.0, 1.0, 0.0);
-    glutSolidCube(size);
+    if(selected){
+        glutSolidCube(size);
+    }else
+        glutSolidCube(size-0.1);
     glPopMatrix();
 }
 

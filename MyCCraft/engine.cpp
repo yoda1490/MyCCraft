@@ -14,6 +14,11 @@ void engine::setSession(class OpenGLSetup *aSession){
     session = aSession;
 }
 
+void engine::setScene(class scene *aScene){
+    scene = aScene;
+}
+
+
 
 void engine::start()
 {
@@ -43,7 +48,16 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
-    if(player.walkMove > 360.0){
+    if(!keyboardInitialized){
+        return;
+    }
+    
+    if(mouseLeftClicked){
+        //if(contextInitialized)
+            //pickFunction(mouseX, mouseY);
+    }
+    
+    if(player.walkMove > 1000.0){
         //player.walkMove = 0;
     }
     
@@ -60,7 +74,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     bool* col = collision::detectCollisions(&listBloc, &player, player.positionX, futurY, player.positionZ);
     if(!col[1]){
         player.positionY = futurY;
-        player.fall += (0.001*gravity); //don't orget in jump to remove jumped size
+        player.fall += (0.001*gravity); //don't forget in jump to remove jumped size
     }else{
         if(player.fall > 3.0){
             player.fight(player.fall-3);
@@ -69,7 +83,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(key[ESC]){
-       exit(0);}
+       exit(0);
+    }
     if (key[DOWN_ARROW]){
         player.walkMove +=1*player.vitesse;
         
@@ -119,7 +134,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     if( !key['v'] && viewModePressed){
         viewModePressed = false;
     }
-    if( keyDown['v'] && !viewModePressed){
+    if( key['v'] && !viewModePressed){
         viewMode = (viewMode+1)%3;
         viewModePressed = true;
     }
@@ -176,8 +191,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
 
 
 void engine::loadMap(string fileName){
-    for(int x=0; x< 100; x++){
-        for(int z=0; z< 100; z++){
+    for(int x=0; x< 48; x++){
+        for(int z=0; z< 48; z++){
             listBloc.push_back(new bloc(x, 0, z, 0.0, 0.2, 0.6, 0.2, 1.0));
         }
     }
@@ -201,7 +216,6 @@ void engine::loadMap(string fileName){
     
     
 }
-
 
 
 
