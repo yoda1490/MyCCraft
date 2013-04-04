@@ -43,9 +43,9 @@ void bloc::draw(bool selected){
     glTranslatef(position[0],position[1],position[2]);
     glRotatef(orient, 0.0, 1.0, 0.0);
     if(selected){
-        glutSolidCube(size);
+        glutSolidCube(size-0.01);
     }else
-        glutSolidCube(size-0.1);
+        glutSolidCube(size);
     glPopMatrix();
 }
 

@@ -53,8 +53,9 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(mouseLeftClicked){
-        //if(contextInitialized)
-            //pickFunction(mouseX, mouseY);
+        bloc blc = *(listBloc.at(selectedBlock));
+        listBloc.at(selectedBlock) = new air(0, blc.position[0], blc.position[1], blc.position[2], 0.0);
+
     }
     
     if(player.walkMove > 1000.0){
@@ -85,11 +86,15 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     if(key[ESC]){
        exit(0);
     }
-    if (key[DOWN_ARROW]){
+    
+    if(key[DOWN_ARROW] || key[UP_ARROW])
         player.walkMove +=1*player.vitesse;
+    
+    if (key[DOWN_ARROW]){
+        
         
         futurX = player.positionX - (vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ - (vitesse * 0.025)*sin(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ - (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
         futurY = player.positionY;
         
         bool* col = collision::detectCollisions(&listBloc, &player, futurX, futurY, futurZ);
@@ -102,10 +107,10 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         }
     }
     if( key[UP_ARROW]){
-        player.walkMove +=1*player.vitesse;
         
-        futurX = player.positionX + ( vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ + (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
+        
+        futurX = player.positionX + ( vitesse * 0.020)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ + (vitesse * 0.020)*sin(player.angleVision)  *player.vitesse;
         futurY = player.positionY;
         
         bool* col = collision::detectCollisions(&listBloc, &player, futurX, futurY, futurZ);

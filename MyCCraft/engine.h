@@ -18,6 +18,7 @@
 #include "openGLSetup.h"
 #include "perso.h"
 #include "collision.h"
+#include "blocAir.h"
 #include <cmath>
 
 #ifdef __APPLE__
@@ -47,6 +48,7 @@ class engine{
     
     
 public:
+    
     perso player;
     float futurX=0, futurY=0, futurZ=0;
     float visionX = 0, visionY = 0, visionZ = 0;

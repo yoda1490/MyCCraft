@@ -120,6 +120,8 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     // OpenGL window reshape routine.
      void OpenGLSetup::resize(int w, int h)
     {
+        currentInstance->width = w;
+        currentInstance->height = h;
         glViewport(0, 0, (GLsizei)w, (GLsizei)h);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -251,8 +253,9 @@ unsigned int OpenGLSetup::pickFunction(int x, int y)
     
     // Define a viewing volume corresponding to selecting in 3 x 3 region around the cursor.
     glLoadIdentity();
-    gluPickMatrix((float)x, (float)(viewport[3] - y), 3.0, 3.0, viewport);
-    glFrustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0); // Copied from the reshape routine.
+    gluPickMatrix((float)x, (float)(viewport[3] - y), 0.2, 0.2, viewport);
+    //glFrustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0); // Copied from the reshape routine.
+    gluPerspective(60.0, (float)width/(float)height, 0.01, 100.0);
     
     glMatrixMode(GL_MODELVIEW); // Return to modelview mode before drawing.
     glLoadIdentity();
@@ -260,7 +263,7 @@ unsigned int OpenGLSetup::pickFunction(int x, int y)
     glInitNames(); // Initializes the name stack to empty.
     glPushName(0); // Puts name 0 on top of stack.
     
-    // Determine hits by calling drawBallAndTorus() so that names are assigned.
+    // Determine hits by calling  so that names are assigned.
     eng->isSelecting = true;
     theScene->drawScene();
     
