@@ -37,6 +37,8 @@ public:
     float color[4];
     string textureURL;
     
+    bool visible = true;
+    
     bloc(int idBloc, float x, float y, float z, float orientation);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize);

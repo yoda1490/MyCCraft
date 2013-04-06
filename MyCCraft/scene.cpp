@@ -9,6 +9,7 @@
 #include "scene.h"
 
 
+
 scene::scene(engine* anEngine){
     eng = anEngine;
 }
@@ -85,19 +86,29 @@ void scene::drawScene(){
     
     int unsigned i=0;
     
+   
+    //chunk* listChunk = eng->aMap->getNearestChunk(eng->player.positionX, eng->player.positionY);
     
     
-    if(eng->isSelecting){
-        for(i=0;i<eng->listBloc.size();i++){
+    /*for(int cpt=0; cpt<9; cpt++){
+    
+        for(i=0;i< listChunk[cpt].listBloc.size();i++){
+                if(eng->isSelecting){
+                    glLoadName(i +(cpt*100000) + (0*1000000));
+                }
+                //listChunk[cpt]->listBloc[i]->draw(eng->selectedBlock==i);
+            eng->aMap->regions[0]->listChunk.at(0).listBloc.at(cpt);
+        }
+    }*/
+    
+    vector<bloc>* listB =  &(eng->aMap->listBloc);
+    
+    for(i=0;i< listB->size();i++){
+        if(eng->isSelecting){
             glLoadName(i);
-            eng->listBloc[i]->draw(eng->selectedBlock==i);
         }
-    }else{
-        for(i=0;i<eng->listBloc.size();i++){
-            eng->listBloc[i]->draw(eng->selectedBlock==i);
-        }
+        listB->at(i).draw(eng->selectedBlock == i);
     }
-
     
     glutSwapBuffers();
      

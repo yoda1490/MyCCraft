@@ -38,6 +38,8 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
 }
 
 void bloc::draw(bool selected){
+    if(!visible)
+        return;
     glPushMatrix();
     light();
     glTranslatef(position[0],position[1],position[2]);

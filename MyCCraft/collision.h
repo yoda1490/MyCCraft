@@ -17,7 +17,7 @@
 class collision{
 public:
     static bool* detectCollision(bloc* aBloc, perso* aPerso, float futurX, float futurY, float futurZ);
-    static bool* detectCollisions(vector<bloc*>* listBloc, perso* aPerso, float futurX, float futurY, float futurZ);
+    static bool* detectCollisions(vector<bloc>* listBloc, perso* aPerso, float futurX, float futurY, float futurZ);
 
     
 };

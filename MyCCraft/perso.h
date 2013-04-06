@@ -25,7 +25,7 @@ class perso{
     
 public:
     float angleVision = 3.14/4;
-    float positionX = 0, positionY = 0.5, positionZ = 0; //positionY == foot
+    float positionX = 0, positionY = 17.5, positionZ = 0; //positionY == foot
     float hauteurEye = 1.6;
     string name = "Player";
     float vitesse = 1;

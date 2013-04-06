@@ -14,6 +14,10 @@
 #include "engine.h"
 #include "bloc.h"
 
+#include "chunk.h"
+#include "region.h"
+#include "map.h"
+
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else

@@ -13,6 +13,8 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float futurX, float
     
     bool col[3] = {false, false, false};
     
+    
+    
     if(futurX+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
        && futurX-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
     
@@ -57,10 +59,10 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float futurX, float
     
 }
 
-bool* collision::detectCollisions(vector<bloc*>* listBloc, perso* aPerso, float futurX, float futurY, float futurZ){
+bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float futurX, float futurY, float futurZ){
     bool col[3] = {false, false, false};
-    for(int unsigned i=0;i<(*listBloc).size();i++){
-        bool * colTmp = detectCollision((*listBloc)[i], aPerso, futurX, futurY, futurZ);
+    for(int unsigned i=0;i<listBloc->size();i++){
+        bool * colTmp = detectCollision(&(listBloc->at(i)), aPerso, futurX, futurY, futurZ);
         if(colTmp[0]){
             col[0] = true;
         }

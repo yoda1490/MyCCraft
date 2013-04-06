@@ -21,6 +21,11 @@
 #include "blocAir.h"
 #include <cmath>
 
+
+#include "chunk.h"
+#include "region.h"
+#include "map.h"
+
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
@@ -77,8 +82,8 @@ public:
     unsigned int selectedBlock = 0;
 
      
-     
-    vector<bloc*> listBloc;
+    map* aMap;
+    
     
     void setSession(class OpenGLSetup* aSession);
     void setScene(class scene* aScene);
@@ -86,6 +91,7 @@ public:
     static void* run(void*);
     
     void perform(Bool* key,Bool* keyUp,Bool* keyDown);
+    void simplePerform(Bool* key,Bool* keyUp,Bool* keyDown); //no collision detecttion, no action juste moves
     void loadMap(string fileName);
     
 

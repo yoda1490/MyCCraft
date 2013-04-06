@@ -7,3 +7,22 @@
 //
 
 #include "region.h"
+
+
+region::region(float x, float y,  vector<chunk>* chunks){
+    positionX = x;
+    positionY = y;
+    
+    for(int cpt=0; cpt<chunks->size(); cpt++){
+        listChunk.push_back(chunks->at(cpt));
+    }
+}
+
+
+//todo
+vector<chunk>* region::getNearestChunk(float x, float y, int* nbChunk){
+    *nbChunk = 81;
+    
+    
+    return &listChunk;
+}

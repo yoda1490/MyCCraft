@@ -12,11 +12,13 @@
 		141720AE170DC9A800F11F18 /* blocAir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141720AC170DC9A700F11F18 /* blocAir.cpp */; };
 		141F739917035C5C00BB26F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F739817035C5C00BB26F2 /* main.cpp */; };
 		141F73A317035D2700BB26F2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141F73A117035D2700BB26F2 /* GLUT.framework */; };
-		141F73A717035DA000BB26F2 /* TestOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73A517035DA000BB26F2 /* TestOpenGL.cpp */; };
 		141F73A917035EC000BB26F2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141F73A817035EC000BB26F2 /* OpenGL.framework */; };
 		141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* openGLSetup.cpp */; };
 		141F73AF1703649600BB26F2 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AD1703649600BB26F2 /* scene.cpp */; };
 		141F73B51703854200BB26F2 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73B31703854200BB26F2 /* engine.cpp */; };
+		145E9693170EE57C00F9CDBA /* region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9691170EE57C00F9CDBA /* region.cpp */; };
+		145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9694170EE5EE00F9CDBA /* chunk.cpp */; };
+		145E9699170EE9A700F9CDBA /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9697170EE9A700F9CDBA /* map.cpp */; };
 		149CF502170444CD004C8F3D /* bloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF500170444CD004C8F3D /* bloc.cpp */; };
 		149CF50517045175004C8F3D /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF50317045175004C8F3D /* object.cpp */; };
 /* End PBXBuildFile section */
@@ -43,7 +45,6 @@
 		141F739517035C5C00BB26F2 /* MyCCraft */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyCCraft; sourceTree = BUILT_PRODUCTS_DIR; };
 		141F739817035C5C00BB26F2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		141F73A117035D2700BB26F2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../../../System/Library/Frameworks/GLUT.framework; sourceTree = "<group>"; };
-		141F73A517035DA000BB26F2 /* TestOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestOpenGL.cpp; sourceTree = "<group>"; };
 		141F73A817035EC000BB26F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
 		141F73AA1703602300BB26F2 /* openGLSetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openGLSetup.cpp; sourceTree = "<group>"; };
 		141F73AB1703602300BB26F2 /* openGLSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openGLSetup.h; sourceTree = "<group>"; };
@@ -51,6 +52,12 @@
 		141F73AE1703649600BB26F2 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		141F73B31703854200BB26F2 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		141F73B41703854200BB26F2 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		145E9691170EE57C00F9CDBA /* region.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region.cpp; sourceTree = "<group>"; };
+		145E9692170EE57C00F9CDBA /* region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region.h; sourceTree = "<group>"; };
+		145E9694170EE5EE00F9CDBA /* chunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunk.cpp; sourceTree = "<group>"; };
+		145E9695170EE5EE00F9CDBA /* chunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
+		145E9697170EE9A700F9CDBA /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
+		145E9698170EE9A700F9CDBA /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
 		149CF500170444CD004C8F3D /* bloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bloc.cpp; sourceTree = "<group>"; };
 		149CF501170444CD004C8F3D /* bloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bloc.h; sourceTree = "<group>"; };
 		149CF50317045175004C8F3D /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = object.cpp; sourceTree = "<group>"; };
@@ -91,26 +98,55 @@
 		141F739717035C5C00BB26F2 /* MyCCraft */ = {
 			isa = PBXGroup;
 			children = (
+				145E9690170EE55500F9CDBA /* Object */,
+				145E968F170EE54700F9CDBA /* Map */,
+				145E968E170EE52E00F9CDBA /* Bloc */,
 				141F739817035C5C00BB26F2 /* main.cpp */,
-				141F73A517035DA000BB26F2 /* TestOpenGL.cpp */,
 				141F73AA1703602300BB26F2 /* openGLSetup.cpp */,
 				141F73AB1703602300BB26F2 /* openGLSetup.h */,
 				141F73AD1703649600BB26F2 /* scene.cpp */,
 				141F73AE1703649600BB26F2 /* scene.h */,
 				141F73B31703854200BB26F2 /* engine.cpp */,
 				141F73B41703854200BB26F2 /* engine.h */,
-				149CF500170444CD004C8F3D /* bloc.cpp */,
-				149CF501170444CD004C8F3D /* bloc.h */,
-				149CF50317045175004C8F3D /* object.cpp */,
-				149CF50417045175004C8F3D /* object.h */,
 				14042E03170C1A3D00441478 /* collision.cpp */,
 				14042E04170C1A3D00441478 /* collision.h */,
 				14042E06170C1AB900441478 /* perso.cpp */,
 				14042E07170C1AB900441478 /* perso.h */,
+			);
+			path = MyCCraft;
+			sourceTree = "<group>";
+		};
+		145E968E170EE52E00F9CDBA /* Bloc */ = {
+			isa = PBXGroup;
+			children = (
+				149CF500170444CD004C8F3D /* bloc.cpp */,
+				149CF501170444CD004C8F3D /* bloc.h */,
 				141720AC170DC9A700F11F18 /* blocAir.cpp */,
 				141720AD170DC9A800F11F18 /* blocAir.h */,
 			);
-			path = MyCCraft;
+			name = Bloc;
+			sourceTree = "<group>";
+		};
+		145E968F170EE54700F9CDBA /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				145E9691170EE57C00F9CDBA /* region.cpp */,
+				145E9692170EE57C00F9CDBA /* region.h */,
+				145E9694170EE5EE00F9CDBA /* chunk.cpp */,
+				145E9695170EE5EE00F9CDBA /* chunk.h */,
+				145E9697170EE9A700F9CDBA /* map.cpp */,
+				145E9698170EE9A700F9CDBA /* map.h */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		145E9690170EE55500F9CDBA /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				149CF50317045175004C8F3D /* object.cpp */,
+				149CF50417045175004C8F3D /* object.h */,
+			);
+			name = Object;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				141F739917035C5C00BB26F2 /* main.cpp in Sources */,
-				141F73A717035DA000BB26F2 /* TestOpenGL.cpp in Sources */,
 				141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */,
 				141F73AF1703649600BB26F2 /* scene.cpp in Sources */,
 				141F73B51703854200BB26F2 /* engine.cpp in Sources */,
@@ -174,6 +209,9 @@
 				14042E05170C1A3D00441478 /* collision.cpp in Sources */,
 				14042E08170C1AB900441478 /* perso.cpp in Sources */,
 				141720AE170DC9A800F11F18 /* blocAir.cpp in Sources */,
+				145E9693170EE57C00F9CDBA /* region.cpp in Sources */,
+				145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */,
+				145E9699170EE9A700F9CDBA /* map.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
