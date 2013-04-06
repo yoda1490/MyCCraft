@@ -9,13 +9,30 @@
 #include "chunk.h"
 
 
-chunk::chunk(float x, float y, vector<bloc>* blocs){
+chunk::chunk(float x, float y){
     
     positionX = x;
     positionY = y;
     
+    
+}
+
+
+void chunk::setBlocs(vector<bloc>* blocs){
+    listBloc.clear();
     for(int cpt=0; cpt<blocs->size(); cpt++){
         listBloc.push_back(blocs->at(cpt));
     }
 
+}
+
+void chunk::setBloc(bloc* aBloc){
+    
+    long int indexX = (((int)aBloc->position[0]))*4096;
+    long int indexY = (((int)aBloc->position[1]))*1;
+    long int indexZ = (((int)aBloc->position[2]))*256;
+    
+    long int index =  indexX+indexY+indexZ;
+    listBloc.at(index) = *aBloc;
+    
 }

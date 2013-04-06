@@ -22,7 +22,12 @@ public:
     vector<chunk> listChunk;
     
     
-    region(float x, float y,  vector<chunk>* chunks);
+    
+    
+    region(float x, float y);
+    
+    
+    void setChunk(vector<chunk>* chunks);
     
     // return a list of the 81chunk around the player (grid of 9x9) in this region
     //nbChunk will be updated with the number of chunk found

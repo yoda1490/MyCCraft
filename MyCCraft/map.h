@@ -20,9 +20,11 @@ using namespace std;
 class map{
 public:
   //contain a circular list of maximum 4 regions around the player
-    //region* regions[4];
+    //region regions[4];
     //int regionsName[4][2];
-    vector<bloc> listBloc;
+    
+    region aRegion;
+    
     
     string folder; //folder of this map;
     

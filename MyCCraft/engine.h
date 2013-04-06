@@ -54,11 +54,14 @@ class engine{
     
 public:
     
+    int fps = 60;
+    
+    
     perso player;
     float futurX=0, futurY=0, futurZ=0;
     float visionX = 0, visionY = 0, visionZ = 0;
     
-    float godX=0, godY=10, godZ=0;
+    float godX=0, godY=110, godZ=0;
     
     float gravity = 15.0;
     

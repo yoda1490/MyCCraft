@@ -24,6 +24,9 @@ void scene::setup(){
 
 
 void scene::drawScene(){
+    
+    unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
+    
     if(!initialized){
         setup();
     }
@@ -101,17 +104,35 @@ void scene::drawScene(){
         }
     }*/
     
-    vector<bloc>* listB =  &(eng->aMap->listBloc);
+    int nbChunk = 0;
+    vector<chunk>* listC =  eng->aMap->aRegion.getNearestChunk(eng->player.positionX, eng->player.positionY, &nbChunk);
     
-    for(i=0;i< listB->size();i++){
-        if(eng->isSelecting){
-            glLoadName(i);
+    
+    glPushMatrix();
+        glTranslatef(eng->aMap->aRegion.positionX, 0.0, eng->aMap->aRegion.positionY);
+        for(int cpt=0; cpt<nbChunk; cpt++){
+            glPushMatrix();
+            glTranslatef(eng->aMap->aRegion.listChunk.at(cpt).positionX, 0.0, eng->aMap->aRegion.listChunk.at(cpt).positionY);
+            vector<bloc>* listB = &(listC->at(cpt).listBloc);
+    
+            for(i=0;i< listB->size();i++){
+                if(eng->isSelecting){
+                    glLoadName(i);
+                }
+                listB->at(i).draw(eng->selectedBlock == i);
+            }
+            glPopMatrix();
         }
-        listB->at(i).draw(eng->selectedBlock == i);
-    }
+    glPopMatrix();
     
     glutSwapBuffers();
-     
+    
+    
+    while(glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/eng->fps)*1000 )){
+        sleep(1.0/60.0);
+    }
+    
+    
     
 }
 

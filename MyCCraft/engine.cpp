@@ -37,7 +37,7 @@ void* engine::run(void*){
     while (currentInstance->state > 0) {
         begin_time = clock();
         currentInstance->perform(currentInstance->session->getKeys(), currentInstance->session->getKeysUp(), currentInstance->session->getKeysDown());
-        while(clock() < begin_time+(1000.0)){
+        while(clock() < begin_time+(1500.0)){
             sleep(1.0/60.0);
         }
     }
@@ -48,21 +48,26 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
-    //chunk* listChunk = aMap->getNearestChunk(player.positionX, player.positionY);
+    int nbChunk;
+    vector<chunk>* listChunk = aMap->aRegion.getNearestChunk(player.positionX, player.positionY, &nbChunk);
     
+    
+    //for(int cpt=0; cpt<nbChunk; cpt++){
+    vector<bloc>* lstblc = &(listChunk->at(0).listBloc);
     
     if(!keyboardInitialized){
         return;
     }
     
+    if(mouseRightClicked){
+        cout << selectedBlock << endl;
+    }
+    
     if(mouseLeftClicked){
-        //int selectedRegion = (int) selectedBlock/1000000;
-        //int selectedChunk = (int) selectedBlock-(selectedRegion*1000000)/100000;
-        //int selectedRealBlock = (int) selectedBlock-(selectedRegion*1000000)-(selectedChunk*100000);
-        //bloc blc = aMap->regions[selectedRegion]->listChunk.at(selectedChunk).listBloc.at(selectedRealBlock);
-        vector<bloc>* lstblc = &(aMap->listBloc);
+        
+        
         bloc* blc = &(lstblc->at(selectedBlock));
-        unsigned int size = lstblc->size();
+        unsigned int size = (unsigned int)lstblc->size();
         
         lstblc->at(selectedBlock) = *new air(0, blc->position[0], blc->position[1], blc->position[2], 0.0);
         
@@ -72,16 +77,16 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         if(blc->position[1] > 0 && selectedBlock>0 && selectedBlock-1<size)
             lstblc->at(selectedBlock-1).visible = true;
         
-        if(blc->position[2] < 15 && selectedBlock+15<size)
-            lstblc->at(selectedBlock+15).visible = true;
-        if(blc->position[2] > 0 && selectedBlock-15>0 && selectedBlock-15<size)
-            lstblc->at(selectedBlock-15).visible = true;
+        if(blc->position[2] < 15 && selectedBlock+256<size)
+            lstblc->at(selectedBlock+256).visible = true;
+        if(blc->position[2] > 0 && selectedBlock-256>0 && selectedBlock-256<size)
+            lstblc->at(selectedBlock-256).visible = true;
         
-        if(blc->position[0] < 15 && selectedBlock+240<size)
-            lstblc->at(selectedBlock+240).visible = true;
+        if(blc->position[0] < 15 && selectedBlock+4096<size)
+            lstblc->at(selectedBlock+4096).visible = true;
         
-        if(blc->position[0] > 0 && selectedBlock-240>0 && selectedBlock-240<size)
-            lstblc->at(selectedBlock-240).visible = true;
+        if(blc->position[0] > 0 && selectedBlock-4096>0 && selectedBlock-4096<size)
+            lstblc->at(selectedBlock-4096).visible = true;
 
         
         
@@ -96,7 +101,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         player = *(new perso);
     }
     
-    if(player.positionY < -128.0){
+    if(player.positionY < 0){
         player.kill(10);
     }
     
@@ -124,7 +129,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     futurY = (player.positionY-(0.001*gravity));
     
     
-    bool* col = collision::detectCollisions(&(aMap->listBloc), &player, futurX, futurY, futurZ);
+    bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
         player.positionY = futurY;
@@ -179,7 +184,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if( key[' '] && player.jump==0){
         futurY = player.positionY-0.1;
-        bool* col = collision::detectCollisions(&(aMap->listBloc), &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
         if(col[1]){
           player.jump+=1.0; //to start log at 1
         }
@@ -190,7 +195,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         player.jumped += 0.008*log(player.jump) -(0.001*gravity);
         
         futurY = player.positionY + 0.008*log(player.jump);
-        bool* col = collision::detectCollisions(&(aMap->listBloc), &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
         if(!col[1]){
             player.positionY = futurY;
             player.fall -=  0.008*log(player.jump);

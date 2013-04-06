@@ -9,10 +9,14 @@
 #include "region.h"
 
 
-region::region(float x, float y,  vector<chunk>* chunks){
+region::region(float x, float y){
     positionX = x;
     positionY = y;
     
+    
+}
+
+void region::setChunk(vector<chunk>* chunks){
     for(int cpt=0; cpt<chunks->size(); cpt++){
         listChunk.push_back(chunks->at(cpt));
     }
@@ -21,7 +25,7 @@ region::region(float x, float y,  vector<chunk>* chunks){
 
 //todo
 vector<chunk>* region::getNearestChunk(float x, float y, int* nbChunk){
-    *nbChunk = 81;
+    *nbChunk = listChunk.size();
     
     
     return &listChunk;

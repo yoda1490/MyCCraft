@@ -25,7 +25,7 @@ class perso{
     
 public:
     float angleVision = 3.14/4;
-    float positionX = 0, positionY = 17.5, positionZ = 0; //positionY == foot
+    float positionX = 0, positionY = 10.5, positionZ = 0; //positionY == foot
     float hauteurEye = 1.6;
     string name = "Player";
     float vitesse = 1;
@@ -53,7 +53,7 @@ public:
     
     float jump = 0; //time counter for jumping
     float jumped = 0; //height jumped
-    float jumpMax = 1.9; //max high (in y) that can be jumped
+    float jumpMax = 1.8; //max high (in y) that can be jumped
     
     float fall = 0; //height fallen
     

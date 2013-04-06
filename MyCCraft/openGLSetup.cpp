@@ -23,7 +23,6 @@ OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHei
 void OpenGLSetup::drawSceneCallback(){
     
     currentInstance->resetKeyboardInput();
-    
     currentInstance->theScene->drawScene();
     
 }
