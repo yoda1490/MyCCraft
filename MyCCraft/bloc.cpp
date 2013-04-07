@@ -67,32 +67,66 @@ void bloc::draw(bool selected){
     light();
     glTranslatef(position[0],position[1],position[2]);
     glRotatef(orient, 0.0, 1.0, 0.0);
-    if(selected){
-        glutSolidCube(size-0.01);
-    }else
-        glutSolidCube(size);
     
-    float matAmb[] = {color[0]-color[1], color[2]+color[1], color[1], color[3]};
-    glMaterialfv(GL_FRONT, GL_AMBIENT, matAmb);
-    glRotatef(45.0, 0.0, 1.0, 0.0);
-    glRotatef(45.0, 1.0, 0.0, 0.0);
-    glutSolidCube(size-0.35);
+    float sizeDrawed = size;
+    if(selected)
+        sizeDrawed-=0.01;
+    
+    
+    static GLfloat n[6][3] =
+    {
+        {-1.0, 0.0, 0.0},
+        {0.0, 1.0, 0.0},
+        {1.0, 0.0, 0.0},
+        {0.0, -1.0, 0.0},
+        {0.0, 0.0, 1.0},
+        {0.0, 0.0, -1.0}
+    };
+    static GLint faces[6][4] =
+    {
+        {0, 1, 2, 3},
+        {3, 2, 6, 7},
+        {7, 6, 5, 4},
+        {4, 5, 1, 0},
+        {5, 6, 2, 1},
+        {7, 4, 0, 3}
+    };
+    GLfloat v[8][3];
+    GLint i;
+    
+    v[0][0] = v[1][0] = v[2][0] = v[3][0] = -sizeDrawed / 2;
+    v[4][0] = v[5][0] = v[6][0] = v[7][0] = sizeDrawed / 2;
+    v[0][1] = v[1][1] = v[4][1] = v[5][1] = -sizeDrawed / 2;
+    v[2][1] = v[3][1] = v[6][1] = v[7][1] = sizeDrawed / 2;
+    v[0][2] = v[3][2] = v[4][2] = v[7][2] = -sizeDrawed / 2;
+    v[1][2] = v[2][2] = v[5][2] = v[6][2] = sizeDrawed / 2;
+    
+    for (i = 5; i >= 0; i--) {
+        glBegin(GL_QUADS);
+        glNormal3fv(&n[i][0]);
+        glVertex3fv(&v[faces[i][0]][0]);
+        glVertex3fv(&v[faces[i][1]][0]);
+        glVertex3fv(&v[faces[i][2]][0]);
+        glVertex3fv(&v[faces[i][3]][0]);
+        glEnd();
+    }
+    
     glPopMatrix();
 }
 
 void bloc::light(){
     // Material property vectors.
     float matAmb[] = {color[0], color[1], color[2], color[3]};
-    float matDif[] = {diff, diff, diff, 1.0};
+    /*float matDif[] = {diff, diff, diff, 1.0};
     float matSpec[] = { spec, spec, spec, 1.0 };
     float matShine[] = { shi };
-    float matEmission[] = {emi, emi, emi, 1.0};
+    float matEmission[] = {emi, emi, emi, 1.0};**/
     
     
     // Material properties of the block
     glMaterialfv(GL_FRONT, GL_AMBIENT, matAmb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, matDif);
+    /*glMaterialfv(GL_FRONT, GL_DIFFUSE, matDif);
     glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
     glMaterialfv(GL_FRONT, GL_SHININESS, matShine);
-    glMaterialfv(GL_FRONT, GL_EMISSION, matEmission);
+    glMaterialfv(GL_FRONT, GL_EMISSION, matEmission);**/
 }

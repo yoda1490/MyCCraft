@@ -117,7 +117,7 @@ void scene::drawScene(){
     
             for(i=0;i< listB->size();i++){
                 if(eng->isSelecting){
-                    glLoadName(i);
+                    glLoadName(i+(16*16*256*cpt));
                 }
                 listB->at(i).draw(eng->selectedBlock == i);
             }
@@ -148,7 +148,10 @@ void scene::lighting(void) {
     // Light property vectors.
     float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
     float lightDifAndSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat globAmb[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+    GLfloat globAmb[] = {
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6),
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6),
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6), 0.5f };
     
     GLfloat light0_position[3] ;
     

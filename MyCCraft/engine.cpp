@@ -52,8 +52,10 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     vector<chunk>* listChunk = aMap->aRegion.getNearestChunk(player.positionX, player.positionY, &nbChunk);
     
     
-    //for(int cpt=0; cpt<nbChunk; cpt++){
-    vector<bloc>* lstblc = &(listChunk->at(0).listBloc);
+    aMap->time+=0.0001;
+    if(aMap->time>=24.0){
+        aMap->time = 0;
+    }
     
     if(!keyboardInitialized){
         return;
@@ -65,11 +67,13 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if(mouseLeftClicked){
         
-        
+        vector<bloc>* lstblc = &(aMap->aRegion.listChunk.at(selectedChunk).listBloc);
         bloc* blc = &(lstblc->at(selectedBlock));
         unsigned int size = (unsigned int)lstblc->size();
         
-        lstblc->at(selectedBlock) = *new air(0, blc->position[0], blc->position[1], blc->position[2], 0.0);
+        
+        
+        *blc = *new air(0, blc->position[0], blc->position[1], blc->position[2], 0.0);
         
         //set visible around bloc
         if(blc->position[1] < 256 && selectedBlock+1<size)
@@ -86,9 +90,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
             lstblc->at(selectedBlock+4096).visible = true;
         
         if(blc->position[0] > 0 && selectedBlock-4096>0 && selectedBlock-4096<size)
-            lstblc->at(selectedBlock-4096).visible = true;
-
-        
+            lstblc->at(selectedBlock-4096).visible = true;        
         
     }
     
@@ -129,7 +131,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     futurY = (player.positionY-(0.001*gravity));
     
     
-    bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
+    bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
         player.positionY = futurY;
@@ -184,7 +186,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if( key[' '] && player.jump==0){
         futurY = player.positionY-0.1;
-        bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
         if(col[1]){
           player.jump+=1.0; //to start log at 1
         }
@@ -195,7 +197,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         player.jumped += 0.008*log(player.jump) -(0.001*gravity);
         
         futurY = player.positionY + 0.008*log(player.jump);
-        bool* col = collision::detectCollisions(lstblc, &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
         if(!col[1]){
             player.positionY = futurY;
             player.fall -=  0.008*log(player.jump);

@@ -18,6 +18,16 @@ chunk::chunk(float x, float y){
 }
 
 
+chunk::chunk(const chunk &source){
+    positionX=source.positionX;
+    positionY=source.positionY;
+    
+    for(int cpt=0; cpt<source.listBloc.size(); cpt++){
+        listBloc.push_back(source.listBloc.at(cpt));
+    }
+}
+
+
 void chunk::setBlocs(vector<bloc>* blocs){
     listBloc.clear();
     for(int cpt=0; cpt<blocs->size(); cpt++){

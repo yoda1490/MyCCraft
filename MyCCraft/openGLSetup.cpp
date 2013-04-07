@@ -64,10 +64,14 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     
     void OpenGLSetup::setupMouse(int button, int state, int x, int y){
         
-        currentInstance->eng->selectedBlock = currentInstance->pickFunction(x, y);
+        
         
         
         if(button == 0){
+            int id = currentInstance->pickFunction(x, y);
+            currentInstance->eng->selectedRegion = 0;
+            currentInstance->eng->selectedChunk = (int)id/(16*16*256);
+            currentInstance->eng->selectedBlock = id - ((16*16*256)*currentInstance->eng->selectedChunk);
             if (state == GLUT_DOWN){
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
@@ -91,13 +95,16 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
 
     void OpenGLSetup::setupMouseActiveMotion(int x, int y) {
-        currentInstance->eng->selectedBlock = currentInstance->pickFunction(x, y);
+        int id = currentInstance->pickFunction(x, y);
+        currentInstance->eng->selectedRegion = 0;
+        currentInstance->eng->selectedChunk = (int)id/(16*16*256);
+        currentInstance->eng->selectedBlock = id - ((16*16*256)*currentInstance->eng->selectedChunk);
         currentInstance->eng->mouseX = x;
         currentInstance->eng->mouseY = y;
     }
 
     void OpenGLSetup::setupMousePassiveMotion(int x, int y) {
-        currentInstance->eng->selectedBlock = currentInstance->pickFunction(x, y);
+        //currentInstance->eng->selectedBlock = currentInstance->pickFunction(x, y);
         currentInstance->eng->mouseLeftClicked = false;
         currentInstance->eng->mouseRightClicked = false;
         currentInstance->eng->mouseX = x;

@@ -12,7 +12,7 @@
 #include <iostream>
 #include "region.h"
 #include <vector>
-
+#include "chunkGenerator.h"
 
 using namespace std;
 
@@ -31,12 +31,18 @@ public:
     map(string aFolder);
     
     
+    //the current hour in this map (max 24, ex for 14h30 it will be 14.5)
+    float time = 10;
     
     //load the 4nearest region
     void loadNearestRegion(float x, float y);
     
-    //return a list of the 81 nearest chunk (grid 9*9) around the player
-    chunk* getNearestChunk(float x, float y);
+    
+    
+    //return a list nearest regions in a radius around the player
+    region * getNearestRegion(float x, float y, float radius);
+    //return a list nearest chunks in a radius around the player
+    vector<chunk>* getNearestChunk(float x, float y, float radius);
     
     
 };

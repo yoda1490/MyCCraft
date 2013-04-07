@@ -16,6 +16,7 @@
 		141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* openGLSetup.cpp */; };
 		141F73AF1703649600BB26F2 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AD1703649600BB26F2 /* scene.cpp */; };
 		141F73B51703854200BB26F2 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73B31703854200BB26F2 /* engine.cpp */; };
+		144C8DE61711D2AD00A20C04 /* chunkGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */; };
 		145E9693170EE57C00F9CDBA /* region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9691170EE57C00F9CDBA /* region.cpp */; };
 		145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9694170EE5EE00F9CDBA /* chunk.cpp */; };
 		145E9699170EE9A700F9CDBA /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9697170EE9A700F9CDBA /* map.cpp */; };
@@ -52,6 +53,8 @@
 		141F73AE1703649600BB26F2 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		141F73B31703854200BB26F2 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		141F73B41703854200BB26F2 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunkGenerator.cpp; sourceTree = "<group>"; };
+		144C8DE51711D2AD00A20C04 /* chunkGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chunkGenerator.h; sourceTree = "<group>"; };
 		145E9691170EE57C00F9CDBA /* region.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region.cpp; sourceTree = "<group>"; };
 		145E9692170EE57C00F9CDBA /* region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region.h; sourceTree = "<group>"; };
 		145E9694170EE5EE00F9CDBA /* chunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunk.cpp; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 				145E9695170EE5EE00F9CDBA /* chunk.h */,
 				145E9697170EE9A700F9CDBA /* map.cpp */,
 				145E9698170EE9A700F9CDBA /* map.h */,
+				144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */,
+				144C8DE51711D2AD00A20C04 /* chunkGenerator.h */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				145E9693170EE57C00F9CDBA /* region.cpp in Sources */,
 				145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */,
 				145E9699170EE9A700F9CDBA /* map.cpp in Sources */,
+				144C8DE61711D2AD00A20C04 /* chunkGenerator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

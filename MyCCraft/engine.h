@@ -82,7 +82,11 @@ public:
     int  mouseY=0;
     
     bool isSelecting = false; //selection picking mode
+    unsigned int selectedRegion = 0;
+    unsigned int selectedChunk = 0;
     unsigned int selectedBlock = 0;
+    
+    
 
      
     map* aMap;
