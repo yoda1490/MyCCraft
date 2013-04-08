@@ -17,8 +17,8 @@ map::map(string aFolder): folder(aFolder), aRegion(0,0){
     vector<chunk> listChunk;
     
     
-    for(int cpt=0; cpt<2;cpt++){
-        for(int cpt2=0; cpt2<2;cpt2++){
+    for(int cpt=-2; cpt<2;cpt++){
+        for(int cpt2=-2; cpt2<2;cpt2++){
             listChunk.push_back(chunkGenerator::generate("nothing yet", cpt*16,cpt2*16));
         }
     }
@@ -57,5 +57,18 @@ region* map::getNearestRegion(float x, float y, float radius){
 }
 
 vector<chunk>* map::getNearestChunk(float x, float y, float radius){
-    return &aRegion.listChunk;
+    //need to be implemented with references and not copy of object !!!
+    /**
+     vector<chunk>* chunksTmp = new vector<chunk>;
+    region* regTmp = getNearestRegion(x, y, radius);
+    
+    for(int cpt = -radius; cpt < radius; cpt++){
+        for(int cpt2 = -radius; cpt2 < radius; cpt++){
+            if(cpt >= 0 && cpt2 >= 0 && (cpt+16*cpt2) < regTmp->listChunk.size())
+                chunksTmp->push_back(regTmp->listChunk.at(cpt+16*cpt2));
+        }
+    }
+    return chunksTmp;
+     **/
+    return &(aRegion.listChunk);
 }

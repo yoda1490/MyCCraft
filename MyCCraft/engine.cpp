@@ -48,9 +48,6 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
-    int nbChunk;
-    vector<chunk>* listChunk = aMap->aRegion.getNearestChunk(player.positionX, player.positionY, &nbChunk);
-    
     
     aMap->time+=0.0001;
     if(aMap->time>=24.0){

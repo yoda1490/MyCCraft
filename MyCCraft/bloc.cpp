@@ -60,7 +60,7 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     color[3] = colorA;
 }
 
-void bloc::draw(bool selected){
+void bloc::draw(){
     if(!visible)
         return;
     glPushMatrix();
@@ -69,8 +69,6 @@ void bloc::draw(bool selected){
     glRotatef(orient, 0.0, 1.0, 0.0);
     
     float sizeDrawed = size;
-    if(selected)
-        sizeDrawed-=0.01;
     
     
     static GLfloat n[6][3] =

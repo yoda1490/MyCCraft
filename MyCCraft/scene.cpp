@@ -119,7 +119,7 @@ void scene::drawScene(){
                 if(eng->isSelecting){
                     glLoadName(i+(16*16*256*cpt));
                 }
-                listB->at(i).draw(eng->selectedBlock == i);
+                listB->at(i).draw();
             }
             glPopMatrix();
         }
