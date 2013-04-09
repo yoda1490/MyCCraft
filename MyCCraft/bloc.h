@@ -31,11 +31,13 @@ public:
     float spec = 1.0; // White specular reflectance.
     float shi = 30.0; // Shininess.
     
-    float position[3];
+    float positionX=0, positionY=0, positionZ=0;
     float orient = 0;
     float size = 1;
     float color[4];
     string textureURL;
+    
+    bool initialized = false;
     
     bool visible = true;
     

@@ -29,9 +29,7 @@ public:
     
     void setChunk(vector<chunk>* chunks);
     
-    // return a list of the 81chunk around the player (grid of 9x9) in this region
-    //nbChunk will be updated with the number of chunk found
-    vector<chunk>* getNearestChunk(float x, float y, int* nbChunk);
+    chunk* getChunk(float x, float y); //return the chunk to the position x:z
 
 };
 

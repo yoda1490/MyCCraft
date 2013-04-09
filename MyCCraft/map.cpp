@@ -16,12 +16,14 @@ map::map(string aFolder): folder(aFolder), aRegion(0,0){
     
     vector<chunk> listChunk;
     
-    
-    for(int cpt=-2; cpt<2;cpt++){
-        for(int cpt2=-2; cpt2<2;cpt2++){
-            listChunk.push_back(chunkGenerator::generate("nothing yet", cpt*16,cpt2*16));
+    cout << "Generating map: [";
+    for(int cpt=-2; cpt<=2;cpt++){
+        for(int cpt2=-2; cpt2<=2;cpt2++){
+            listChunk.push_back(*new chunk(chunkGenerator::generate("nothing yet", cpt*16,cpt2*16)));
         }
     }
+    
+    cout << "] OK" << endl;
     
     
     
@@ -56,19 +58,44 @@ region* map::getNearestRegion(float x, float y, float radius){
     return &aRegion;
 }
 
-vector<chunk>* map::getNearestChunk(float x, float y, float radius){
-    //need to be implemented with references and not copy of object !!!
-    /**
-     vector<chunk>* chunksTmp = new vector<chunk>;
-    region* regTmp = getNearestRegion(x, y, radius);
+vector<chunk*>* map::getNearestChunk(float x, float y, float radius){
     
-    for(int cpt = -radius; cpt < radius; cpt++){
-        for(int cpt2 = -radius; cpt2 < radius; cpt++){
-            if(cpt >= 0 && cpt2 >= 0 && (cpt+16*cpt2) < regTmp->listChunk.size())
-                chunksTmp->push_back(regTmp->listChunk.at(cpt+16*cpt2));
+    
+    vector<chunk*>* nearestChunk = new vector<chunk*>;
+    //region* regTmp = getNearestRegion(x, y, radius);
+    
+    
+    for(int cpt=x-radius-1; cpt<=x+radius; cpt+=16){
+        for(int cpt2=y-radius-1; cpt2<=y+radius; cpt2+=16){
+            chunk* tmp = aRegion.getChunk(cpt, cpt2);
+            if(tmp!= NULL){
+                nearestChunk->push_back( tmp );
+            }else{
+                
+                if(!generating){
+                    generating = true;
+                    float chunkX = cpt  -cpt %16;
+                    float chunkY = cpt2 -cpt2%16;
+                    
+                    if(cpt < 0)
+                        chunkX -=16;
+                    
+                    if(cpt2 < 0)
+                        chunkY -=16;
+                    
+                    
+                    cout << cpt << ":" << cpt2 << "Generate: " << chunkX << ":" << chunkY << " [";
+                    chunk* tmpChk = new chunk(chunkGenerator::generate("nothing yet", chunkX,chunkY));
+                    nearestChunk->push_back(tmpChk);
+                    aRegion.listChunk.push_back(*tmpChk);
+                    cout << "]  OK "  << endl;
+                    generating = false;
+                }
+                
+            }
         }
     }
-    return chunksTmp;
-     **/
-    return &(aRegion.listChunk);
+    
+    //return lstChunks;*/
+    return nearestChunk;
 }

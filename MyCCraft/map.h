@@ -25,6 +25,7 @@ public:
     
     region aRegion;
     
+    bool generating = false; //to allow only one generation simultaneously
     
     string folder; //folder of this map;
     
@@ -42,7 +43,7 @@ public:
     //return a list nearest regions in a radius around the player
     region * getNearestRegion(float x, float y, float radius);
     //return a list nearest chunks in a radius around the player
-    vector<chunk>* getNearestChunk(float x, float y, float radius);
+    vector<chunk*>* getNearestChunk(float x, float y, float radius);
     
     
 };

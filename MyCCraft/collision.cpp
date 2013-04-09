@@ -15,40 +15,40 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float x, float y , 
     
     
     
-    if(futurX+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
-       && futurX-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
+    if(futurX+aPerso->hitbox > aBloc->positionX-aBloc->size/2
+       && futurX-aPerso->hitbox < aBloc->positionX+aBloc->size/2){
         
-        if(y+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
-           && y+0.001 < aBloc->position[1]+aBloc->size/2){
+        if(y+aPerso->tailleY > aBloc->positionY-aBloc->size/2
+           && y+0.001 < aBloc->positionY+aBloc->size/2){
             
-            if(z+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
-               && z-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
+            if(z+aPerso->hitbox > aBloc->positionZ-aBloc->size/2
+               && z-aPerso->hitbox < aBloc->positionZ+aBloc->size/2){
                 col[0] = true;
             }
         }
     }
     
-    if(x+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
-       && x-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
+    if(x+aPerso->hitbox > aBloc->positionX-aBloc->size/2
+       && x-aPerso->hitbox < aBloc->positionX+aBloc->size/2){
         
-        if(futurY+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
-           && futurY+0.001 < aBloc->position[1]+aBloc->size/2){
+        if(futurY+aPerso->tailleY > aBloc->positionY-aBloc->size/2
+           && futurY+0.001 < aBloc->positionY+aBloc->size/2){
             
-            if(z+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
-               && z-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
+            if(z+aPerso->hitbox > aBloc->positionZ-aBloc->size/2
+               && z-aPerso->hitbox < aBloc->positionZ+aBloc->size/2){
                 col[1] = true;
             }
         }
     }
     
-    if(x+aPerso->hitbox > aBloc->position[0]-aBloc->size/2
-       && x-aPerso->hitbox < aBloc->position[0]+aBloc->size/2){
+    if(x+aPerso->hitbox > aBloc->positionX-aBloc->size/2
+       && x-aPerso->hitbox < aBloc->positionX+aBloc->size/2){
         
-        if(y+aPerso->tailleY > aBloc->position[1]-aBloc->size/2
-           && y+0.001 < aBloc->position[1]+aBloc->size/2){
+        if(y+aPerso->tailleY > aBloc->positionY-aBloc->size/2
+           && y+0.001 < aBloc->positionY+aBloc->size/2){
             
-            if(futurZ+aPerso->hitbox > aBloc->position[2]-aBloc->size/2
-               && futurZ-aPerso->hitbox < aBloc->position[2]+aBloc->size/2){
+            if(futurZ+aPerso->hitbox > aBloc->positionZ-aBloc->size/2
+               && futurZ-aPerso->hitbox < aBloc->positionZ+aBloc->size/2){
                 col[2] = true;
             }
         }
@@ -58,20 +58,21 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float x, float y , 
 }
 
 bool* collision::detectCollisions(map* aMap, perso* aPerso, float futurX, float futurY, float futurZ){
-    vector<chunk>* listChunk = aMap->getNearestChunk(futurX, futurY, 1);
+    
+    vector<chunk*>* listChunk = aMap->getNearestChunk(futurX, futurZ, 16);
     
     bool col[3] = {false, false, false};
     
     for(int cpt=0; cpt<listChunk->size();cpt++){
         
-        float xf = futurX - listChunk->at(cpt).positionX - aMap->aRegion.positionX;
-        float zf = futurZ - listChunk->at(cpt).positionY - aMap->aRegion.positionY;
+        float xf = futurX - listChunk->at(cpt)->positionX - aMap->aRegion.positionX;
+        float zf = futurZ - listChunk->at(cpt)->positionY - aMap->aRegion.positionY;
         
         
-        float x = aPerso->positionX - listChunk->at(cpt).positionX - aMap->aRegion.positionX;
-        float z = aPerso->positionZ - listChunk->at(cpt).positionY - aMap->aRegion.positionY;
+        float x = aPerso->positionX - listChunk->at(cpt)->positionX - aMap->aRegion.positionX;
+        float z = aPerso->positionZ - listChunk->at(cpt)->positionY - aMap->aRegion.positionY;
                 
-        bool * colTmp = detectCollisions(&listChunk->at(cpt).listBloc, aPerso, x, aPerso->positionY, z, xf, futurY, zf);
+        bool * colTmp = detectCollisions(&(listChunk->at(cpt)->listBloc), aPerso, x, aPerso->positionY, z, xf, futurY, zf);
         
         if(colTmp[0]){
             col[0] = true;

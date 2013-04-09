@@ -17,9 +17,9 @@ bloc::bloc(const bloc &source){
     spec = source.spec; // White specular reflectance.
     shi = source.shi; // Shininess.
     
-    position[0] = source.position[0];
-    position[1] = source.position[1];
-    position[2] = source.position[2];
+    positionX = source.positionX;
+    positionY = source.positionY;
+    positionZ = source.positionZ;
     orient = source.orient;
     size = source.size;
     color[0] = source.color[0];
@@ -29,18 +29,21 @@ bloc::bloc(const bloc &source){
     textureURL = source.textureURL;
     
     visible = source.visible;
+    
+    initialized = source.initialized;
 
 }
 
 bloc::bloc(int idBloc, float x, float y, float z, float orientation){
-    
+    initialized = true;
 }
 
 bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize){
+    initialized = true;
     size = aSize;
-    position[0] = x;
-    position[1] = y;
-    position[2] = z;
+    positionX = x;
+    positionY = y;
+    positionZ = z;
     orient = orientation;
     color[0] = colorX;
     color[1] = colorY;
@@ -50,9 +53,10 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
 
 
 bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA){
-    position[0] = x;
-    position[1] = y;
-    position[2] = z;
+    initialized = true;
+    positionX = x;
+    positionY = y;
+    positionZ = z;
     orient = orientation;
     color[0] = colorX;
     color[1] = colorY;
@@ -65,7 +69,7 @@ void bloc::draw(){
         return;
     glPushMatrix();
     light();
-    glTranslatef(position[0],position[1],position[2]);
+    glTranslatef(positionX,positionY,positionZ);
     glRotatef(orient, 0.0, 1.0, 0.0);
     
     float sizeDrawed = size;

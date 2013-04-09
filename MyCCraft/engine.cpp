@@ -64,30 +64,53 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if(mouseLeftClicked){
         
-        vector<bloc>* lstblc = &(aMap->aRegion.listChunk.at(selectedChunk).listBloc);
-        bloc* blc = &(lstblc->at(selectedBlock));
-        unsigned int size = (unsigned int)lstblc->size();
+        chunk* tmpChk = selectedChunk; //to remove thread problems
+        int tmpSlct = selectedBlock;
+        if(tmpChk == NULL)
+            return;
+        
+        vector<bloc>* listBloc = &tmpChk->listBloc;
         
         
         
-        *blc = *new air(0, blc->position[0], blc->position[1], blc->position[2], 0.0);
+        long int indexX = (((int)tmpSlct))/4096;
+        long int indexZ = (((int)tmpSlct-indexX*4096))/256;
+        long int indexY = (((int)tmpSlct-indexX*4096-indexZ*256))/1;
+        
+        
+        bloc* blc = tmpChk->getBloc(indexX, indexY, indexZ);
+        
+        
+        //to be sure that it's the right chunk
+        if(abs(player.positionX) > abs(indexX+tmpChk->positionX)+(float)visibilitySelect/2.0 ||
+           abs(player.positionZ) > abs(indexZ+tmpChk->positionY)+(float)visibilitySelect/2.0 ||
+           !blc->initialized){
+                       return;
+        }
+        
+        
+        unsigned int size = (unsigned int)listBloc->size();
+        
+        *blc = air(0, indexX, indexY, indexZ, 0.0);
+        
+        
         
         //set visible around bloc
-        if(blc->position[1] < 256 && selectedBlock+1<size)
-            lstblc->at(selectedBlock+1).visible = true;
-        if(blc->position[1] > 0 && selectedBlock>0 && selectedBlock-1<size)
-            lstblc->at(selectedBlock-1).visible = true;
+        if(blc->positionY < 256 && tmpSlct+1<size)
+            listBloc->at(tmpSlct+1).visible = true;
+        if(blc->positionY > 0 && tmpSlct>0 && tmpSlct-1<size)
+            listBloc->at(tmpSlct-1).visible = true;
         
-        if(blc->position[2] < 15 && selectedBlock+256<size)
-            lstblc->at(selectedBlock+256).visible = true;
-        if(blc->position[2] > 0 && selectedBlock-256>0 && selectedBlock-256<size)
-            lstblc->at(selectedBlock-256).visible = true;
+        if(blc->positionZ < 15 && tmpSlct+256<size)
+            listBloc->at(tmpSlct+256).visible = true;
+        if(blc->positionZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
+            listBloc->at(tmpSlct-256).visible = true;
         
-        if(blc->position[0] < 15 && selectedBlock+4096<size)
-            lstblc->at(selectedBlock+4096).visible = true;
+        if(blc->positionX < 15 && tmpSlct+4096<size)
+            listBloc->at(tmpSlct+4096).visible = true;
         
-        if(blc->position[0] > 0 && selectedBlock-4096>0 && selectedBlock-4096<size)
-            lstblc->at(selectedBlock-4096).visible = true;        
+        if(blc->positionX > 0 && tmpSlct-4096>0 && tmpSlct-4096<size)
+            listBloc->at(tmpSlct-4096).visible = true;
         
     }
     

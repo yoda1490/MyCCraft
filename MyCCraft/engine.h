@@ -23,7 +23,6 @@
 
 
 #include "chunk.h"
-#include "region.h"
 #include "map.h"
 
 #ifdef __APPLE__
@@ -56,6 +55,8 @@ public:
     
     int fps = 60;
     
+    int visibility = 25; //the visibility of the player
+    int visibilitySelect = 10;
     
     perso player;
     float futurX=0, futurY=0, futurZ=0;
@@ -82,9 +83,9 @@ public:
     int  mouseY=0;
     
     bool isSelecting = false; //selection picking mode
-    unsigned int selectedRegion = 0;
-    unsigned int selectedChunk = 0;
+    
     unsigned int selectedBlock = 0;
+    chunk* selectedChunk = NULL;
     
     
 

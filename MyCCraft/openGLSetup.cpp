@@ -60,8 +60,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glutMainLoop();
     }
     
-
-    
+        
     void OpenGLSetup::setupMouse(int button, int state, int x, int y){
         
         
@@ -69,9 +68,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         
         if(button == 0){
             int id = currentInstance->pickFunction(x, y);
-            currentInstance->eng->selectedRegion = 0;
-            currentInstance->eng->selectedChunk = (int)id/(16*16*256);
-            currentInstance->eng->selectedBlock = id - ((16*16*256)*currentInstance->eng->selectedChunk);
+            currentInstance->eng->selectedBlock = id;
             if (state == GLUT_DOWN){
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
@@ -96,9 +93,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
     void OpenGLSetup::setupMouseActiveMotion(int x, int y) {
         int id = currentInstance->pickFunction(x, y);
-        currentInstance->eng->selectedRegion = 0;
-        currentInstance->eng->selectedChunk = (int)id/(16*16*256);
-        currentInstance->eng->selectedBlock = id - ((16*16*256)*currentInstance->eng->selectedChunk);
+        currentInstance->eng->selectedBlock = id;
         currentInstance->eng->mouseX = x;
         currentInstance->eng->mouseY = y;
     }
@@ -112,13 +107,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     }
 
     void OpenGLSetup::setupSpecialKeyBoard(int key, int x, int y){
-        /**if (key == GLUT_KEY_DOWN){ positionX -= (vitesse * 1.5)*cos(angleVision) ;  positionZ -= (vitesse * 1.5)*sin(angleVision) ;}
-        if( key == GLUT_KEY_UP){ positionX += ( vitesse * 1.5)*cos(angleVision) ;  positionZ += (vitesse * 1.5)*sin(angleVision) ;}
-        if (key == GLUT_KEY_LEFT){ angleVision -= 0.05*(vitesse/2);}
-        if( key == GLUT_KEY_RIGHT){ angleVision += 0.05*(vitesse/2);}
-        if (key == GLUT_KEY_PAGE_DOWN){ positionY -= 0.5*(vitesse/2);}
-        if( key == GLUT_KEY_PAGE_UP){ positionY += 0.5*(vitesse/2);}
-        **/
+        
         glutPostRedisplay();
         
     }
@@ -272,7 +261,7 @@ unsigned int OpenGLSetup::pickFunction(int x, int y)
     // Determine hits by calling  so that names are assigned.
     eng->isSelecting = true;
     theScene->drawScene();
-    
+    eng->isSelecting = false;
     hits = glRenderMode(GL_RENDER); // Return to rendering mode, returning number of hits.
     
     // Restore viewing volume of the resize routine and return to modelview mode.

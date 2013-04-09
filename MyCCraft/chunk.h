@@ -28,6 +28,8 @@ public:
     void setBlocs(vector<bloc>* blocs);
     
     void setBloc(bloc* aBloc); //place a bloc at the right position in the vector
+    bloc* getBloc(float x,float y,float z);
+
     
     float * highestPos(float x, float y); //return the highest position of a solid bloc in x, y
     

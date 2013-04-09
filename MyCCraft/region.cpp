@@ -24,9 +24,11 @@ void region::setChunk(vector<chunk>* chunks){
 
 
 //todo
-vector<chunk>* region::getNearestChunk(float x, float y, int* nbChunk){
-    *nbChunk = listChunk.size();
-    
-    
-    return &listChunk;
+chunk* region::getChunk(float x, float y){
+    for(int cpt=0; cpt<listChunk.size();cpt++){
+        if(x>=listChunk.at(cpt).positionX && x<listChunk.at(cpt).positionX+16.0 &&
+           y>=listChunk.at(cpt).positionY && y<listChunk.at(cpt).positionY+16.0)
+            return &listChunk.at(cpt);
+    }
+    return NULL;
 }

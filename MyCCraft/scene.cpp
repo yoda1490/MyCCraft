@@ -90,34 +90,26 @@ void scene::drawScene(){
     int unsigned i=0;
     
    
-    //chunk* listChunk = eng->aMap->getNearestChunk(eng->player.positionX, eng->player.positionY);
     
     
-    /*for(int cpt=0; cpt<9; cpt++){
-    
-        for(i=0;i< listChunk[cpt].listBloc.size();i++){
-                if(eng->isSelecting){
-                    glLoadName(i +(cpt*100000) + (0*1000000));
-                }
-                //listChunk[cpt]->listBloc[i]->draw(eng->selectedBlock==i);
-            eng->aMap->regions[0]->listChunk.at(0).listBloc.at(cpt);
-        }
-    }*/
-    
-    int nbChunk = 0;
-    vector<chunk>* listC =  eng->aMap->aRegion.getNearestChunk(eng->player.positionX, eng->player.positionY, &nbChunk);
+    int radius = eng->visibility;
+    if(eng->isSelecting){
+        radius=eng->visibilitySelect;
+    }
+    vector<chunk*>* listC =  eng->aMap->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
     
     
     glPushMatrix();
-        glTranslatef(eng->aMap->aRegion.positionX, 0.0, eng->aMap->aRegion.positionY);
-        for(int cpt=0; cpt<nbChunk; cpt++){
+        for(int cpt=0; cpt<listC->size(); cpt++){
             glPushMatrix();
-            glTranslatef(eng->aMap->aRegion.listChunk.at(cpt).positionX, 0.0, eng->aMap->aRegion.listChunk.at(cpt).positionY);
-            vector<bloc>* listB = &(listC->at(cpt).listBloc);
-    
+            glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
+            
+            vector<bloc>* listB = &(listC->at(cpt)->listBloc);
+            eng->selectedChunk = listC->at(cpt);
+            
             for(i=0;i< listB->size();i++){
                 if(eng->isSelecting){
-                    glLoadName(i+(16*16*256*cpt));
+                    glLoadName(i);
                 }
                 listB->at(i).draw();
             }
