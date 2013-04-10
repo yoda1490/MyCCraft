@@ -49,7 +49,7 @@ void* engine::run(void*){
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
-    aMap->time+=0.0001;
+    aMap->time+=0.001;
     if(aMap->time>=24.0){
         aMap->time = 0;
     }
@@ -82,8 +82,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         
         
         //to be sure that it's the right chunk
-        if(abs(player.positionX) > abs(indexX+tmpChk->positionX)+(float)visibilitySelect/2.0 ||
-           abs(player.positionZ) > abs(indexZ+tmpChk->positionY)+(float)visibilitySelect/2.0 ||
+        if(fabs(indexX+tmpChk->positionX)-fabs(player.positionX) > (float)visibilitySelect/2.0 ||
+           fabs(indexZ+tmpChk->positionY)-fabs(player.positionZ) > (float)visibilitySelect/2.0 ||
            !blc->initialized){
                        return;
         }
@@ -96,20 +96,20 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         
         
         //set visible around bloc
-        if(blc->positionY < 256 && tmpSlct+1<size)
+        if(indexX < 256 && tmpSlct+1<size)
             listBloc->at(tmpSlct+1).visible = true;
-        if(blc->positionY > 0 && tmpSlct>0 && tmpSlct-1<size)
+        if(indexY > 0 && tmpSlct>0 && tmpSlct-1<size)
             listBloc->at(tmpSlct-1).visible = true;
         
-        if(blc->positionZ < 15 && tmpSlct+256<size)
+        if(indexZ < 15 && tmpSlct+256<size)
             listBloc->at(tmpSlct+256).visible = true;
-        if(blc->positionZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
+        if(indexZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
             listBloc->at(tmpSlct-256).visible = true;
         
-        if(blc->positionX < 15 && tmpSlct+4096<size)
+        if(indexX < 15 && tmpSlct+4096<size)
             listBloc->at(tmpSlct+4096).visible = true;
         
-        if(blc->positionX > 0 && tmpSlct-4096>0 && tmpSlct-4096<size)
+        if(indexX > 0 && tmpSlct-4096>0 && tmpSlct-4096<size)
             listBloc->at(tmpSlct-4096).visible = true;
         
     }

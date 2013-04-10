@@ -43,9 +43,9 @@ public:
     
     //lighting
     //light position
-    float light0X = 5.0, light0Y = 25.0, light0Z = 10.0;
+    float light0X = 0.0, light0Y = 300.0, light0Z = 0.0;
     
-    float quadAtt0 = 0.01; //quadratic attenuation light 0
+    float quadAtt0 = 0.000009; //quadratic attenuation light 0
 };
 
 #endif /* defined(__MyCCraft__scene__) */

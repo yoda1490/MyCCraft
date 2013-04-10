@@ -55,7 +55,7 @@ public:
     
     int fps = 60;
     
-    int visibility = 25; //the visibility of the player
+    int visibility = 30; //the visibility of the player
     int visibilitySelect = 10;
     
     perso player;

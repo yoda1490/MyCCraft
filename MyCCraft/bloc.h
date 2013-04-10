@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "string"
+#include <cmath>
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -28,7 +29,7 @@ public:
     float diff = 0.1; // red and blue diffuse reflectance of the submarine monster
     float emi = 0.1; // red and blue emittance of the submarine monster
     
-    float spec = 1.0; // White specular reflectance.
+    float spec = 0.0; // White specular reflectance.
     float shi = 30.0; // Shininess.
     
     float positionX=0, positionY=0, positionZ=0;
@@ -46,8 +47,8 @@ public:
     bloc(int idBloc, float x, float y, float z, float orientation);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize);
-    void draw();
-    void light();
+    void draw(float time=0);
+    void light(float time=0);
     
 };
 

@@ -64,11 +64,11 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     color[3] = colorA;
 }
 
-void bloc::draw(){
+void bloc::draw(float time){
     if(!visible)
         return;
     glPushMatrix();
-    light();
+    light(time);
     glTranslatef(positionX,positionY,positionZ);
     glRotatef(orient, 0.0, 1.0, 0.0);
     
@@ -116,19 +116,29 @@ void bloc::draw(){
     glPopMatrix();
 }
 
-void bloc::light(){
+void bloc::light(float time){
     // Material property vectors.
+    /*GLfloat matAmb[] = {
+        static_cast<GLfloat>((color[0]+0.4*sin(2*3.14*(1.0/24.0)*time-3.14/2)+0.6)),
+        static_cast<GLfloat>((color[1]+0.4*sin(2*3.14*(1.0/24.0)*time-3.14/2)+0.6)),
+        static_cast<GLfloat>((color[2]+0.4*sin(2*3.14*(1.0/24.0)*time-3.14/2)+0.6)), color[3]};
+    
     float matAmb[] = {color[0], color[1], color[2], color[3]};
-    /*float matDif[] = {diff, diff, diff, 1.0};
+    //float matAmb[] = {1.2, 1.6, 1.2, 0.0};
+    float matDif[] = {diff, diff, diff, 1.0};
     float matSpec[] = { spec, spec, spec, 1.0 };
     float matShine[] = { shi };
-    float matEmission[] = {emi, emi, emi, 1.0};**/
+    float matEmission[] = {emi, emi, emi, 1.0};
     
     
     // Material properties of the block
     glMaterialfv(GL_FRONT, GL_AMBIENT, matAmb);
-    /*glMaterialfv(GL_FRONT, GL_DIFFUSE, matDif);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, matDif);
     glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
     glMaterialfv(GL_FRONT, GL_SHININESS, matShine);
-    glMaterialfv(GL_FRONT, GL_EMISSION, matEmission);**/
+    glMaterialfv(GL_FRONT, GL_EMISSION, matEmission);
+     */
+    float matAmb[] = {color[0], color[1], color[2], color[3]};
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, matAmb);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, matAmb);
 }

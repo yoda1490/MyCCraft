@@ -111,7 +111,7 @@ void scene::drawScene(){
                 if(eng->isSelecting){
                     glLoadName(i);
                 }
-                listB->at(i).draw();
+                listB->at(i).draw(eng->aMap->time);
             }
             glPopMatrix();
         }
@@ -136,7 +136,7 @@ void scene::lighting(void) {
     glEnable(GL_LIGHTING);
     
     
-        
+    
     // Light property vectors.
     float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
     float lightDifAndSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -153,14 +153,14 @@ void scene::lighting(void) {
     
     
     // Light0 properties.
-    glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, globAmb);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDifAndSpec0);
     glLightfv(GL_LIGHT0, GL_SPECULAR, lightDifAndSpec0);
     glLightfv(GL_LIGHT0,GL_POSITION,light0_position);
     
     
     glEnable(GL_LIGHT0); // Enable particular light source.
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb); // Global ambient light.
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lightAmb); // Global ambient light.
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE); // Enable local viewpoint
     
     
@@ -176,6 +176,7 @@ void scene::lighting(void) {
     glutSolidSphere(1,20,20);
     glPopMatrix();
     glEnable(GL_LIGHTING);
+     
     
     
 }
