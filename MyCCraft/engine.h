@@ -20,10 +20,11 @@
 #include "collision.h"
 #include "blocAir.h"
 #include <cmath>
+#include <map>
 
 
 #include "chunk.h"
-#include "map.h"
+#include "field.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -56,13 +57,13 @@ public:
     int fps = 60;
     
     int visibility = 30; //the visibility of the player
-    int visibilitySelect = 10;
+    int visibilitySelect = 15;
     
     perso player;
     float futurX=0, futurY=0, futurZ=0;
     float visionX = 0, visionY = 0, visionZ = 0;
     
-    float godX=0, godY=110, godZ=0;
+    float godX=0, godY=50, godZ=0;
     
     float gravity = 15.0;
     
@@ -84,13 +85,15 @@ public:
     
     bool isSelecting = false; //selection picking mode
     
-    unsigned int selectedBlock = 0;
-    chunk* selectedChunk = NULL;
+    
+    int selectedBloc;
+    map<int, bloc*> pickedBloc;
+    int selectedFace=0;
     
     
 
      
-    map* aMap;
+    field* aField;
     
     
     void setSession(class OpenGLSetup* aSession);
@@ -100,7 +103,7 @@ public:
     
     void perform(Bool* key,Bool* keyUp,Bool* keyDown);
     void simplePerform(Bool* key,Bool* keyUp,Bool* keyDown); //no collision detecttion, no action juste moves
-    void loadMap(string fileName);
+    void loadfield(string fileName);
     
 
     

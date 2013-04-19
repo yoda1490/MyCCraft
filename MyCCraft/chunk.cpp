@@ -24,6 +24,7 @@ chunk::chunk(const chunk &source){
     
     for(int cpt=0; cpt<source.listBloc.size(); cpt++){
         listBloc.push_back(source.listBloc.at(cpt));
+        listBloc.at(cpt).setChunk(this);
     }
 }
 
@@ -32,6 +33,7 @@ void chunk::setBlocs(vector<bloc>* blocs){
     listBloc.clear();
     for(int cpt=0; cpt<blocs->size(); cpt++){
         listBloc.push_back(blocs->at(cpt));
+        listBloc.at(cpt).setChunk(this);
     }
 
 }
@@ -44,6 +46,7 @@ void chunk::setBloc(bloc* aBloc){
     
     long int index =  indexX+indexY+indexZ;
     listBloc.at(index) = *aBloc;
+    listBloc.at(index).setChunk(this);
     
 }
 

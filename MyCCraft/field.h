@@ -1,23 +1,24 @@
 //
-//  map.h
+//  field.h
 //  MyCCraft
 //
 //  Created by WaWa-YoDa on 05/04/13.
 //  Copyright (c) 2013 WaWa-YoDa. All rights reserved.
 //
 
-#ifndef __MyCCraft__map__
-#define __MyCCraft__map__
+#ifndef __MyCCraft__field__
+#define __MyCCraft__field__
 
 #include <iostream>
 #include "region.h"
 #include <vector>
 #include "chunkGenerator.h"
+#include <pthread.h>
 
 using namespace std;
 
 
-class map{
+class field{
 public:
   //contain a circular list of maximum 4 regions around the player
     //region regions[4];
@@ -27,12 +28,12 @@ public:
     
     bool generating = false; //to allow only one generation simultaneously
     
-    string folder; //folder of this map;
+    string folder; //folder of this field;
     
-    map(string aFolder);
+    field(string aFolder);
     
     
-    //the current hour in this map (max 24, ex for 14h30 it will be 14.5)
+    //the current hour in this field (max 24, ex for 14h30 it will be 14.5)
     float time = 10;
     
     //load the 4nearest region
@@ -45,7 +46,9 @@ public:
     //return a list nearest chunks in a radius around the player
     vector<chunk*>* getNearestChunk(float x, float y, float radius);
     
+    static void* generate(void *); //launch a thread to generate missing chunk
+    
     
 };
 
-#endif /* defined(__MyCCraft__map__) */
+#endif /* defined(__MyCCraft__field__) */

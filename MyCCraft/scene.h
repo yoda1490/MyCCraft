@@ -16,7 +16,7 @@
 
 #include "chunk.h"
 #include "region.h"
-#include "map.h"
+#include "field.h"
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
@@ -36,7 +36,7 @@ class scene{
     
 public:
     scene(class engine* anEngine);
-    void drawScene();
+    void drawScene(bloc* detectFace=NULL);
     void setup();
     void lighting(void);
     

@@ -13,6 +13,8 @@
 #include "string"
 #include <cmath>
 
+class chunk;
+
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
@@ -38,6 +40,8 @@ public:
     float color[4];
     string textureURL;
     
+    chunk* owner = NULL;
+    
     bool initialized = false;
     
     bool visible = true;
@@ -47,8 +51,11 @@ public:
     bloc(int idBloc, float x, float y, float z, float orientation);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize);
-    void draw(float time=0);
+    void draw(float time=0, bool picking=false);
     void light(float time=0);
+    void setChunk(chunk* c);
+    chunk* getChunk();
+    
     
 };
 

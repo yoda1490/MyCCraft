@@ -49,7 +49,6 @@ class OpenGLSetup{
         
 public:
     
-    unsigned int bufferPick[1024]; // Hit buffer.
     
     int hits; // Number of entries in hit buffer.
     
@@ -67,7 +66,7 @@ public:
     void printInteraction();
     void run();
     
-    unsigned int pickFunction(int x, int y);
+    unsigned int pickFunction(int x, int y, bool face=false);
     unsigned int findClosestHit(int hits, unsigned int buffer[]);
     
     

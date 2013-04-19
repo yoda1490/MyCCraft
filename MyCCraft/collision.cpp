@@ -31,8 +31,9 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float x, float y , 
     if(x+aPerso->hitbox > aBloc->positionX-aBloc->size/2
        && x-aPerso->hitbox < aBloc->positionX+aBloc->size/2){
         
-        if(futurY+aPerso->tailleY > aBloc->positionY-aBloc->size/2
-           && futurY+0.001 < aBloc->positionY+aBloc->size/2){
+        if(futurY+aPerso->tailleY    > aBloc->positionY-aBloc->size/2
+           && futurY                  < aBloc->positionY+aBloc->size/2
+           ){
             
             if(z+aPerso->hitbox > aBloc->positionZ-aBloc->size/2
                && z-aPerso->hitbox < aBloc->positionZ+aBloc->size/2){
@@ -57,20 +58,20 @@ bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float x, float y , 
     return col;
 }
 
-bool* collision::detectCollisions(map* aMap, perso* aPerso, float futurX, float futurY, float futurZ){
+bool* collision::detectCollisions(field* afield, perso* aPerso, float futurX, float futurY, float futurZ){
     
-    vector<chunk*>* listChunk = aMap->getNearestChunk(futurX, futurZ, 16);
+    vector<chunk*>* listChunk = afield->getNearestChunk(futurX, futurZ, 16);
     
     bool col[3] = {false, false, false};
     
     for(int cpt=0; cpt<listChunk->size();cpt++){
         
-        float xf = futurX - listChunk->at(cpt)->positionX - aMap->aRegion.positionX;
-        float zf = futurZ - listChunk->at(cpt)->positionY - aMap->aRegion.positionY;
+        float xf = futurX - listChunk->at(cpt)->positionX - afield->aRegion.positionX;
+        float zf = futurZ - listChunk->at(cpt)->positionY - afield->aRegion.positionY;
         
         
-        float x = aPerso->positionX - listChunk->at(cpt)->positionX - aMap->aRegion.positionX;
-        float z = aPerso->positionZ - listChunk->at(cpt)->positionY - aMap->aRegion.positionY;
+        float x = aPerso->positionX - listChunk->at(cpt)->positionX - afield->aRegion.positionX;
+        float z = aPerso->positionZ - listChunk->at(cpt)->positionY - afield->aRegion.positionY;
                 
         bool * colTmp = detectCollisions(&(listChunk->at(cpt)->listBloc), aPerso, x, aPerso->positionY, z, xf, futurY, zf);
         
@@ -100,7 +101,7 @@ bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x
     
     //cout << posPerso << endl;
     
-    int rd = 3; //radius detection
+    int rd = 4; //radius detection
     
     
     long unsigned end = posPerso + rd + rd*256 + rd*4096;

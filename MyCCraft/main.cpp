@@ -23,7 +23,7 @@ int main(int argc, char ** argv)
     engine.setSession(&session);
     engine.setScene(&theGame);
     
-    engine.loadMap("nothing yet");
+    engine.loadfield("nothing yet");
     engine.start();
     
     session.setupWindow(&argc, argv);

@@ -1,22 +1,26 @@
 //
-//  map.cpp
+//  field.cpp
 //  MyCCraft
 //
 //  Created by WaWa-YoDa on 05/04/13.
 //  Copyright (c) 2013 WaWa-YoDa. All rights reserved.
 //
 
-#include "map.h"
+#include "field.h"
 
 chunk* tmp = 0;
+static field* currentInstance;
+static float chunkX;
+static float chunkY;
 
-map::map(string aFolder): folder(aFolder), aRegion(0,0){
+
+field::field(string aFolder): folder(aFolder), aRegion(0,0){
     
     
     
     vector<chunk> listChunk;
     
-    cout << "Generating map: [";
+    cout << "Generating field: [";
     for(int cpt=-2; cpt<=2;cpt++){
         for(int cpt2=-2; cpt2<=2;cpt2++){
             listChunk.push_back(*new chunk(chunkGenerator::generate("nothing yet", cpt*16,cpt2*16)));
@@ -45,7 +49,7 @@ map::map(string aFolder): folder(aFolder), aRegion(0,0){
 
 //todo
 //load the 4 nearest region
-void map::loadNearestRegion(float x, float y){
+void field::loadNearestRegion(float x, float y){
     //test si régions à chargé déjà chargé
     for(int cpt=0; cpt<4; cpt++){
         
@@ -54,11 +58,11 @@ void map::loadNearestRegion(float x, float y){
 }
 
 
-region* map::getNearestRegion(float x, float y, float radius){
+region* field::getNearestRegion(float x, float y, float radius){
     return &aRegion;
 }
 
-vector<chunk*>* map::getNearestChunk(float x, float y, float radius){
+vector<chunk*>* field::getNearestChunk(float x, float y, float radius){
     
     
     vector<chunk*>* nearestChunk = new vector<chunk*>;
@@ -73,9 +77,10 @@ vector<chunk*>* map::getNearestChunk(float x, float y, float radius){
             }else{
                 
                 if(!generating){
-                    generating = true;
-                    float chunkX = cpt  -cpt %16;
-                    float chunkY = cpt2 -cpt2%16;
+                    
+                    
+                    chunkX = cpt  -cpt %16;
+                    chunkY = cpt2 -cpt2%16;
                     
                     if(cpt < 0)
                         chunkX -=16;
@@ -84,12 +89,10 @@ vector<chunk*>* map::getNearestChunk(float x, float y, float radius){
                         chunkY -=16;
                     
                     
-                    cout << cpt << ":" << cpt2 << "Generate: " << chunkX << ":" << chunkY << " [";
-                    chunk* tmpChk = new chunk(chunkGenerator::generate("nothing yet", chunkX,chunkY));
-                    nearestChunk->push_back(tmpChk);
-                    aRegion.listChunk.push_back(*tmpChk);
-                    cout << "]  OK "  << endl;
-                    generating = false;
+                    pthread_t thread;
+                    currentInstance = this;
+                    pthread_create(&thread, NULL, generate, NULL);
+   
                 }
                 
             }
@@ -98,4 +101,21 @@ vector<chunk*>* map::getNearestChunk(float x, float y, float radius){
     
     //return lstChunks;*/
     return nearestChunk;
+}
+
+void* field::generate(void *){
+    if(!currentInstance->generating){
+    currentInstance->generating = true;
+    
+    cout << "Generate: " << chunkX << ":" << chunkY << " [";
+    chunk* tmpChk = new chunk(chunkGenerator::generate("nothing yet", chunkX,chunkY));
+    //nearestChunk->push_back(tmpChk);
+    
+    
+    currentInstance->aRegion.listChunk.push_back(*tmpChk);
+    
+    cout << "]  OK "  << endl;
+    currentInstance->generating = false;
+    }
+    
 }

@@ -23,7 +23,7 @@ void scene::setup(){
 }
 
 
-void scene::drawScene(){
+void scene::drawScene(bloc* detectFace){
     
     unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
     
@@ -36,7 +36,8 @@ void scene::drawScene(){
     glLoadIdentity();
     
    
-    
+    lighting();
+
     
     
     eng->visionX = eng->player.positionX + 10 * cos(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
@@ -85,7 +86,6 @@ void scene::drawScene(){
         eng->player.draw();
     }
     
-    lighting();
     
     int unsigned i=0;
     
@@ -96,26 +96,39 @@ void scene::drawScene(){
     if(eng->isSelecting){
         radius=eng->visibilitySelect;
     }
-    vector<chunk*>* listC =  eng->aMap->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
+    vector<chunk*>* listC =  eng->aField->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
     
-    
-    glPushMatrix();
-        for(int cpt=0; cpt<listC->size(); cpt++){
+    if(detectFace!=NULL){
+        if(detectFace->getChunk() != NULL){
             glPushMatrix();
-            glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
-            
-            vector<bloc>* listB = &(listC->at(cpt)->listBloc);
-            eng->selectedChunk = listC->at(cpt);
-            
-            for(i=0;i< listB->size();i++){
-                if(eng->isSelecting){
-                    glLoadName(i);
-                }
-                listB->at(i).draw(eng->aMap->time);
-            }
+                glTranslatef(detectFace->getChunk()->positionX, 0.0, detectFace->getChunk()->positionY);
+                detectFace->draw(0.0, true);
             glPopMatrix();
         }
-    glPopMatrix();
+    }else{
+        glPushMatrix();
+            for(int cpt=0; cpt<listC->size(); cpt++){
+                glPushMatrix();
+                glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
+            
+                vector<bloc>* listB = &(listC->at(cpt)->listBloc);
+            
+            
+                for(i=0;i< listB->size();i++){
+                    if(eng->isSelecting){
+                        eng->pickedBloc[i+cpt] = &listB->at(i);
+                        glLoadName(i+cpt);
+                    }
+                    try{
+                    listB->at(i).draw(eng->aField->time);
+                    }catch(exception e){
+                        cout << "Error ..." << endl;
+                    }
+                }
+                glPopMatrix();
+            }
+        glPopMatrix();
+    }
     
     glutSwapBuffers();
     
@@ -141,9 +154,9 @@ void scene::lighting(void) {
     float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
     float lightDifAndSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat globAmb[] = {
-        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6),
-        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6),
-        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aMap->time-3.14/2)+0.6), 0.5f };
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aField->time-3.14/2)+0.6),
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aField->time-3.14/2)+0.6),
+        static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aField->time-3.14/2)+0.6), 0.5f };
     
     GLfloat light0_position[3] ;
     
@@ -160,7 +173,7 @@ void scene::lighting(void) {
     
     
     glEnable(GL_LIGHT0); // Enable particular light source.
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lightAmb); // Global ambient light.
+    //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lightAmb); // Global ambient light.
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE); // Enable local viewpoint
     
     
@@ -176,7 +189,20 @@ void scene::lighting(void) {
     glutSolidSphere(1,20,20);
     glPopMatrix();
     glEnable(GL_LIGHTING);
-     
+    
+    GLfloat diffuse[] = {0.8f,0.8f,0.8f,0.8f};
+    GLfloat specular[] = {0.8f,0.8f,0.8f,0.8f};
+    GLfloat specular_reflexion[] = {0.0f,0.0f,0.0f,0.0f};
+    GLubyte shiny_obj = 128;
+    
+    //spécification de la réflexion sur les matériaux
+    glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial(GL_FRONT,GL_AMBIENT_AND_DIFFUSE);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular_reflexion);
+    glMateriali(GL_FRONT_AND_BACK,GL_SHININESS,shiny_obj);
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1); // Enable local viewpoint
+    
     
     
 }

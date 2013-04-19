@@ -49,9 +49,9 @@ void* engine::run(void*){
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
-    aMap->time+=0.001;
-    if(aMap->time>=24.0){
-        aMap->time = 0;
+    //aField->time+=0.0001;
+    if(aField->time>=24.0){
+        aField->time = 0;
     }
     
     if(!keyboardInitialized){
@@ -59,58 +59,116 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(mouseRightClicked){
-        cout << selectedBlock << endl;
+        
+        chunk* c = NULL;
+        
+        if(pickedBloc[selectedBloc]!=NULL)
+            c = pickedBloc[selectedBloc]->getChunk();
+        
+        if(c!= NULL){
+            
+        if(selectedFace == 2){
+            bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY+1,pickedBloc[selectedBloc]->positionZ);
+            
+            if(nBloc != NULL){
+            *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY+1, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+            nBloc->setChunk(c);
+            }
+            
+        }
+        
+        if(selectedFace == 4){
+                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY-1,pickedBloc[selectedBloc]->positionZ);
+            
+             if(nBloc != NULL){   
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY-1, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+                nBloc->setChunk(c);
+             }
+            
+        }
+        
+        if(selectedFace == 5){
+                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ+1);
+            
+            if(nBloc != NULL){ 
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ+1, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+                nBloc->setChunk(c);
+            }
+            
+        }
+        
+        if(selectedFace == 6){
+                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ-1);
+            
+            if(nBloc != NULL){
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ-1, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+                nBloc->setChunk(c);
+            }
+            
+        }
+        
+        if(selectedFace == 1){
+                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX-1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
+            
+            if(nBloc != NULL){
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX-1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+                nBloc->setChunk(c);
+            }
+            
+        }
+        
+        if(selectedFace == 3){
+                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX+1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
+            if(nBloc != NULL){
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX+1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+            
+                nBloc->setChunk(c);
+            }
+            
+        }
+        }else{
+            cout << "don't know chunk of this bloc ..." << endl;
+        }
+        cout << selectedFace << endl;
     }
     
     if(mouseLeftClicked){
         
-        chunk* tmpChk = selectedChunk; //to remove thread problems
-        int tmpSlct = selectedBlock;
-        if(tmpChk == NULL)
-            return;
-        
-        vector<bloc>* listBloc = &tmpChk->listBloc;
         
         
         
-        long int indexX = (((int)tmpSlct))/4096;
-        long int indexZ = (((int)tmpSlct-indexX*4096))/256;
-        long int indexY = (((int)tmpSlct-indexX*4096-indexZ*256))/1;
-        
-        
-        bloc* blc = tmpChk->getBloc(indexX, indexY, indexZ);
-        
-        
-        //to be sure that it's the right chunk
-        if(fabs(indexX+tmpChk->positionX)-fabs(player.positionX) > (float)visibilitySelect/2.0 ||
-           fabs(indexZ+tmpChk->positionY)-fabs(player.positionZ) > (float)visibilitySelect/2.0 ||
-           !blc->initialized){
-                       return;
-        }
-        
-        
-        unsigned int size = (unsigned int)listBloc->size();
-        
-        *blc = air(0, indexX, indexY, indexZ, 0.0);
+        bloc* blc = pickedBloc[selectedBloc];
         
         
         
+        
+        
+        
+        *blc = air(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
+        
+        
+        /*
         //set visible around bloc
-        if(indexX < 256 && tmpSlct+1<size)
+        if(blc->positionX < 256 && tmpSlct+1<size)
             listBloc->at(tmpSlct+1).visible = true;
-        if(indexY > 0 && tmpSlct>0 && tmpSlct-1<size)
+        if(blc->positionY > 0 && tmpSlct>0 && tmpSlct-1<size)
             listBloc->at(tmpSlct-1).visible = true;
         
-        if(indexZ < 15 && tmpSlct+256<size)
+        if(blc->positionZ < 15 && tmpSlct+256<size)
             listBloc->at(tmpSlct+256).visible = true;
-        if(indexZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
+        if(blc->positionZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
             listBloc->at(tmpSlct-256).visible = true;
         
         if(indexX < 15 && tmpSlct+4096<size)
             listBloc->at(tmpSlct+4096).visible = true;
         
         if(indexX > 0 && tmpSlct-4096>0 && tmpSlct-4096<size)
-            listBloc->at(tmpSlct-4096).visible = true;
+            listBloc->at(tmpSlct-4096).visible = true; */
         
     }
     
@@ -151,7 +209,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     futurY = (player.positionY-(0.001*gravity));
     
     
-    bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
+    bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
         player.positionY = futurY;
@@ -206,7 +264,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if( key[' '] && player.jump==0){
         futurY = player.positionY-0.1;
-        bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
         if(col[1]){
           player.jump+=1.0; //to start log at 1
         }
@@ -217,7 +275,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         player.jumped += 0.008*log(player.jump) -(0.001*gravity);
         
         futurY = player.positionY + 0.008*log(player.jump);
-        bool* col = collision::detectCollisions(aMap, &player, futurX, futurY, futurZ);
+        bool* col = collision::detectCollisions(aField, &player, player.positionX, futurY, player.positionZ);
         if(!col[1]){
             player.positionY = futurY;
             player.fall -=  0.008*log(player.jump);
@@ -255,8 +313,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
 
 
 
-void engine::loadMap(string fileName){
-    aMap = new map("nothing yep");
+void engine::loadfield(string fileName){
+    aField = new field("nothing yep");
 }
 
 

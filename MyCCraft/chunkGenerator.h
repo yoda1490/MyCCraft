@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "chunk.h"
+#include "Base.h"
 
 class chunkGenerator{
 public:

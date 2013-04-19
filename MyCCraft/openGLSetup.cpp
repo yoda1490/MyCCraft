@@ -67,9 +67,10 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         
         
         if(button == 0){
-            int id = currentInstance->pickFunction(x, y);
-            currentInstance->eng->selectedBlock = id;
+            
             if (state == GLUT_DOWN){
+                int id = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBloc = id;
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
                 currentInstance->eng->mouseLeftClicked = false;
@@ -77,6 +78,11 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         }
         if(button == 2){
             if (state == GLUT_DOWN){
+                int id = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBloc = id;
+                
+                int idFace = currentInstance->pickFunction(x, y, true);
+                if(idFace >0 && idFace <= 6) currentInstance->eng->selectedFace = idFace;
                 currentInstance->eng->mouseRightClicked = true;
             }else{
                 currentInstance->eng->mouseRightClicked = false;
@@ -93,7 +99,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
     void OpenGLSetup::setupMouseActiveMotion(int x, int y) {
         int id = currentInstance->pickFunction(x, y);
-        currentInstance->eng->selectedBlock = id;
+        currentInstance->eng->selectedBloc = id;
         currentInstance->eng->mouseX = x;
         currentInstance->eng->mouseY = y;
     }
@@ -232,14 +238,15 @@ void OpenGLSetup::initKeyboardInput(void)
 
 
 // The mouse callback routine.
-unsigned int OpenGLSetup::pickFunction(int x, int y)
+unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
 {
     int viewport[4]; // Viewport data.
     
     
     glGetIntegerv(GL_VIEWPORT, viewport); // Get viewport data.
     
-    glSelectBuffer(1024, bufferPick); // Specify buffer to write hit records in selection mode
+    unsigned int bufferPick[300000]; // Hit buffer.
+    glSelectBuffer(300000, bufferPick); // Specify buffer to write hit records in selection mode
     (void) glRenderMode(GL_SELECT); // Enter selection mode.
     
     // Save the viewing volume defined in the resize routine.
@@ -260,7 +267,13 @@ unsigned int OpenGLSetup::pickFunction(int x, int y)
     
     // Determine hits by calling  so that names are assigned.
     eng->isSelecting = true;
-    theScene->drawScene();
+    
+    if(!face)
+        theScene->drawScene();
+    else{
+        theScene->drawScene(eng->pickedBloc[eng->selectedBloc]);
+        }
+        
     eng->isSelecting = false;
     hits = glRenderMode(GL_RENDER); // Return to rendering mode, returning number of hits.
     

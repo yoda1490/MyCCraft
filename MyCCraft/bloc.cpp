@@ -64,7 +64,7 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     color[3] = colorA;
 }
 
-void bloc::draw(float time){
+void bloc::draw(float time, bool picking){
     if(!visible)
         return;
     glPushMatrix();
@@ -104,6 +104,9 @@ void bloc::draw(float time){
     v[1][2] = v[2][2] = v[5][2] = v[6][2] = sizeDrawed / 2;
     
     for (i = 5; i >= 0; i--) {
+        if(picking){
+            glLoadName(i+1);
+        }
         glBegin(GL_QUADS);
         glNormal3fv(&n[i][0]);
         glVertex3fv(&v[faces[i][0]][0]);
@@ -137,8 +140,24 @@ void bloc::light(float time){
     glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
     glMaterialfv(GL_FRONT, GL_SHININESS, matShine);
     glMaterialfv(GL_FRONT, GL_EMISSION, matEmission);
+     
      */
-    float matAmb[] = {color[0], color[1], color[2], color[3]};
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, matAmb);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, matAmb);
+    //float matAmb[] = {color[0], color[1], color[2], color[3]};
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, matAmb);
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matAmb);
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matAmb);
+    
+    
+   glColor3f(color[0], color[1], color[2]);
+}
+
+
+
+void bloc::setChunk(chunk* c){
+    owner = c;
+}
+
+
+chunk* bloc::getChunk(){
+    return owner;
 }

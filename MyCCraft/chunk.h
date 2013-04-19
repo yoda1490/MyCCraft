@@ -20,7 +20,7 @@ using namespace std;
 class chunk{
 public:
     float positionX=0, positionY=0; //should be multiple of 16
-    vector<bloc> listBloc; //65536 blocs
+    vector<class bloc> listBloc; //65536 blocs
     
     
     chunk(const chunk &source); //copy constructor
