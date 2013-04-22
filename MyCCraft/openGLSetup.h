@@ -36,7 +36,13 @@ typedef enum
     NUM_KEY_CODES
 } KeyCode;
 
-
+// Struct of bitmap file.
+struct BitMapFile
+{
+    int sizeX;
+    int sizeY;
+    unsigned char *data;
+};
 
 class OpenGLSetup{
 
@@ -86,6 +92,13 @@ public:
     static void keyboardUp(unsigned char rawKeyCode, int x, int y);
     static void keyboardSpecial(int rawKeyCode, int x, int y);
     static void keyboardSpecialUp(int rawKeyCode, int x, int y);
+    
+    
+    
+    
+    int nbTexture=0;
+    void loadExternalTextures(string path);
+    BitMapFile* getBMPData(string filename);
 };
 
 

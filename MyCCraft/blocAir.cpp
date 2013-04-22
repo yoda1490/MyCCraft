@@ -8,7 +8,7 @@
 
 #include "blocAir.h"
 
-air::air(int idBloc, float x, float y, float z, float orientation):bloc(idBloc, x, y, z, orientation)
+air::air(int idBloc, float x, float y, float z, float orientation):bloc(0, 0.0, 0.0, 0.0, orientation)
 {
     
 }

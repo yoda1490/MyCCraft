@@ -27,6 +27,9 @@ void engine::start()
     
     currentInstance = this;
     
+    centerX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+    centerY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+    
     // Permet d'exécuter le fonction maFonction en parallèle
     pthread_create(&thread, NULL, engine::run, NULL);
 
@@ -48,6 +51,7 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
+    unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
     
     //aField->time+=0.0001;
     if(aField->time>=24.0){
@@ -64,6 +68,9 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         
         if(pickedBloc[selectedBloc]!=NULL)
             c = pickedBloc[selectedBloc]->getChunk();
+        else{
+            cout << "don't know this bloc ..." << endl;
+        }
         
         if(c!= NULL){
             
@@ -134,7 +141,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         }else{
             cout << "don't know chunk of this bloc ..." << endl;
         }
-        cout << selectedFace << endl;
+        
     }
     
     if(mouseLeftClicked){
@@ -144,16 +151,57 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         
         bloc* blc = pickedBloc[selectedBloc];
         
-        
-        
-        
-        
-        
         *blc = air(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
         
         
-        /*
-        //set visible around bloc
+        chunk* orC = blc->getChunk();
+        if(orC != NULL){
+        
+        
+        chunk* aC;
+        bloc*  aB;
+        
+        aC = aField->getNearestChunk(orC->positionX-1, orC->positionY, 2.0)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX-1,  blc->positionY,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+        
+        aC = aField->getNearestChunk(orC->positionX+1, orC->positionY, 2.0)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX+1,  blc->positionY,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+        
+        aC = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+        
+        aC = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+        
+        aC = aField->getNearestChunk(orC->positionX, orC->positionY-1, 0.5)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+        
+        aC = aField->getNearestChunk(orC->positionX, orC->positionY+1, 0.5)->at(0);
+        if(aC!=NULL){
+        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
+        if(aB!=NULL)aB->visible = true;
+        }
+            
+        }
+        
+        
+        
+        /*//set visible around bloc
         if(blc->positionX < 256 && tmpSlct+1<size)
             listBloc->at(tmpSlct+1).visible = true;
         if(blc->positionY > 0 && tmpSlct>0 && tmpSlct-1<size)
@@ -308,6 +356,23 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         godZ-=0.1;
     
     
+       
+    
+    //player.angleVision += 0.0005f * (mouseY - centerY) *player.vitesse;
+    
+    //player.angleVision = fmod(player.angleVision, (2.0*3.14));
+    //CameraAngle.y = -1.0f * (x - centerX);
+    if(centerMouse == maxCenterMouse){
+        centerMouse = 0;
+        //glutWarpPointer(centerX, centerY);
+    }else{
+        centerMouse++;
+    }
+    
+    
+    while(glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
+        sleep(1.0/60.0);
+    }
 
 }
 

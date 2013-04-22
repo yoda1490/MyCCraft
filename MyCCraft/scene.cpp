@@ -101,41 +101,40 @@ void scene::drawScene(bloc* detectFace){
     if(detectFace!=NULL){
         if(detectFace->getChunk() != NULL){
             glPushMatrix();
-                glTranslatef(detectFace->getChunk()->positionX, 0.0, detectFace->getChunk()->positionY);
-                detectFace->draw(0.0, true);
+            glTranslatef(detectFace->getChunk()->positionX, 0.0, detectFace->getChunk()->positionY);
+            detectFace->draw(0.0, true);
             glPopMatrix();
         }
     }else{
         glPushMatrix();
-            for(int cpt=0; cpt<listC->size(); cpt++){
-                glPushMatrix();
-                glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
+        for(int cpt=0; cpt<listC->size(); cpt++){
+            glPushMatrix();
+            glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
             
-                vector<bloc>* listB = &(listC->at(cpt)->listBloc);
+            vector<bloc>* listB = (listC->at(cpt)->getListBloc());
             
             
-                for(i=0;i< listB->size();i++){
-                    if(eng->isSelecting){
-                        eng->pickedBloc[i+cpt] = &listB->at(i);
-                        glLoadName(i+cpt);
-                    }
-                    try{
-                    listB->at(i).draw(eng->aField->time);
-                    }catch(exception e){
-                        cout << "Error ..." << endl;
-                    }
+            for(i=0;i< listB->size();i++){
+                if(eng->isSelecting){
+                    eng->pickedBloc[i+cpt] = &listB->at(i);
+                    glLoadName(i+cpt);
                 }
-                glPopMatrix();
+                try{
+                    if(listB->at(i).getChunk() == NULL)  listB->at(i).setChunk(listC->at(cpt));
+                    listB->at(i).draw(eng->aField->time);
+                }catch(exception e){
+                    cout << "Error ..." << endl;
+                }
             }
+            glPopMatrix();
+        }
         glPopMatrix();
     }
     
     glutSwapBuffers();
     
     
-    while(glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/eng->fps)*1000 )){
-        sleep(1.0/60.0);
-    }
+    
     
     
     
@@ -151,7 +150,7 @@ void scene::lighting(void) {
     
     
     // Light property vectors.
-    float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
+    //float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
     float lightDifAndSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat globAmb[] = {
         static_cast<GLfloat>(0.4*sin(2*3.14*(1.0/24.0)*eng->aField->time-3.14/2)+0.6),
@@ -191,7 +190,7 @@ void scene::lighting(void) {
     glEnable(GL_LIGHTING);
     
     GLfloat diffuse[] = {0.8f,0.8f,0.8f,0.8f};
-    GLfloat specular[] = {0.8f,0.8f,0.8f,0.8f};
+    //GLfloat specular[] = {0.8f,0.8f,0.8f,0.8f};
     GLfloat specular_reflexion[] = {0.0f,0.0f,0.0f,0.0f};
     GLubyte shiny_obj = 128;
     

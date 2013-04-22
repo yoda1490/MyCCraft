@@ -10,7 +10,9 @@
 
 
 static OpenGLSetup* currentInstance;
-    
+
+
+
 
 OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHeight, engine* engine){
     windowName = aWindowName;
@@ -18,6 +20,8 @@ OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHei
     width = aWidth;
     height = aHeight;
     eng = engine;
+    
+    
 }
 
 void OpenGLSetup::drawSceneCallback(){
@@ -55,8 +59,10 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glutMotionFunc(setupMouseActiveMotion);
         glutPassiveMotionFunc(setupMousePassiveMotion);
     
-        eng->contextInitialized = true;
+        
     
+        eng->contextInitialized = true;
+        loadExternalTextures("/Users/WaWa-YoDa/polytech/AIT/OpenGL/MyCCraft/MyCCraft/textures/herb.bmp");
         glutMainLoop();
     }
     
@@ -65,22 +71,22 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         
         
         
+        int id = currentInstance->pickFunction(x, y);
+        currentInstance->eng->selectedBloc = id;
+        
         
         if(button == 0){
             
             if (state == GLUT_DOWN){
-                int id = currentInstance->pickFunction(x, y);
-                currentInstance->eng->selectedBloc = id;
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
                 currentInstance->eng->mouseLeftClicked = false;
             }
         }
         if(button == 2){
+             
+            
             if (state == GLUT_DOWN){
-                int id = currentInstance->pickFunction(x, y);
-                currentInstance->eng->selectedBloc = id;
-                
                 int idFace = currentInstance->pickFunction(x, y, true);
                 if(idFace >0 && idFace <= 6) currentInstance->eng->selectedFace = idFace;
                 currentInstance->eng->mouseRightClicked = true;
@@ -110,6 +116,9 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         currentInstance->eng->mouseRightClicked = false;
         currentInstance->eng->mouseX = x;
         currentInstance->eng->mouseY = y;
+        
+        
+        
     }
 
     void OpenGLSetup::setupSpecialKeyBoard(int key, int x, int y){
@@ -128,6 +137,8 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glLoadIdentity();
         gluPerspective(60.0, (float)w/(float)h, 0.01, 100.0);
         glMatrixMode(GL_MODELVIEW);
+        currentInstance->eng->centerX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+        currentInstance->eng->centerY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
     }
 
 void OpenGLSetup::printInteraction(){
@@ -313,4 +324,86 @@ unsigned int OpenGLSetup::findClosestHit(int hits, unsigned int buffer[])
     //if (closestName != 0) highlightFrames = 10;
     //cout <<  closestName << endl;
     return closestName;
+}
+
+
+
+// Routine to read a bitmap file.
+// Works only for uncompressed bmp files of 24-bit color.
+BitMapFile* OpenGLSetup::getBMPData(string filename)
+{
+    BitMapFile* bmp = new BitMapFile;
+    unsigned int size, offset, headerSize;
+    
+    // Read input file name.
+    ifstream infile(filename.c_str(), ios::binary);
+    
+    // Get the starting point of the image data.
+    infile.seekg(10);
+    infile.read((char *) &offset, 4);
+    
+    // Get the header size of the bitmap.
+    infile.read((char *) &headerSize,4);
+    
+    // Get width and height values in the bitmap header.
+    infile.seekg(18);
+    infile.read( (char *) &bmp->sizeX, 4);
+    infile.read( (char *) &bmp->sizeY, 4);
+    
+    // Allocate buffer for the image.
+    size = bmp->sizeX * bmp->sizeY * 24;
+    bmp->data = new unsigned char[size];
+    
+    // Read bitmap data.
+    infile.seekg(offset);
+    infile.read((char *) bmp->data , size);
+    
+    // Reverse color from bgr to rgb.
+    int temp;
+    
+    for (int i = 0; i < size; i += 3)
+    {
+        temp = bmp->data[i];
+        bmp->data[i] = bmp->data[i+2];
+        bmp->data[i+2] = temp;
+    }
+    
+    return bmp;
+}
+
+// Load external textures.
+void OpenGLSetup::loadExternalTextures(string path)
+{
+    // Local storage for bmp image data.
+    BitMapFile *image[1];
+    
+    // Load the texture.
+    image[0] = getBMPData(path);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(1, &bloc::texture);
+    // Activate texture index texture[0].
+    glBindTexture(GL_TEXTURE_2D, bloc::texture);
+    
+    nbTexture++;
+    
+    /*gluBuild2DMipmaps(GL_TEXTURE_2D, 4, 512,
+                      512, GL_RGBA,GL_UNSIGNED_BYTE,
+                      image[0]);*/
+    
+    
+    
+    // Set texture parameters for wrapping.
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    
+    // Set texture parameters for filtering.
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    
+    
+    
+    // Specify an image as the texture to be bound with the currently active texture index.
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image[0]->sizeX, image[0]->sizeY, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, image[0]->data);
+     
 }

@@ -54,6 +54,7 @@ class engine{
     
 public:
     
+    
     int fps = 60;
     
     int visibility = 30; //the visibility of the player
@@ -90,6 +91,11 @@ public:
     map<int, bloc*> pickedBloc;
     int selectedFace=0;
     
+    int centerX = 400;
+    int centerY = 300;
+    
+    int centerMouse=0;
+    const int maxCenterMouse = 200;
     
 
      

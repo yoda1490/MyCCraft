@@ -8,6 +8,7 @@
 
 #include "bloc.h"
 
+GLuint bloc::texture;
 
 //copy constructor
 bloc::bloc(const bloc &source){
@@ -31,11 +32,25 @@ bloc::bloc(const bloc &source){
     visible = source.visible;
     
     initialized = source.initialized;
+    
+    idBloc = source.idBloc;
 
 }
 
-bloc::bloc(int idBloc, float x, float y, float z, float orientation){
+bloc::bloc(int idB, float x, float y, float z, float orientation){
     initialized = true;
+    idBloc = idB;
+    size = 1.0;
+    positionX = x;
+    positionY = y;
+    positionZ = z;
+    orient = orientation;
+    color[0] = 1.0;
+    color[1] = 1.0;
+    color[2] = 1.0;
+    color[3] = 1.0;
+
+    
 }
 
 bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize){
@@ -65,12 +80,12 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
 }
 
 void bloc::draw(float time, bool picking){
-    if(!visible)
+    if(!visible || idBloc == 0)
         return;
     glPushMatrix();
     light(time);
     glTranslatef(positionX,positionY,positionZ);
-    glRotatef(orient, 0.0, 1.0, 0.0);
+    //glRotatef(orient, 0.0, 1.0, 0.0); --> awfull to detect face if bloc can have orientation
     
     float sizeDrawed = size;
     
@@ -103,18 +118,28 @@ void bloc::draw(float time, bool picking){
     v[0][2] = v[3][2] = v[4][2] = v[7][2] = -sizeDrawed / 2;
     v[1][2] = v[2][2] = v[5][2] = v[6][2] = sizeDrawed / 2;
     
+    if(idBloc>0){
+        // Enable texturing and filled polygon mode.
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
+    }
+    
+
     for (i = 5; i >= 0; i--) {
         if(picking){
             glLoadName(i+1);
         }
         glBegin(GL_QUADS);
         glNormal3fv(&n[i][0]);
-        glVertex3fv(&v[faces[i][0]][0]);
-        glVertex3fv(&v[faces[i][1]][0]);
-        glVertex3fv(&v[faces[i][2]][0]);
-        glVertex3fv(&v[faces[i][3]][0]);
+        glTexCoord2f(0.0, 0.25); glVertex3fv(&v[faces[i][0]][0]);
+        glTexCoord2f(0.0, 0.0); glVertex3fv(&v[faces[i][1]][0]);
+        glTexCoord2f(0.25, 0.0); glVertex3fv(&v[faces[i][2]][0]);
+        glTexCoord2f(0.25, 0.25); glVertex3fv(&v[faces[i][3]][0]);
         glEnd();
     }
+    
+    if(idBloc>0) glDisable(GL_TEXTURE_2D);
+    
     
     glPopMatrix();
 }
@@ -155,9 +180,14 @@ void bloc::light(float time){
 
 void bloc::setChunk(chunk* c){
     owner = c;
+    
 }
 
 
 chunk* bloc::getChunk(){
     return owner;
 }
+
+
+
+

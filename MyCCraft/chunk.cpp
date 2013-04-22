@@ -45,8 +45,9 @@ void chunk::setBloc(bloc* aBloc){
     long int indexZ = (((int)aBloc->positionZ))*256;
     
     long int index =  indexX+indexY+indexZ;
+    aBloc->setChunk(this);
     listBloc.at(index) = *aBloc;
-    listBloc.at(index).setChunk(this);
+    
     
 }
 
@@ -57,9 +58,16 @@ bloc* chunk::getBloc(float x,float y,float z){
     long int indexZ = (z)*256;
     
     long int index =  indexX+indexY+indexZ;
-    if(index>=0 && index<listBloc.size())
+    if(index>=0 && index<listBloc.size()){
+        if(listBloc.at(index).getChunk() == NULL)
+            listBloc.at(index).setChunk(this);
         return &(listBloc.at(index));
+    }
     else
         return NULL;
     
+}
+
+vector<bloc>* chunk::getListBloc(){
+    return  &listBloc;
 }

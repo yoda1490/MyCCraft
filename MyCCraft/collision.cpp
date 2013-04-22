@@ -73,7 +73,7 @@ bool* collision::detectCollisions(field* afield, perso* aPerso, float futurX, fl
         float x = aPerso->positionX - listChunk->at(cpt)->positionX - afield->aRegion.positionX;
         float z = aPerso->positionZ - listChunk->at(cpt)->positionY - afield->aRegion.positionY;
                 
-        bool * colTmp = detectCollisions(&(listChunk->at(cpt)->listBloc), aPerso, x, aPerso->positionY, z, xf, futurY, zf);
+        bool * colTmp = detectCollisions(listChunk->at(cpt)->getListBloc(), aPerso, x, aPerso->positionY, z, xf, futurY, zf);
         
         if(colTmp[0]){
             col[0] = true;

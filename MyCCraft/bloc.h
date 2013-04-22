@@ -12,17 +12,23 @@
 #include <iostream>
 #include "string"
 #include <cmath>
+#include <fstream>
 
 class chunk;
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
+#  include <OpenGL/glext.h>
 #else
 #  include <GL/glut.h>
+#  include <GL/glext.h>
 #endif
 
 
+
+
 using namespace std;
+
 
 class bloc{
     
@@ -46,16 +52,27 @@ public:
     
     bool visible = true;
     
+    int idBloc = -1;
+    
     
     bloc(const bloc &source); //copy constructor
-    bloc(int idBloc, float x, float y, float z, float orientation);
+    bloc(int idB, float x, float y, float z, float orientation);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA);
     bloc(float x, float y, float z,float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize);
-    void draw(float time=0, bool picking=false);
+    virtual void draw(float time=0, bool picking=false);
     void light(float time=0);
     void setChunk(chunk* c);
     chunk* getChunk();
+    float texturePoints[2][2][2] =
+     {
+     {{0.0, 0.0}, {0.0, 1.0}},
+     {{1.0, 0.0}, {1, 1.0}}
+     };
     
+    static GLuint texture;
+    
+    
+
     
 };
 

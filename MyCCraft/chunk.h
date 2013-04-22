@@ -18,9 +18,11 @@ using namespace std;
 //define a list of 16x16x256 bloc
 
 class chunk{
+private:
+    vector<class bloc> listBloc; //65536 blocs
 public:
     float positionX=0, positionY=0; //should be multiple of 16
-    vector<class bloc> listBloc; //65536 blocs
+    
     
     
     chunk(const chunk &source); //copy constructor
@@ -31,7 +33,9 @@ public:
     bloc* getBloc(float x,float y,float z);
 
     
-    float * highestPos(float x, float y); //return the highest position of a solid bloc in x, y
+    float * highestPos(float x, float z); //return the highest position of a solid bloc in x, y
+    
+    vector<bloc>* getListBloc();
     
 };
 

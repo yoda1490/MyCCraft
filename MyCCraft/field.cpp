@@ -118,4 +118,7 @@ void* field::generate(void *){
     currentInstance->generating = false;
     }
     
+    
+    return NULL;
+    
 }

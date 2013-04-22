@@ -21,7 +21,7 @@ chunk* Base::generate(float x, float y){
             for(int y=0; y< 256; y++){
                 bloc* aBloc;
                 if(y<height){
-                    aBloc = new bloc(x, y, z, 0.0, 0.2, 0.6, 0.2, 1.0);
+                    aBloc = new bloc(1, x, y, z, 1.0);
                 }else{
                     aBloc = new air(0, x, y, z, 0.0);
                     aBloc->visible = false;
@@ -37,22 +37,7 @@ chunk* Base::generate(float x, float y){
     aChunk->setBlocs(&listBloc);
     
     
-    for(int cpt=0; cpt<10; cpt++){
-        aChunk->setBloc(new bloc(13.0, height+cpt, 15.0-cpt, 90.0, 0.6, 0.2, (float)cpt/10.0, 1.0));
-        aChunk->setBloc(new bloc(14.0, height+cpt, 15.0-cpt, 90.0, 0.6, 0.2, (float)cpt/10.0, 1.0));
-        aChunk->setBloc(new bloc(15.0, height+cpt, 15.0-cpt, 90.0, 0.6, 0.2, (float)cpt/10.0, 1.0));
-    }
     
-    
-    for(int cpt=0; cpt < 10; cpt++){
-        aChunk->setBloc(new bloc(cpt+5.0, height, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height+1, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height+2, 0.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height+2, 1.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height+2, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height+1, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-        aChunk->setBloc(new bloc(cpt+5.0, height, 2.0, 0.0, 0.6, (float)cpt/10.0, 0.2, 1.0, 1.0));
-    }
     
     
     return aChunk;

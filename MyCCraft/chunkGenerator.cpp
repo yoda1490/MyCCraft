@@ -13,6 +13,23 @@
 
 chunk chunkGenerator::generate(string seed, float x, float y){
     
-    return *Base::generate(x, y);
+    int nbType = 3;
+    
+    int type =  rand() % nbType;
+    
+    switch (type)
+    {
+        case 0: {
+            return *Base::generate(x, y);
+        }
+        case 1: {
+            return *Fun::generate(x, y);
+        }
+        case 2: {
+            return *Mountain::generate(x, y);
+        }
+    }
+    
+    return *Base::generate(x, y); //just in case of an problem
     
 }
