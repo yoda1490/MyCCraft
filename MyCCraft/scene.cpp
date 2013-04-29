@@ -96,7 +96,12 @@ void scene::drawScene(bloc* detectFace){
     if(eng->isSelecting){
         radius=eng->visibilitySelect;
     }
-    vector<chunk*>* listC =  eng->aField->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
+    vector<chunk*>* listC;
+    if(eng->isSelecting){
+        listC =  eng->aField->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
+    }else{
+        listC =  eng->aField->getNearestFrontChunk(eng->player.positionX, eng->player.positionZ, eng->player.angleVision, radius);
+    }
     
     if(detectFace!=NULL){
         if(detectFace->getChunk() != NULL){

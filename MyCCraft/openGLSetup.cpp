@@ -57,7 +57,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glutSpecialUpFunc(keyboardSpecialUp);
         glutMouseFunc(setupMouse);
         glutMotionFunc(setupMouseActiveMotion);
-        glutPassiveMotionFunc(setupMousePassiveMotion);
+        //glutPassiveMotionFunc(setupMousePassiveMotion);
     
         
     

@@ -16,10 +16,13 @@
 		141F73AC1703602300BB26F2 /* openGLSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AA1703602300BB26F2 /* openGLSetup.cpp */; };
 		141F73AF1703649600BB26F2 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73AD1703649600BB26F2 /* scene.cpp */; };
 		141F73B51703854200BB26F2 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 141F73B31703854200BB26F2 /* engine.cpp */; };
+		1446B2DF1721704F003A9F5A /* Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1446B2DD1721704F003A9F5A /* Base.cpp */; };
+		1446B2E2172173D3003A9F5A /* Fun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1446B2E0172173D3003A9F5A /* Fun.cpp */; };
 		144C8DE61711D2AD00A20C04 /* chunkGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */; };
 		145E9693170EE57C00F9CDBA /* region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9691170EE57C00F9CDBA /* region.cpp */; };
 		145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9694170EE5EE00F9CDBA /* chunk.cpp */; };
-		145E9699170EE9A700F9CDBA /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9697170EE9A700F9CDBA /* map.cpp */; };
+		145E9699170EE9A700F9CDBA /* field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9697170EE9A700F9CDBA /* field.cpp */; };
+		1490BB7A17251A3300A68915 /* Mountain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1490BB7817251A3300A68915 /* Mountain.cpp */; };
 		149CF502170444CD004C8F3D /* bloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF500170444CD004C8F3D /* bloc.cpp */; };
 		149CF50517045175004C8F3D /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF50317045175004C8F3D /* object.cpp */; };
 /* End PBXBuildFile section */
@@ -53,14 +56,19 @@
 		141F73AE1703649600BB26F2 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		141F73B31703854200BB26F2 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		141F73B41703854200BB26F2 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		1446B2DD1721704F003A9F5A /* Base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base.cpp; sourceTree = "<group>"; };
+		1446B2DE1721704F003A9F5A /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
+		1446B2E0172173D3003A9F5A /* Fun.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fun.cpp; sourceTree = "<group>"; };
 		144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunkGenerator.cpp; sourceTree = "<group>"; };
 		144C8DE51711D2AD00A20C04 /* chunkGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chunkGenerator.h; sourceTree = "<group>"; };
 		145E9691170EE57C00F9CDBA /* region.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region.cpp; sourceTree = "<group>"; };
 		145E9692170EE57C00F9CDBA /* region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region.h; sourceTree = "<group>"; };
 		145E9694170EE5EE00F9CDBA /* chunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunk.cpp; sourceTree = "<group>"; };
 		145E9695170EE5EE00F9CDBA /* chunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
-		145E9697170EE9A700F9CDBA /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
-		145E9698170EE9A700F9CDBA /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		145E9697170EE9A700F9CDBA /* field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = field.cpp; sourceTree = "<group>"; };
+		145E9698170EE9A700F9CDBA /* field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = field.h; sourceTree = "<group>"; };
+		148D2DC017259BB400E0ADD6 /* herb.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = herb.bmp; sourceTree = "<group>"; };
+		1490BB7817251A3300A68915 /* Mountain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mountain.cpp; sourceTree = "<group>"; };
 		149CF500170444CD004C8F3D /* bloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bloc.cpp; sourceTree = "<group>"; };
 		149CF501170444CD004C8F3D /* bloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bloc.h; sourceTree = "<group>"; };
 		149CF50317045175004C8F3D /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = object.cpp; sourceTree = "<group>"; };
@@ -83,6 +91,7 @@
 		141F738C17035C5C00BB26F2 = {
 			isa = PBXGroup;
 			children = (
+				148D2DBF17259BB400E0ADD6 /* textures */,
 				141F73A817035EC000BB26F2 /* OpenGL.framework */,
 				141F73A117035D2700BB26F2 /* GLUT.framework */,
 				141F739717035C5C00BB26F2 /* MyCCraft */,
@@ -119,6 +128,17 @@
 			path = MyCCraft;
 			sourceTree = "<group>";
 		};
+		1446B2DC17217001003A9F5A /* area */ = {
+			isa = PBXGroup;
+			children = (
+				1446B2DD1721704F003A9F5A /* Base.cpp */,
+				1446B2DE1721704F003A9F5A /* Base.h */,
+				1446B2E0172173D3003A9F5A /* Fun.cpp */,
+				1490BB7817251A3300A68915 /* Mountain.cpp */,
+			);
+			name = area;
+			sourceTree = "<group>";
+		};
 		145E968E170EE52E00F9CDBA /* Bloc */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,12 +153,13 @@
 		145E968F170EE54700F9CDBA /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				1446B2DC17217001003A9F5A /* area */,
 				145E9691170EE57C00F9CDBA /* region.cpp */,
 				145E9692170EE57C00F9CDBA /* region.h */,
 				145E9694170EE5EE00F9CDBA /* chunk.cpp */,
 				145E9695170EE5EE00F9CDBA /* chunk.h */,
-				145E9697170EE9A700F9CDBA /* map.cpp */,
-				145E9698170EE9A700F9CDBA /* map.h */,
+				145E9697170EE9A700F9CDBA /* field.cpp */,
+				145E9698170EE9A700F9CDBA /* field.h */,
 				144C8DE41711D2AD00A20C04 /* chunkGenerator.cpp */,
 				144C8DE51711D2AD00A20C04 /* chunkGenerator.h */,
 			);
@@ -152,6 +173,15 @@
 				149CF50417045175004C8F3D /* object.h */,
 			);
 			name = Object;
+			sourceTree = "<group>";
+		};
+		148D2DBF17259BB400E0ADD6 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				148D2DC017259BB400E0ADD6 /* herb.bmp */,
+			);
+			name = textures;
+			path = MyCCraft/textures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,8 +246,11 @@
 				141720AE170DC9A800F11F18 /* blocAir.cpp in Sources */,
 				145E9693170EE57C00F9CDBA /* region.cpp in Sources */,
 				145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */,
-				145E9699170EE9A700F9CDBA /* map.cpp in Sources */,
+				145E9699170EE9A700F9CDBA /* field.cpp in Sources */,
 				144C8DE61711D2AD00A20C04 /* chunkGenerator.cpp in Sources */,
+				1446B2DF1721704F003A9F5A /* Base.cpp in Sources */,
+				1446B2E2172173D3003A9F5A /* Fun.cpp in Sources */,
+				1490BB7A17251A3300A68915 /* Mountain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

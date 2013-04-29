@@ -45,6 +45,7 @@ public:
     region * getNearestRegion(float x, float y, float radius);
     //return a list nearest chunks in a radius around the player
     vector<chunk*>* getNearestChunk(float x, float y, float radius);
+    vector<chunk*>* getNearestFrontChunk(float x, float y, float angleVision, float radius); //only chunk behind the player
     
     static void* generate(void *); //launch a thread to generate missing chunk
     

@@ -21,7 +21,7 @@ bloc::bloc(const bloc &source){
     positionX = source.positionX;
     positionY = source.positionY;
     positionZ = source.positionZ;
-    orient = source.orient;
+    orient = 0.0;
     size = source.size;
     color[0] = source.color[0];
     color[1] = source.color[1];
@@ -34,6 +34,8 @@ bloc::bloc(const bloc &source){
     initialized = source.initialized;
     
     idBloc = source.idBloc;
+    
+    owner = source.owner;
 
 }
 
@@ -44,7 +46,7 @@ bloc::bloc(int idB, float x, float y, float z, float orientation){
     positionX = x;
     positionY = y;
     positionZ = z;
-    orient = orientation;
+    orient = 0.0;
     color[0] = 1.0;
     color[1] = 1.0;
     color[2] = 1.0;
@@ -59,7 +61,7 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     positionX = x;
     positionY = y;
     positionZ = z;
-    orient = orientation;
+    orient = 0.0;
     color[0] = colorX;
     color[1] = colorY;
     color[2] = colorZ;
@@ -72,7 +74,7 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
     positionX = x;
     positionY = y;
     positionZ = z;
-    orient = orientation;
+    orient = 0.0;
     color[0] = colorX;
     color[1] = colorY;
     color[2] = colorZ;
@@ -125,7 +127,7 @@ void bloc::draw(float time, bool picking){
     }
     
 
-    for (i = 5; i >= 0; i--) {
+    for (i = 5; i >= 0; i-=2) {
         if(picking){
             glLoadName(i+1);
         }

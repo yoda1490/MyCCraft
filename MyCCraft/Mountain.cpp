@@ -30,7 +30,7 @@ public:
                         aBloc = new air(0, x, y, z, 0.0);
                         aBloc->visible = false;
                     }
-                    if(y<height-1 && x!=0 && x!=15 && z!=0 && z!=15)
+                    if(y<height-1)
                         aBloc->visible = false;
                     listBloc.push_back(*aBloc);
                 }

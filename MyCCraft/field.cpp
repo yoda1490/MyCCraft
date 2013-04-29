@@ -103,6 +103,13 @@ vector<chunk*>* field::getNearestChunk(float x, float y, float radius){
     return nearestChunk;
 }
 
+
+vector<chunk*>* field::getNearestFrontChunk(float x, float y, float angleVision, float radius){
+    float newX = x + (radius/2.0)*cos(angleVision) ;
+    float newZ = y + (radius/2.0)*sin(angleVision) ;
+    return getNearestChunk(newX, newZ, radius/2.0);
+}
+
 void* field::generate(void *){
     if(!currentInstance->generating){
     currentInstance->generating = true;

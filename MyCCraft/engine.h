@@ -57,8 +57,8 @@ public:
     
     int fps = 60;
     
-    int visibility = 30; //the visibility of the player
-    int visibilitySelect = 15;
+    int visibility = 32; //the visibility of the player
+    int visibilitySelect = 16;
     
     perso player;
     float futurX=0, futurY=0, futurZ=0;
@@ -83,6 +83,10 @@ public:
     bool mouseRightClicked = false;
     int  mouseX=0;
     int  mouseY=0;
+    unsigned int lastLeftClic = 0;
+    unsigned int lastRightClic = 0;
+    unsigned int reloadTime = 250;
+    
     
     bool isSelecting = false; //selection picking mode
     

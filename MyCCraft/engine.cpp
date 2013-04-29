@@ -63,6 +63,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(mouseRightClicked){
+        lastRightClic = glutGet(GLUT_ELAPSED_TIME);
         
         chunk* c = NULL;
         
@@ -146,59 +147,80 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if(mouseLeftClicked){
         
-        
-        
-        
         bloc* blc = pickedBloc[selectedBloc];
         
-        *blc = air(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
         
         
-        chunk* orC = blc->getChunk();
-        if(orC != NULL){
-        
-        
-        chunk* aC;
-        bloc*  aB;
-        
-        aC = aField->getNearestChunk(orC->positionX-1, orC->positionY, 2.0)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX-1,  blc->positionY,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
-        
-        aC = aField->getNearestChunk(orC->positionX+1, orC->positionY, 2.0)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX+1,  blc->positionY,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
-        
-        aC = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
-        
-        aC = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
-        
-        aC = aField->getNearestChunk(orC->positionX, orC->positionY-1, 0.5)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
-        
-        aC = aField->getNearestChunk(orC->positionX, orC->positionY+1, 0.5)->at(0);
-        if(aC!=NULL){
-        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
-        if(aB!=NULL)aB->visible = true;
-        }
+        if(blc != NULL){
+            
+            
+            chunk* orC = blc->getChunk();
+            
+            
+            
+            if(orC != NULL){
+                vector<chunk*>* aL;
+                chunk* aC;
+                bloc*  aB;
+                
+                aL = aField->getNearestChunk(orC->positionX-1, orC->positionY, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX-1,  blc->positionY,  blc->positionZ);
+                        if(aB!=NULL) aB->visible = true;
+                    }
+                }
+                
+                aL = aField->getNearestChunk(orC->positionX+1, orC->positionY, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX+1,  blc->positionY,  blc->positionZ);
+                        if(aB!=NULL)aB->visible = true;
+                    }
+                }
+                
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
+                        if(aB!=NULL)aB->visible = true;
+                    }
+                }
+                
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
+                        if(aB!=NULL)aB->visible = true;
+                    }
+                }
+                
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY-1, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
+                        if(aB!=NULL)aB->visible = true;
+                    }
+                }
+                
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY+1, 2.0);
+                for(int cpt=0; cpt< aL->size(); cpt++){
+                    aC = aL->at(cpt);
+                    if(aC!=NULL){
+                        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
+                        if(aB!=NULL)aB->visible = true;
+                    }
+                }
+            }
+            
+            *blc = air(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
             
         }
-        
         
         
         /*//set visible around bloc

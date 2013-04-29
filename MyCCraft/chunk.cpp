@@ -52,7 +52,6 @@ void chunk::setBloc(bloc* aBloc){
 }
 
 bloc* chunk::getBloc(float x,float y,float z){
-    
     long int indexX = (x)*4096;
     long int indexY = (y)*1;
     long int indexZ = (z)*256;

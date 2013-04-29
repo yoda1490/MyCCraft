@@ -40,7 +40,7 @@ public:
     float spec = 0.0; // White specular reflectance.
     float shi = 30.0; // Shininess.
     
-    float positionX=0, positionY=0, positionZ=0;
+    float positionX=-1, positionY=-1, positionZ=-1;
     float orient = 0;
     float size = 1;
     float color[4];
