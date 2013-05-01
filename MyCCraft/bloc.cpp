@@ -175,10 +175,10 @@ void bloc::draw(float time, bool picking){
         }
         glBegin(GL_QUADS);
         glNormal3fv(&n[i][0]);
-        glTexCoord2f(texturePoint[0], texturePoint[2]); glVertex3fv(&v[faces[i][0]][0]);
-        glTexCoord2f(texturePoint[0], texturePoint[3]); glVertex3fv(&v[faces[i][1]][0]);
-        glTexCoord2f(texturePoint[1], texturePoint[3]); glVertex3fv(&v[faces[i][2]][0]);
-        glTexCoord2f(texturePoint[1], texturePoint[2]); glVertex3fv(&v[faces[i][3]][0]);
+        glTexCoord2f(texturePoint[0], texturePoint[3]); glVertex3fv(&v[faces[i][0]][0]);
+        glTexCoord2f(texturePoint[0], texturePoint[2]); glVertex3fv(&v[faces[i][1]][0]);
+        glTexCoord2f(texturePoint[1], texturePoint[2]); glVertex3fv(&v[faces[i][2]][0]);
+        glTexCoord2f(texturePoint[1], texturePoint[3]); glVertex3fv(&v[faces[i][3]][0]);
         glEnd();
     }
     

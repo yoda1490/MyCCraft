@@ -70,7 +70,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 		 #ifdef _WIN32
 			loadExternalTextures("C:\\Users\\WaWa-YoDa\\Desktop\\MyCCraftConsol\\textures\\herb.bmp");
 		#else
-			loadExternalTextures("/Users/WaWa-YoDa/polytech/AIT/OpenGL/MyCCraft/MyCCraft/textures/herb.bmp");
+			loadExternalTextures("./herb.bmp");
         #endif
         cout << "ok" << endl;
 		glutMainLoop();
@@ -160,9 +160,10 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 void OpenGLSetup::printInteraction(){
     cout << "Interraction: " << endl;
 	cout << "\t Arrow up/down/left/right to move" << endl;
-	cout << "\t space to jump " << endl;
-	cout << "\tleft clic on a bloc to remove it" << endl;
-	cout << "\tright clic on a face to put a new bloc at behind" << endl;
+	cout << "\t Press space to jump " << endl;
+	cout << "\t Left clic on a bloc to remove it" << endl;
+	cout << "\t Right clic on a face to put a new bloc at behind" << endl;
+    cout << "\t Press to change bloc to put" << endl;
 }
 
  

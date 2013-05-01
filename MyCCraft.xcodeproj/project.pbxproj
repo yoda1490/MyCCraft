@@ -22,6 +22,7 @@
 		145E9693170EE57C00F9CDBA /* region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9691170EE57C00F9CDBA /* region.cpp */; };
 		145E9696170EE5EE00F9CDBA /* chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9694170EE5EE00F9CDBA /* chunk.cpp */; };
 		145E9699170EE9A700F9CDBA /* field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 145E9697170EE9A700F9CDBA /* field.cpp */; };
+		1473A48C1731A1E800152951 /* herb.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 148D2DC017259BB400E0ADD6 /* herb.bmp */; };
 		1490BB7A17251A3300A68915 /* Mountain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1490BB7817251A3300A68915 /* Mountain.cpp */; };
 		149CF502170444CD004C8F3D /* bloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF500170444CD004C8F3D /* bloc.cpp */; };
 		149CF50517045175004C8F3D /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CF50317045175004C8F3D /* object.cpp */; };
@@ -30,12 +31,13 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		141F739317035C5C00BB26F2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				1473A48C1731A1E800152951 /* herb.bmp in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -319,6 +321,7 @@
 		141F739F17035C5C00BB26F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -326,6 +329,7 @@
 		141F73A017035C5C00BB26F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
