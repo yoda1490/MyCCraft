@@ -31,7 +31,8 @@ int main(int argc, char ** argv)
     
 	cout << "Starting display" << endl;
     session.setupWindow(&argc, argv);
-	cout << "ending" << endl;
+    cout << "ending" << endl;
+
     
     
     

@@ -51,6 +51,7 @@ public:
     bool initialized;
     
     bool visible;
+
     
     int idBloc; //0=air
     

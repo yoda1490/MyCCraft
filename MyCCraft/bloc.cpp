@@ -10,6 +10,7 @@
 
 GLuint bloc::texture;
 
+
 //copy constructor
 bloc::bloc(const bloc &source){
     diff = source.diff; // red and blue diffuse reflectance of the submarine monster

@@ -45,7 +45,7 @@ engine::engine(){
     
 	mouseLeftClicked = false;
     mouseRightClicked = false;
-    
+   
 }
 
 void engine::setSession(class OpenGLSetup *aSession){
@@ -86,6 +86,7 @@ void* engine::run(void*){
     while (currentInstance->state > 0) {
         startTime =  glutGet(GLUT_ELAPSED_TIME);
         currentInstance->perform(currentInstance->session->getKeys(), currentInstance->session->getKeysUp(), currentInstance->session->getKeysDown());
+
         while((unsigned int) glutGet(GLUT_ELAPSED_TIME) < startTime+(1)){
             #ifdef _WIN32
 			Sleep(1);
@@ -434,6 +435,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
 		#else
 		sleep(1.0/60.0);
 		#endif
+
     }
 
 }
