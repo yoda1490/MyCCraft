@@ -14,7 +14,7 @@ static OpenGLSetup* currentInstance;
 
 
 
-OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHeight, engine* engine){
+OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHeight, engine* engine):nbTexture(0){
     windowName = aWindowName;
     theScene = aScene;
     width = aWidth;

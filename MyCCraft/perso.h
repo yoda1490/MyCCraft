@@ -21,42 +21,53 @@
 
 using namespace std;
 
+static float ANGVIS = 3.14f/4.0f, POSITIONX = 0.0f, POSITIONY = 10.5f, POSITIONZ = 0.0f, HEIGHTEYE = 1.6f;
+static string NAME = "Player";
+static float SPEED = 1, LIFE=10.0, ARMUR=10.0;
+static float DIFFU = 0.1f, EMIS = 0.1f, SPECU = 1.0, SHIN = 30.0;
+static float SIZEX = 0.8f, SIZEY = 1.8f, SIZEZ = 0.5f, HITBOX = 0.4f;
+static float WALKMOVE = 0, FREQUENCYMOVE = 0.0025f; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+static float JUMP = 0.0f, JUMPED = 0.0f, JUMPMAX = 1.8f, FALL = 0.0f; //height fallen
+
+
+
 class perso{
     
 public:
-    float angleVision = 3.14/4;
-    float positionX = 0, positionY = 10.5, positionZ = 0; //positionY == foot
-    float hauteurEye = 1.6;
-    string name = "Player";
-    float vitesse = 1;
+    float angleVision;
+    float positionX, positionY, positionZ; //positionY == foot
+    float hauteurEye;
+    string name;
+    float vitesse;
     
     
-    float life=10.0;
-    float armur=10.0;
+    float life;
+    float armur;
     
     
-    float diff = 0.1; // red and blue diffuse reflectance of the submarine monster
-    float emi = 0.1; // red and blue emittance of the submarine monster
+    float diff; // red and blue diffuse reflectance of the submarine monster
+    float emi; // red and blue emittance of the submarine monster
     
-    float spec = 1.0; // White specular reflectance.
-    float shi = 30.0; // Shininess.
+    float spec; // White specular reflectance.
+    float shi; // Shininess.
     float color[4];
     
-    float tailleX = 0.8;
-    float tailleY = 1.8;
-    float tailleZ = 0.5;
+    float tailleX;
+    float tailleY;
+    float tailleZ;
     
-    float hitbox = 0.4; //for collision detection, if in a circle of hitbox
+    float hitbox; //for collision detection, if in a circle of hitbox
     
-    float walkMove = 0; //when you move your vision move up/down
-    float frequencyMove = 0.0025; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+    float walkMove; //when you move your vision move up/down
+    float frequencyMove; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
     
-    float jump = 0; //time counter for jumping
-    float jumped = 0; //height jumped
-    float jumpMax = 1.8; //max high (in y) that can be jumped
+    float jump; //time counter for jumping
+    float jumped; //height jumped
+    float jumpMax; //max high (in y) that can be jumped
     
-    float fall = 0; //height fallen
+    float fall; //height fallen
     
+	perso();
     void kill(float hurt); //remove life
     void fight(float hurt); //remove armur
     bool isDead();

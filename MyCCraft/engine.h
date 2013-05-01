@@ -32,7 +32,7 @@
 #  include <GL/glut.h>
 #endif
 
-#ifdef __WINDOWS__
+#ifdef _WIN32
 #include <WinBase.h>
 #else
 #include <unistd.h>
@@ -49,63 +49,62 @@ using namespace std;
 
 typedef unsigned char   Bool;
 
+
+
 class engine{
     
     
 public:
-    
-    
-    int fps = 60;
-    
-    int visibility = 32; //the visibility of the player
-    int visibilitySelect = 16;
+	static const int fps=60;
+    static const int visibility = 32; //the visibility of the player
+    static const int visibilitySelect = 16;
     
     perso player;
-    float futurX=0, futurY=0, futurZ=0;
-    float visionX = 0, visionY = 0, visionZ = 0;
+    float futurX, futurY, futurZ;
+    float visionX, visionY, visionZ;
     
-    float godX=0, godY=50, godZ=0;
+    float godX, godY, godZ;
     
-    float gravity = 15.0;
+    float gravity;
     
-    float vitesse = 0.25;
+    float vitesse;
     class OpenGLSetup* session;
     class scene* scene;
-    int state = 1;
+    int state;
     
-    int viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
-    bool viewModePressed = false; //to only change one time until touche is relached
+    int viewMode; //0=FPS 1=fixed on 0:20:0 2=camera follow
+    bool viewModePressed; //to only change one time until touche is relached
     
-    bool contextInitialized = false;//display and other things
+    bool contextInitialized;//display and other things
     
-    bool keyboardInitialized = false;
-    bool mouseLeftClicked = false;
-    bool mouseRightClicked = false;
-    int  mouseX=0;
-    int  mouseY=0;
-    unsigned int lastLeftClic = 0;
-    unsigned int lastRightClic = 0;
-    unsigned int reloadTime = 250;
+    bool keyboardInitialized;
+    bool mouseLeftClicked;
+    bool mouseRightClicked;
+    int  mouseX;
+    int  mouseY;
+    unsigned int lastLeftClic;
+    unsigned int lastRightClic;
+    unsigned int reloadTime;
     
     
-    bool isSelecting = false; //selection picking mode
+    bool isSelecting; //selection picking mode
     
     
     int selectedBloc;
     map<int, bloc*> pickedBloc;
-    int selectedFace=0;
+    int selectedFace;
     
-    int centerX = 400;
-    int centerY = 300;
+    int centerX;
+    int centerY;
     
-    int centerMouse=0;
-    const int maxCenterMouse = 200;
+    int centerMouse;
+    static const int maxCenterMouse = 200;
     
 
      
     field* aField;
     
-    
+    engine();
     void setSession(class OpenGLSetup* aSession);
     void setScene(class scene* aScene);
     void start();

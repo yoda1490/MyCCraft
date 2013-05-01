@@ -18,7 +18,7 @@ using namespace std;
 //define groups of 32×32 chunks
 class region{
 public:
-    float positionX=0, positionY=0; //should be a multiple of 16x32=512
+    float positionX, positionY; //should be a multiple of 16x32=512
     vector<chunk> listChunk;
     
     

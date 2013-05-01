@@ -10,6 +10,42 @@
 
 static engine* currentInstance;
 
+
+engine::engine(){
+	futurX=0, futurY=0, futurZ=0;
+    visionX = 0, visionY = 0, visionZ = 0;
+    
+    godX=0, godY=50, godZ=0;
+    
+    gravity = 15.0;
+    
+    vitesse = 0.25;
+    state = 1;
+    
+    viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
+    viewModePressed = false; //to only change one time until touche is relached
+    
+    contextInitialized = false;//display and other things
+    
+    keyboardInitialized = false;
+    
+	lastLeftClic = 0;
+    lastRightClic = 0;
+    reloadTime = 250;
+
+	isSelecting = false; //selection picking mode
+    
+    
+    selectedFace=0;
+    
+    centerX = 400;
+    centerY = 300;
+    
+    centerMouse=0;
+    
+    
+}
+
 void engine::setSession(class OpenGLSetup *aSession){
     session = aSession;
 }
@@ -41,7 +77,7 @@ void* engine::run(void*){
         begin_time = clock();
         currentInstance->perform(currentInstance->session->getKeys(), currentInstance->session->getKeysUp(), currentInstance->session->getKeysDown());
         while(clock() < begin_time+(1500.0)){
-            sleep(1.0/60.0);
+            //sleep(1.0/60.0);
         }
     }
     
@@ -393,7 +429,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
     while(glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
-        sleep(1.0/60.0);
+        //sleep(1.0/60.0);
     }
 
 }

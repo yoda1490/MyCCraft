@@ -46,7 +46,7 @@ struct BitMapFile
 
 class OpenGLSetup{
 
-    string windowName = "";
+    string windowName;
     class scene* theScene ;
     int width, height;
     class engine * eng;
@@ -96,7 +96,7 @@ public:
     
     
     
-    int nbTexture=0;
+    int nbTexture;
     void loadExternalTextures(string path);
     BitMapFile* getBMPData(string filename);
 };

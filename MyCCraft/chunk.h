@@ -21,7 +21,7 @@ class chunk{
 private:
     vector<class bloc> listBloc; //65536 blocs
 public:
-    float positionX=0, positionY=0; //should be multiple of 16
+    float positionX, positionY; //should be multiple of 16
     
     
     

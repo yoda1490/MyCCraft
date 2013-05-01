@@ -21,38 +21,38 @@ class chunk;
 #  include <OpenGL/glext.h>
 #else
 #  include <GL/glut.h>
-#  include <GL/glext.h>
 #endif
-
-
-
 
 using namespace std;
 
+//defult parameters
+static const float DIFF = 0.1f, EMI = 0.1f, SPEC = 0.0f, SHI = 30.0f;
+static const int POSX=-1, POSY=-1, POZZ=-1, ORIENT=0, SIZEDEF=1, IDBLOC=-1;
+static const bool INIT=false, VISIBLE=true; 
 
 class bloc{
-    
+
 public:
     
-    float diff = 0.1; // red and blue diffuse reflectance of the submarine monster
-    float emi = 0.1; // red and blue emittance of the submarine monster
+    float diff; // red and blue diffuse reflectance of the submarine monster
+    float emi; // red and blue emittance of the submarine monster
     
-    float spec = 0.0; // White specular reflectance.
-    float shi = 30.0; // Shininess.
+    float spec; // White specular reflectance.
+    float shi; // Shininess.
     
-    float positionX=-1, positionY=-1, positionZ=-1;
-    float orient = 0;
-    float size = 1;
+    float positionX, positionY, positionZ;
+    float orient;
+    float size;
     float color[4];
     string textureURL;
     
-    chunk* owner = NULL;
+    chunk* owner;
     
-    bool initialized = false;
+    bool initialized;
     
-    bool visible = true;
+    bool visible;
     
-    int idBloc = -1;
+    int idBloc;
     
     
     bloc(const bloc &source); //copy constructor
@@ -63,11 +63,7 @@ public:
     void light(float time=0);
     void setChunk(chunk* c);
     chunk* getChunk();
-    float texturePoints[2][2][2] =
-     {
-     {{0.0, 0.0}, {0.0, 1.0}},
-     {{1.0, 0.0}, {1, 1.0}}
-     };
+    float texturePoints[2][2][2];
     
     static GLuint texture;
     

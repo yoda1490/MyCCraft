@@ -11,6 +11,8 @@
 #include "scene.h"
 #include "engine.h"
 
+using namespace std;
+
 int main(int argc, char ** argv)
 {
     
@@ -27,6 +29,7 @@ int main(int argc, char ** argv)
     engine.start();
     
     session.setupWindow(&argc, argv);
+	cout << "test" << endl;
     
     
     

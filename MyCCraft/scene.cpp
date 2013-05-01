@@ -10,7 +10,9 @@
 
 
 
-scene::scene(engine* anEngine){
+scene::scene(engine* anEngine):
+light0X(LIGHT0X), light0Y(LIGHT0Y), light0Z(LIGHT0Z), quadAtt0(QUADATT0), initialized(false)
+{
     eng = anEngine;
 }
 
