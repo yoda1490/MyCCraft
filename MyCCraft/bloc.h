@@ -34,6 +34,8 @@ class bloc{
 
 public:
     
+    static const int nbBloc = 4;
+    
     float diff; // red and blue diffuse reflectance of the submarine monster
     float emi; // red and blue emittance of the submarine monster
     
@@ -45,6 +47,7 @@ public:
     float size;
     float color[4];
     string textureURL;
+    float texturePoint[4]; // startX endX startY endY
     
     chunk* owner;
     
@@ -64,8 +67,7 @@ public:
     void light(float time=0);
     void setChunk(chunk* c);
     chunk* getChunk();
-    float texturePoints[2][2][2];
-    
+        
     static GLuint texture;
     
     

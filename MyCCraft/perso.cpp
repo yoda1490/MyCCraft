@@ -14,7 +14,7 @@ name(NAME), vitesse(SPEED), life(LIFE), armur(ARMUR),
 diff(DIFFU), emi(EMIS), spec(SPECU), shi(SHIN),
 tailleX(SIZEX), tailleY(SIZEY), tailleZ(SIZEZ), hitbox(HITBOX),
 walkMove(WALKMOVE), frequencyMove(FREQUENCYMOVE),
-jump(JUMP), jumped(JUMPED), jumpMax(JUMPMAX), fall(FALL) {
+jump(JUMP), jumped(JUMPED), jumpMax(JUMPMAX), fall(FALL), selectedBloc(1) {
 }
 
 

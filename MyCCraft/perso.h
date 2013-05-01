@@ -60,6 +60,7 @@ public:
     
     float walkMove; //when you move your vision move up/down
     float frequencyMove; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+    int selectedBloc;
     
     float jump; //time counter for jumping
     float jumped; //height jumped

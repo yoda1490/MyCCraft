@@ -61,7 +61,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         glutSpecialUpFunc(keyboardSpecialUp);
         glutMouseFunc(setupMouse);
         glutMotionFunc(setupMouseActiveMotion);
-        //glutPassiveMotionFunc(setupMousePassiveMotion);
+        glutPassiveMotionFunc(setupMousePassiveMotion);
     
         
     
@@ -85,7 +85,8 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         if(button == 0){
             
             if (state == GLUT_DOWN){
-                currentInstance->eng->selectedBloc = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBlocNumber = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
                 currentInstance->eng->mouseLeftClicked = false;
@@ -95,7 +96,8 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
              
             
             if (state == GLUT_DOWN){
-                currentInstance->eng->selectedBloc = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBlocNumber = currentInstance->pickFunction(x, y);
+                currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
                 int idFace = currentInstance->pickFunction(x, y, true);
                 if(idFace >0 && idFace <= 6) currentInstance->eng->selectedFace = idFace;
                 currentInstance->eng->mouseRightClicked = true;
@@ -114,9 +116,9 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
     void OpenGLSetup::setupMouseActiveMotion(int x, int y) {
 		try{
-			int id = currentInstance->pickFunction(x, y);
-			currentInstance->eng->selectedBloc = id;
-		}catch(exception e){
+			currentInstance->eng->selectedBlocNumber = currentInstance->pickFunction(x, y);
+            currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
+        }catch(exception e){
 			cout << "error while picking" << endl;
 		}
         currentInstance->eng->mouseX = x;
@@ -124,7 +126,8 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     }
 
     void OpenGLSetup::setupMousePassiveMotion(int x, int y) {
-        //currentInstance->eng->selectedBlock = currentInstance->pickFunction(x, y);
+        //currentInstance->eng->selectedBlocNumber = currentInstance->pickFunction(x, y);
+        //currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
         currentInstance->eng->mouseLeftClicked = false;
         currentInstance->eng->mouseRightClicked = false;
         currentInstance->eng->mouseX = x;
@@ -273,9 +276,9 @@ unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
     
     glGetIntegerv(GL_VIEWPORT, viewport); // Get viewport data.
     
-    unsigned int bufferPick[2000]; // Hit buffer.
-    glSelectBuffer(2000, bufferPick); // Specify buffer to write hit records in selection mode
-    (void) glRenderMode(GL_SELECT); // Enter selection mode.
+    unsigned int bufferPick[2000000]; // Hit buffer.
+    glSelectBuffer(2000000, bufferPick); // Specify buffer to write hit records in selection mode
+    glRenderMode(GL_SELECT); // Enter selection mode.
     
     // Save the viewing volume defined in the resize routine.
     glMatrixMode(GL_PROJECTION);
@@ -299,7 +302,7 @@ unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
     if(!face)
         theScene->drawScene();
     else{
-        theScene->drawScene(eng->pickedBloc[eng->selectedBloc]);
+        theScene->drawScene(eng->selectedBloc);
         }
         
     eng->isSelecting = false;
@@ -341,6 +344,7 @@ unsigned int OpenGLSetup::findClosestHit(int hits, unsigned int buffer[])
         }
         else ptr += 3;
     }
+    
     return closestName;
 }
 
@@ -404,9 +408,9 @@ void OpenGLSetup::loadExternalTextures(string path)
     
     nbTexture++;
     
-    /*gluBuild2DMipmaps(GL_TEXTURE_2D, 4, 512,
-                      512, GL_RGBA,GL_UNSIGNED_BYTE,
-                      image[0]);*/
+    //gluBuild2DMipmaps(GL_TEXTURE_2D, 4, 512,
+    //                  512, GL_RGBA,GL_UNSIGNED_BYTE,
+    //                  image);
     
     
     

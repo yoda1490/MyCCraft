@@ -73,6 +73,7 @@ public:
     
     int viewMode; //0=FPS 1=fixed on 0:20:0 2=camera follow
     bool viewModePressed; //to only change one time until touche is relached
+    bool changeBlocPressed; //same but for changing bloc in player inventory
     
     bool contextInitialized;//display and other things
     
@@ -89,8 +90,10 @@ public:
     bool isSelecting; //selection picking mode
     
     
-    int selectedBloc;
+    int selectedBlocNumber;
     map<int, bloc*> pickedBloc;
+    int counterPicked;
+    bloc* selectedBloc;
     int selectedFace;
     
     int centerX;

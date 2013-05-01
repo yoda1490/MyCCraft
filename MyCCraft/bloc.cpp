@@ -30,6 +30,11 @@ bloc::bloc(const bloc &source){
     color[3] = source.color[3];
     textureURL = source.textureURL;
     
+    texturePoint[0] = source.texturePoint[0];
+    texturePoint[1] = source.texturePoint[1];
+    texturePoint[2] = source.texturePoint[2];
+    texturePoint[3] = source.texturePoint[3];
+    
     visible = source.visible;
     
     initialized = source.initialized;
@@ -54,6 +59,38 @@ diff(DIFF), emi(EMI), spec(SPEC), shi(SHI), owner(NULL), visible(VISIBLE)
     color[1] = 1.0;
     color[2] = 1.0;
     color[3] = 1.0;
+    
+    /*
+    texturePoint[0] = ((float)idB-1.0f)/nbBloc;
+    texturePoint[1] = ((float)idB)/nbBloc;
+    texturePoint[2] = ((float)idB-1.0f)/nbBloc;
+    texturePoint[3] = ((float)idB)/nbBloc;
+    */
+    
+    if(idB == 3){
+        texturePoint[0] = 0.0f;
+        texturePoint[1] = 0.5;
+        texturePoint[2] = 0.0f;
+        texturePoint[3] = 0.5f;
+    }
+    if(idB == 2){
+        texturePoint[0] = 0.5f;
+        texturePoint[1] = 1.0f;
+        texturePoint[2] = 0.0f;
+        texturePoint[3] = 0.5f;
+    }
+    if(idB == 1){
+        texturePoint[0] = 0.0f;
+        texturePoint[1] = 0.5f;
+        texturePoint[2] = 0.5f;
+        texturePoint[3] = 1.0f;
+    }
+    if(idB == 4){
+        texturePoint[0] = 0.5f;
+        texturePoint[1] = 1.0f;
+        texturePoint[2] = 0.5f;
+        texturePoint[3] = 1.0f;
+    }
 
     
 }
@@ -138,10 +175,10 @@ void bloc::draw(float time, bool picking){
         }
         glBegin(GL_QUADS);
         glNormal3fv(&n[i][0]);
-        glTexCoord2f(0.0, 0.25); glVertex3fv(&v[faces[i][0]][0]);
-        glTexCoord2f(0.0, 0.0); glVertex3fv(&v[faces[i][1]][0]);
-        glTexCoord2f(0.25, 0.0); glVertex3fv(&v[faces[i][2]][0]);
-        glTexCoord2f(0.25, 0.25); glVertex3fv(&v[faces[i][3]][0]);
+        glTexCoord2f(texturePoint[0], texturePoint[2]); glVertex3fv(&v[faces[i][0]][0]);
+        glTexCoord2f(texturePoint[0], texturePoint[3]); glVertex3fv(&v[faces[i][1]][0]);
+        glTexCoord2f(texturePoint[1], texturePoint[3]); glVertex3fv(&v[faces[i][2]][0]);
+        glTexCoord2f(texturePoint[1], texturePoint[2]); glVertex3fv(&v[faces[i][3]][0]);
         glEnd();
     }
     

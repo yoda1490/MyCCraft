@@ -24,6 +24,7 @@ engine::engine(){
     
     viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
     viewModePressed = false; //to only change one time until touche is relached
+    changeBlocPressed = false;
     
     contextInitialized = false;//display and other things
     
@@ -32,8 +33,9 @@ engine::engine(){
 	lastLeftClic = 0;
     lastRightClic = 0;
     reloadTime = 250;
-
+    
 	isSelecting = false; //selection picking mode
+    counterPicked = 0;
     
     
     selectedFace=0;
@@ -45,7 +47,7 @@ engine::engine(){
     
 	mouseLeftClicked = false;
     mouseRightClicked = false;
-   
+    
 }
 
 void engine::setSession(class OpenGLSetup *aSession){
@@ -70,29 +72,29 @@ void engine::start()
     
     // Permet d'exécuter le fonction maFonction en parallèle
     pthread_create(&thread, NULL, engine::run, NULL);
-
+    
 }
 
 void* engine::run(void*){
 	while(!currentInstance->contextInitialized){
-		#ifdef _WIN32
+#ifdef _WIN32
 		Sleep(1000);
-        #else
+#else
 		sleep(1.0);
-        #endif
-   
+#endif
+        
 	}
-     unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
+    unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
     while (currentInstance->state > 0) {
         startTime =  glutGet(GLUT_ELAPSED_TIME);
         currentInstance->perform(currentInstance->session->getKeys(), currentInstance->session->getKeysUp(), currentInstance->session->getKeysDown());
-
+        
         while((unsigned int) glutGet(GLUT_ELAPSED_TIME) < startTime+(1)){
-            #ifdef _WIN32
+#ifdef _WIN32
 			Sleep(1);
-			#else
+#else
 			sleep(0.01);
-			#endif
+#endif
         }
     }
     
@@ -118,79 +120,80 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         //lastRightClic = glutGet(GLUT_ELAPSED_TIME);
         
         chunk* c = NULL;
+        bloc* b = selectedBloc;
         
-        if(pickedBloc[selectedBloc]!=NULL)
-            c = pickedBloc[selectedBloc]->getChunk();
+        if(selectedBloc!=NULL)
+            c = selectedBloc->getChunk();
         else{
             cout << "don't know this bloc ..." << endl;
         }
         
         if(c!= NULL){
             
-        if(selectedFace == 2){
-            bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY+1,pickedBloc[selectedBloc]->positionZ);
-            
-            if(nBloc != NULL){
-            *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY+1, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-            nBloc->setChunk(c);
+            if(selectedFace == 2){
+                bloc* nBloc = c->getBloc(b->positionX,b->positionY+1,selectedBloc->positionZ);
+                
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX, selectedBloc->positionY+1, selectedBloc->positionZ, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
             }
             
-        }
-        
-        if(selectedFace == 4){
-                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY-1,pickedBloc[selectedBloc]->positionZ);
-            
-             if(nBloc != NULL){   
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY-1, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-                nBloc->setChunk(c);
-             }
-            
-        }
-        
-        if(selectedFace == 5){
-                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ+1);
-            
-            if(nBloc != NULL){ 
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ+1, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-                nBloc->setChunk(c);
+            if(selectedFace == 4){
+                bloc* nBloc = c->getBloc(selectedBloc->positionX,selectedBloc->positionY-1,selectedBloc->positionZ);
+                
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX, selectedBloc->positionY-1, selectedBloc->positionZ, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
             }
             
-        }
-        
-        if(selectedFace == 6){
-                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ-1);
-            
-            if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ-1, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-                nBloc->setChunk(c);
+            if(selectedFace == 5){
+                bloc* nBloc = c->getBloc(selectedBloc->positionX,selectedBloc->positionY,selectedBloc->positionZ+1);
+                
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX, selectedBloc->positionY, selectedBloc->positionZ+1, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
             }
             
-        }
-        
-        if(selectedFace == 1){
-                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX-1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
-            
-            if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX-1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-                nBloc->setChunk(c);
+            if(selectedFace == 6){
+                bloc* nBloc = c->getBloc(selectedBloc->positionX,selectedBloc->positionY,selectedBloc->positionZ-1);
+                
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX, selectedBloc->positionY, selectedBloc->positionZ-1, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
             }
             
-        }
-        
-        if(selectedFace == 3){
-                bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX+1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
-            if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX+1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
-            
-                nBloc->setChunk(c);
+            if(selectedFace == 1){
+                bloc* nBloc = c->getBloc(selectedBloc->positionX-1,selectedBloc->positionY,selectedBloc->positionZ);
+                
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX-1, selectedBloc->positionY, selectedBloc->positionZ, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
             }
             
-        }
+            if(selectedFace == 3){
+                bloc* nBloc = c->getBloc(selectedBloc->positionX+1,selectedBloc->positionY,selectedBloc->positionZ);
+                if(nBloc != NULL){
+                    *nBloc =  bloc(player.selectedBloc, selectedBloc->positionX+1, selectedBloc->positionY, selectedBloc->positionZ, 0.0f);
+                    
+                    nBloc->setChunk(c);
+                }
+                
+            }
         }else{
             cout << "don't know chunk of this bloc ..." << endl;
         }
@@ -199,7 +202,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     if(mouseLeftClicked){
         
-        bloc* blc = pickedBloc[selectedBloc];
+        bloc* blc = selectedBloc;
         
         
         
@@ -208,9 +211,12 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
             
             chunk* orC = blc->getChunk();
             
-            cout << blc->positionX << ":" << blc->positionY << ":" << blc->positionZ << ":" << endl;
+            
             
             if(orC != NULL){
+                
+                
+                
                 vector<chunk*>* aL;
                 chunk* aC;
                 bloc*  aB;
@@ -238,7 +244,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
                         aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
-                        if(aB!=NULL)aB->visible = true;
+                        if(aB!=NULL){ aB->visible = true; }
                     }
                 }
                 
@@ -268,14 +274,15 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
+                
+                orC->setBloc(new bloc(0, blc->positionX, blc->positionY, blc->positionZ, 0.0));
             }
             
-            *blc = bloc(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
             
         }
         
         
-        mouseLeftClicked = false;
+        //mouseLeftClicked = false;
         
     }
     
@@ -294,7 +301,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
     if(key[ESC]){
-       exit(0);
+        exit(0);
     }
     
     if(key[DOWN_ARROW] || key[UP_ARROW])
@@ -327,10 +334,10 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         }
         player.fall = 0.0f;
     }
-
+    
     
     if (key[DOWN_ARROW]){
-                
+        
         if(!col[0]){
             player.positionX = futurX;
         }
@@ -373,7 +380,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         futurY = player.positionY-0.1f;
         bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
         if(col[1]){
-          player.jump+=1.0f; //to start log at 1
+            player.jump+=1.0f; //to start log at 1
         }
     }
     
@@ -399,7 +406,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if( !key['z'])
-       godX-=0.1f;
+        godX-=0.1f;
     if( !key['s'])
         godX+=0.1f;
     
@@ -415,7 +422,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         godZ-=0.1f;
     
     
-       
+    
     
     //player.angleVision += 0.0005f * (mouseY - centerY) *player.vitesse;
     
@@ -429,15 +436,27 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     
-    while((unsigned int)glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
-        #ifdef _WIN32
-		Sleep(1000/60);
-		#else
-		sleep(1.0/60.0);
-		#endif
-
+    
+    if( key[TAB] && !changeBlocPressed){
+        player.selectedBloc = ((player.selectedBloc+1)%(bloc::nbBloc+1));
+        changeBlocPressed = true;
     }
-
+    
+    if( !key[TAB] && changeBlocPressed){
+        changeBlocPressed = false;
+    }
+    
+    
+    
+    while((unsigned int)glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
+#ifdef _WIN32
+		Sleep(1000/60);
+#else
+		sleep(1.0/60.0);
+#endif
+        
+    }
+    
 }
 
 

@@ -36,7 +36,7 @@ void scene::drawScene(bloc* detectFace){
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glLoadIdentity();
-    
+    //gluPerspective(60.0, (float)width/(float)height, 0.01, 100.0);
    
     lighting();
 
@@ -91,15 +91,20 @@ void scene::drawScene(bloc* detectFace){
     
     int unsigned i=0;
     
-   
+    bool select = eng->isSelecting;
     
+    vector<chunk*>* listC;
     
     float radius = (float)eng->visibility;
-    if(eng->isSelecting){
+    if(select){
         radius=(float)eng->visibilitySelect;
+        listC = eng->aField->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
+        
+    }else{
+        listC = eng->aField->getNearestFrontChunk(eng->player.positionX, eng->player.positionZ, eng->player.angleVision, radius);
+        
     }
-    vector<chunk*>* listC;
-    listC = eng->aField->getNearestFrontChunk(eng->player.positionX, eng->player.positionZ, eng->player.angleVision, radius);
+    
         
     if(detectFace!=NULL){
         if(detectFace->getChunk() != NULL){
@@ -114,19 +119,20 @@ void scene::drawScene(bloc* detectFace){
             glPushMatrix();
             glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
             
-            vector<bloc*>* listB = (listC->at(cpt)->getListBloc());
+            vector<bloc*> listB = *listC->at(cpt)->getListBloc();
             
             
-            for(i=0;i< listB->size();i++){
-				if(listB->at(i) != NULL){
+            for(i=0;i< listB.size();i++){
+				if(listB.at(i) != NULL){
 					try{
-						if(eng->isSelecting){
-							eng->pickedBloc[i+cpt] = listB->at(i);
-							glLoadName(i+cpt);
+						if(select){
+                            eng->counterPicked = (eng->counterPicked+1)%10000000;
+							eng->pickedBloc[eng->counterPicked] = listB.at(i);
+							glLoadName(eng->counterPicked);
 						}
 					
-						if(listB->at(i)->getChunk() == NULL)  listB->at(i)->setChunk(listC->at(cpt));
-						listB->at(i)->draw(eng->aField->time);
+						if(listB.at(i)->getChunk() == NULL)  listB.at(i)->setChunk(listC->at(cpt));
+						listB.at(i)->draw(eng->aField->time);
 					}catch(exception e){
 						cout << "Error ..." << endl;
 					
