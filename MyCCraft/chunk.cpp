@@ -14,6 +14,16 @@ chunk::chunk(float x, float y){
     positionX = x;
     positionY = y;
     
+	//initialisation with air bloc everywhere
+	cout << "*";
+	for(int x=0; x< 16; x++){
+        for(int z=0; z< 16; z++){
+            for(int y=0; y< 256; y++){
+                    listBloc.push_back(new bloc(0, (float)x, (float)y, (float)z, 0.0f));
+            }
+        }
+    }
+	
     
 }
 

@@ -67,8 +67,11 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     
         eng->contextInitialized = true;
 		cout << "loading texture:" ;
-        //loadExternalTextures("C:\\Users\\WaWa-YoDa\\Desktop\\MyCCraftConsol\\textures\\herb.bmp");
-        loadExternalTextures("/Users/WaWa-YoDa/polytech/AIT/OpenGL/MyCCraft/MyCCraft/textures/herb.bmp");
+		 #ifdef _WIN32
+			loadExternalTextures("C:\\Users\\WaWa-YoDa\\Desktop\\MyCCraftConsol\\textures\\herb.bmp");
+		#else
+			loadExternalTextures("/Users/WaWa-YoDa/polytech/AIT/OpenGL/MyCCraft/MyCCraft/textures/herb.bmp");
+        #endif
         cout << "ok" << endl;
 		glutMainLoop();
     }

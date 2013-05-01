@@ -1,0 +1,50 @@
+﻿La génération a démarré 01/05/2013 13:27:43.
+     1>Projet "C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\MyCCraft.vcxproj" sur le nœud 2 (build cible(s)).
+     1>InitializeBuildStatus:
+         Création de "Release\MyCCraft.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt chunk.cpp
+         chunk.cpp
+     1>chunk.cpp(70): warning C4018: '<' : incompatibilité signed/unsigned
+       ManifestResourceCompile:
+         Toutes les sorties sont à jour.
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\Release\MyCCraft.exe" /INCREMENTAL /NOLOGO pthreadVC2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\MyCCraft.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\Release\MyCCraft.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /ENTRY:"main" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\Release\MyCCraft.lib" /MACHINE:X86 Release\MyCCraft.exe.embed.manifest.res
+         Release\Base.obj
+         Release\bloc.obj
+         Release\chunk.obj
+         Release\chunkGenerator.obj
+         Release\collision.obj
+         Release\engine.obj
+         Release\field.obj
+         Release\Fun.obj
+         Release\main.obj
+         Release\Mountain.obj
+         Release\object.obj
+         Release\openGLSetup.obj
+         Release\perso.obj
+         Release\region.obj
+         Release\scene.obj
+     1>LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/OPT:ICF'
+     1>msvcprt.lib(locale0_implib.obj) : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>collision.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>engine.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>main.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>openGLSetup.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>perso.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>scene.obj : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+     1>MSVCRT.lib(cpu_disp.obj) : warning LNK4210: la section .CRT existe ; il se peut qu'il y ait des terminateurs ou des initialiseurs static non gérés
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Release\MyCCraft.exe.embed.manifest" /manifest Release\MyCCraft.exe.intermediate.manifest
+         Toutes les sorties sont à jour.
+       LinkEmbedManifest:
+         Toutes les sorties sont à jour.
+         MyCCraft.vcxproj -> C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\Release\MyCCraft.exe
+       FinalizeBuildStatus:
+         Suppression du fichier "Release\MyCCraft.unsuccessfulbuild".
+         Mise à jour de l'horodatage "Release\MyCCraft.lastbuildstate".
+     1>Génération du projet "C:\Users\WaWa-YoDa\Documents\GitHub\MyCCraft\MyCCraft\MyCCraft.vcxproj" terminée (build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:02.23

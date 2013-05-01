@@ -118,19 +118,21 @@ void scene::drawScene(bloc* detectFace){
             
             
             for(i=0;i< listB->size();i++){
-				try{
-					if(eng->isSelecting){
-						eng->pickedBloc[i+cpt] = listB->at(i);
-						glLoadName(i+cpt);
+				if(listB->at(i) != NULL){
+					try{
+						if(eng->isSelecting){
+							eng->pickedBloc[i+cpt] = listB->at(i);
+							glLoadName(i+cpt);
+						}
+					
+						if(listB->at(i)->getChunk() == NULL)  listB->at(i)->setChunk(listC->at(cpt));
+						listB->at(i)->draw(eng->aField->time);
+					}catch(exception e){
+						cout << "Error ..." << endl;
+					
 					}
-					
-                    if(listB->at(i)->getChunk() == NULL)  listB->at(i)->setChunk(listC->at(cpt));
-                    listB->at(i)->draw(eng->aField->time);
-                }catch(exception e){
-                    cout << "Error ..." << endl;
-					
 				}
-            }
+			}
             glPopMatrix();
         }
         glPopMatrix();
