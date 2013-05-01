@@ -11,9 +11,16 @@
 
 bool* collision::detectCollision(bloc* aBloc, perso* aPerso, float x, float y , float z, float futurX, float futurY, float futurZ){
     
-    bool col[3] = {false, false, false};
-    
-    
+    bool* col = new bool[3];
+	col[0] = false;
+    col[1] = false;
+	col[2] = false;
+
+	if(aBloc == NULL)
+		return col;
+
+	if( aBloc->idBloc == 0)
+		return col;
     
     if(futurX+aPerso->hitbox > aBloc->positionX-aBloc->size/2
        && futurX-aPerso->hitbox < aBloc->positionX+aBloc->size/2){
@@ -62,9 +69,12 @@ bool* collision::detectCollisions(field* afield, perso* aPerso, float futurX, fl
     
     vector<chunk*>* listChunk = afield->getNearestChunk(futurX, futurZ, 16);
     
-    bool col[3] = {false, false, false};
+    bool* col = new bool[3];
+	col[0] = false;
+    col[1] = false;
+	col[2] = false;
     
-    for(int cpt=0; cpt<listChunk->size();cpt++){
+    for(unsigned int cpt=0; cpt<listChunk->size();cpt++){
         
         float xf = futurX - listChunk->at(cpt)->positionX - afield->aRegion.positionX;
         float zf = futurZ - listChunk->at(cpt)->positionY - afield->aRegion.positionY;
@@ -94,9 +104,12 @@ bool* collision::detectCollisions(field* afield, perso* aPerso, float futurX, fl
     
 }
 
-bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x, float y, float z, float futurX, float futurY, float futurZ){
-    bool col[3] = {false, false, false};
-    
+bool* collision::detectCollisions(vector<bloc*>* listBloc, perso* aPerso, float x, float y, float z, float futurX, float futurY, float futurZ){
+    bool* col = new bool[3];
+	col[0] = false;
+    col[1] = false;
+	col[2] = false;
+
     int posPerso = ((int)x)*4096 + ((int)y)*1 + ((int)z)*256;
     
     //cout << posPerso << endl;
@@ -109,9 +122,9 @@ bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x
         end = listBloc->size();
     }
     
-    for(int unsigned xt=0;xt<rd*2;xt++){
-        for(int unsigned zt=0;zt<rd*2;zt++){
-                for(int unsigned yt=0;yt<rd*2;yt++){
+    for(int xt=0;xt<rd*2;xt++){
+        for(int zt=0;zt<rd*2;zt++){
+                for(int yt=0;yt<rd*2;yt++){
                     
                     if(((int)x)-rd+(int)xt<0 || ((int)x)-rd+xt >15   ||
                        ((int)y)-rd+(int)yt<0 || ((int)y)-rd+yt > 256 ||
@@ -126,7 +139,7 @@ bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x
                     
                     
                     
-                    long int index =  indexX+indexY+indexZ;
+                    unsigned int index =  indexX+indexY+indexZ;
                     
                     
                     if(index <0 || index > listBloc->size())
@@ -135,7 +148,7 @@ bool* collision::detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x
                     
                     
                     
-                    bool * colTmp = detectCollision(&(listBloc->at(index)), aPerso, x, y, z, futurX, futurY, futurZ);
+                    bool * colTmp = (detectCollision(listBloc->at(index), aPerso, x, y, z, futurX, futurY, futurZ));
                     if(colTmp[0]){
                             col[0] = true;
                         }

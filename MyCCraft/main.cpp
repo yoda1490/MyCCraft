@@ -11,6 +11,8 @@
 #include "scene.h"
 #include "engine.h"
 
+using namespace std;
+
 int main(int argc, char ** argv)
 {
     
@@ -24,9 +26,12 @@ int main(int argc, char ** argv)
     engine.setScene(&theGame);
     
     engine.loadfield("nothing yet");
-    engine.start();
+    cout << "Starting Engine" << endl;
+	engine.start();
     
+	cout << "Starting display" << endl;
     session.setupWindow(&argc, argv);
+	cout << "ending" << endl;
     
     
     

@@ -8,13 +8,25 @@
 
 #include "Perso.h"
 
+perso::perso():
+angleVision(ANGVIS), positionX(POSITIONX), positionY(POSITIONY), positionZ(POSITIONZ), hauteurEye(HEIGHTEYE),
+name(NAME), vitesse(SPEED), life(LIFE), armur(ARMUR),
+diff(DIFFU), emi(EMIS), spec(SPECU), shi(SHIN),
+tailleX(SIZEX), tailleY(SIZEY), tailleZ(SIZEZ), hitbox(HITBOX),
+walkMove(WALKMOVE), frequencyMove(FREQUENCYMOVE),
+jump(JUMP), jumped(JUMPED), jumpMax(JUMPMAX), fall(FALL) {
+}
+
+
 void perso::kill(float hurt){
     life -=hurt;
 }
+
+
 void perso::fight(float hurt){
     armur -= hurt;
     if(armur > 1.0)
-        life -= hurt-(armur-1.0);
+        life -= hurt-(armur-1.0f);
     else
         life -= hurt-armur;
     
@@ -32,7 +44,7 @@ void perso::draw(){
     glPushMatrix();
     light();
     glTranslatef(positionX,positionY,positionZ);
-    glRotatef(360.0-((angleVision/3.14)*180.0), 0.0, 1.0, 0.0);
+    glRotatef((GLfloat)360.0f-((angleVision/3.14f)*180.0f), 0.0f, 1.0f, 0.0f);
     
     
     glTranslatef(0,0.125,0.0);
@@ -40,11 +52,11 @@ void perso::draw(){
     
     glPushMatrix();
         glTranslatef(0.0, 0.75, 0);
-        glRotatef(20*cos(2*3.14*(frequencyMove/2)*walkMove), 0.0, 0.0, 1.0);
+        glRotatef((GLfloat)20*cos(2.0f*3.14f*(frequencyMove/2)*walkMove), 0.0f, 0.0f, 1.0f);
         glTranslatef(0.0, -0.75, 0);
     
         glPushMatrix();
-            glTranslatef(0,0.0,-0.13);
+            glTranslatef(0.0f,0.0f,-0.13f);
             glutSolidCube(0.25);
             glTranslatef(0,0.25,0.0);
             glutSolidCube(0.25);
@@ -55,11 +67,11 @@ void perso::draw(){
     glPopMatrix();
     glPushMatrix();
         glTranslatef(0.0, 0.75, 0);
-        glRotatef(-20*cos(2*3.14*(frequencyMove/2)*walkMove), 0.0, 0.0, 1.0);
+        glRotatef((GLfloat)-20*cos(2.0f*3.14f*(frequencyMove/2)*walkMove), 0.0f, 0.0f, 1.0f);
         glTranslatef(0.0, -0.75, 0);
     
         glPushMatrix();
-            glTranslatef(0,0.0,0.13);
+            glTranslatef(0.0f,0.0f,0.13f);
             glutSolidCube(0.25);
             glTranslatef(0,0.25,0.0);
             glutSolidCube(0.25);
@@ -110,7 +122,7 @@ void perso::draw(){
     
     //hands
     glPushMatrix();
-        glTranslatef(0,0.0,-0.290);
+        glTranslatef(0.0f,0.0f,-0.290f);
         glutSolidCube(0.25);
     
         glTranslatef(0,0.25,0);
@@ -121,7 +133,7 @@ void perso::draw(){
     glPopMatrix();
     
     glPushMatrix();
-        glTranslatef(0,0.0,0.290);
+        glTranslatef(0.0f,0.0f,0.290f);
         glutSolidCube(0.25);
     
         glTranslatef(0,0.25,0);
@@ -133,7 +145,7 @@ void perso::draw(){
     
     //head
     glPushMatrix();
-        glTranslatef(0,0.85,0.0);
+        glTranslatef(0.0f,0.85f,0.0f);
         glutSolidCube(0.40);
     glPopMatrix();
 

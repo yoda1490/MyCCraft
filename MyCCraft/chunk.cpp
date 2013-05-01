@@ -22,18 +22,18 @@ chunk::chunk(const chunk &source){
     positionX=source.positionX;
     positionY=source.positionY;
     
-    for(int cpt=0; cpt<source.listBloc.size(); cpt++){
+    for(unsigned int cpt=0; cpt<source.listBloc.size(); cpt++){
         listBloc.push_back(source.listBloc.at(cpt));
-        listBloc.at(cpt).setChunk(this);
+        listBloc.at(cpt)->setChunk(this);
     }
 }
 
 
-void chunk::setBlocs(vector<bloc>* blocs){
+void chunk::setBlocs(vector<bloc*>* blocs){
     listBloc.clear();
-    for(int cpt=0; cpt<blocs->size(); cpt++){
+    for(unsigned int cpt=0; cpt<blocs->size(); cpt++){
         listBloc.push_back(blocs->at(cpt));
-        listBloc.at(cpt).setChunk(this);
+        listBloc.at(cpt)->setChunk(this);
     }
 
 }
@@ -41,32 +41,33 @@ void chunk::setBlocs(vector<bloc>* blocs){
 void chunk::setBloc(bloc* aBloc){
     
     long int indexX = (((int)aBloc->positionX))*4096;
-    long int indexY = (((int)aBloc->positionY))*1;
+    long int indexY = (((int)aBloc->positionY));
     long int indexZ = (((int)aBloc->positionZ))*256;
     
     long int index =  indexX+indexY+indexZ;
     aBloc->setChunk(this);
-    listBloc.at(index) = *aBloc;
+    listBloc.at(index) = aBloc;
     
     
 }
 
-bloc* chunk::getBloc(float x,float y,float z){
+bloc* chunk::getBloc(long int x,long int y,long int z){
     long int indexX = (x)*4096;
-    long int indexY = (y)*1;
+    long int indexY = (y);
     long int indexZ = (z)*256;
     
-    long int index =  indexX+indexY+indexZ;
+    long int index =  (long int)indexX+(long int)indexY+(long int)indexZ;
     if(index>=0 && index<listBloc.size()){
-        if(listBloc.at(index).getChunk() == NULL)
-            listBloc.at(index).setChunk(this);
-        return &(listBloc.at(index));
+        if(listBloc.at(index)->getChunk() == NULL)
+            listBloc.at(index)->setChunk(this);
+        
+        return (listBloc.at(index));
     }
     else
         return NULL;
     
 }
 
-vector<bloc>* chunk::getListBloc(){
+vector<bloc*>* chunk::getListBloc(){
     return  &listBloc;
 }

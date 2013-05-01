@@ -11,7 +11,7 @@
 
 chunk* Base::generate(float x, float y){
     chunk* aChunk = new chunk(x,y);
-    vector<bloc> listBloc;
+    vector<bloc*> listBloc;
     
     int height = 10;
     
@@ -21,14 +21,14 @@ chunk* Base::generate(float x, float y){
             for(int y=0; y< 256; y++){
                 bloc* aBloc;
                 if(y<height){
-                    aBloc = new bloc(1, x, y, z, 1.0);
+                    aBloc = new bloc(1, (float)x, (float)y, (float)z, 1.0f);
                 }else{
-                    aBloc = new air(0, x, y, z, 0.0);
+                    aBloc = new bloc(0, (float)x, (float)y, (float)z, 0.0f);
                     aBloc->visible = false;
                 }
                 if(y<height-1 )
                     aBloc->visible = false;
-                listBloc.push_back(*aBloc);
+                listBloc.push_back(aBloc);
             }
         }
     }

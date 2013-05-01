@@ -14,7 +14,7 @@ static OpenGLSetup* currentInstance;
 
 
 
-OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHeight, engine* engine){
+OpenGLSetup::OpenGLSetup(string aWindowName, scene* aScene, int aWidth, int aHeight, engine* engine):nbTexture(0){
     windowName = aWindowName;
     theScene = aScene;
     width = aWidth;
@@ -39,12 +39,16 @@ void OpenGLSetup::idle(void)
     
 void OpenGLSetup::setupWindow(int *argcp, char **argv){
         printInteraction();
-        glutInit(argcp, argv);
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-        glutInitWindowSize(width, height);
-        glutInitWindowPosition(100, 100);
+		char *myargv [1];
+		int myargc=1;
+		myargv [0]=strdup ("MyCCraft");
+		glutInit(&myargc, myargv);
+		
+		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitWindowSize(width, height);
+		glutInitWindowPosition(100, 100);
         glutCreateWindow(windowName.c_str());
-    
+		
         initKeyboardInput();
     
         currentInstance = this;
@@ -62,8 +66,11 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         
     
         eng->contextInitialized = true;
+		cout << "loading texture:" ;
+        //loadExternalTextures("C:\\Users\\WaWa-YoDa\\Desktop\\MyCCraftConsol\\textures\\herb.bmp");
         loadExternalTextures("/Users/WaWa-YoDa/polytech/AIT/OpenGL/MyCCraft/MyCCraft/textures/herb.bmp");
-        glutMainLoop();
+        cout << "ok" << endl;
+		glutMainLoop();
     }
     
         
@@ -71,13 +78,11 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         
         
         
-        int id = currentInstance->pickFunction(x, y);
-        currentInstance->eng->selectedBloc = id;
-        
         
         if(button == 0){
             
             if (state == GLUT_DOWN){
+                currentInstance->eng->selectedBloc = currentInstance->pickFunction(x, y);
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
                 currentInstance->eng->mouseLeftClicked = false;
@@ -87,6 +92,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
              
             
             if (state == GLUT_DOWN){
+                currentInstance->eng->selectedBloc = currentInstance->pickFunction(x, y);
                 int idFace = currentInstance->pickFunction(x, y, true);
                 if(idFace >0 && idFace <= 6) currentInstance->eng->selectedFace = idFace;
                 currentInstance->eng->mouseRightClicked = true;
@@ -104,8 +110,12 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
 
     void OpenGLSetup::setupMouseActiveMotion(int x, int y) {
-        int id = currentInstance->pickFunction(x, y);
-        currentInstance->eng->selectedBloc = id;
+		try{
+			int id = currentInstance->pickFunction(x, y);
+			currentInstance->eng->selectedBloc = id;
+		}catch(exception e){
+			cout << "error while picking" << endl;
+		}
         currentInstance->eng->mouseX = x;
         currentInstance->eng->mouseY = y;
     }
@@ -143,6 +153,10 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 
 void OpenGLSetup::printInteraction(){
     cout << "Interraction: " << endl;
+	cout << "\t Arrow up/down/left/right to move" << endl;
+	cout << "\t space to jump " << endl;
+	cout << "\tleft clic on a bloc to remove it" << endl;
+	cout << "\tright clic on a face to put a new bloc at behind" << endl;
 }
 
  
@@ -256,8 +270,8 @@ unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
     
     glGetIntegerv(GL_VIEWPORT, viewport); // Get viewport data.
     
-    unsigned int bufferPick[300000]; // Hit buffer.
-    glSelectBuffer(300000, bufferPick); // Specify buffer to write hit records in selection mode
+    unsigned int bufferPick[2000]; // Hit buffer.
+    glSelectBuffer(2000, bufferPick); // Specify buffer to write hit records in selection mode
     (void) glRenderMode(GL_SELECT); // Enter selection mode.
     
     // Save the viewing volume defined in the resize routine.
@@ -304,6 +318,9 @@ unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
 // Process hit buffer to find record with smallest min-z value.
 unsigned int OpenGLSetup::findClosestHit(int hits, unsigned int buffer[])
 {
+    
+       
+        
     unsigned int *ptr, minZ;
     
     minZ= 0xffffffff; // 2^32 - 1
@@ -321,8 +338,6 @@ unsigned int OpenGLSetup::findClosestHit(int hits, unsigned int buffer[])
         }
         else ptr += 3;
     }
-    //if (closestName != 0) highlightFrames = 10;
-    //cout <<  closestName << endl;
     return closestName;
 }
 
@@ -361,7 +376,7 @@ BitMapFile* OpenGLSetup::getBMPData(string filename)
     // Reverse color from bgr to rgb.
     int temp;
     
-    for (int i = 0; i < size; i += 3)
+    for (unsigned int i = 0; i < size; i += 3)
     {
         temp = bmp->data[i];
         bmp->data[i] = bmp->data[i+2];

@@ -12,30 +12,29 @@
 #include <iostream>
 #include <vector>
 #include "bloc.h"
-#include "blocAir.h"
 
 using namespace std;
 //define a list of 16x16x256 bloc
 
 class chunk{
 private:
-    vector<class bloc> listBloc; //65536 blocs
+    vector<class bloc*> listBloc; //65536 blocs
 public:
-    float positionX=0, positionY=0; //should be multiple of 16
+    float positionX, positionY; //should be multiple of 16
     
     
     
     chunk(const chunk &source); //copy constructor
     chunk(float x, float y);
-    void setBlocs(vector<bloc>* blocs);
+    void setBlocs(vector<bloc*>* blocs);
     
     void setBloc(bloc* aBloc); //place a bloc at the right position in the vector
-    bloc* getBloc(float x,float y,float z);
+    bloc* getBloc(long int x,long int y,long int z);
 
     
     float * highestPos(float x, float z); //return the highest position of a solid bloc in x, y
     
-    vector<bloc>* getListBloc();
+    vector<bloc*>* getListBloc();
     
 };
 

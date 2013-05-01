@@ -26,7 +26,7 @@ chunk chunkGenerator::generate(string seed, float x, float y){
             return *Fun::generate(x, y);
         }
         case 2: {
-            return *Mountain::generate(x, y);
+	            return *Mountain::generate(x, y);
         }
     }
     

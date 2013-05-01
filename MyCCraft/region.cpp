@@ -17,7 +17,7 @@ region::region(float x, float y){
 }
 
 void region::setChunk(vector<chunk>* chunks){
-    for(int cpt=0; cpt<chunks->size(); cpt++){
+    for(unsigned int cpt=0; cpt<chunks->size(); cpt++){
         listChunk.push_back(chunks->at(cpt));
     }
 }
@@ -25,7 +25,7 @@ void region::setChunk(vector<chunk>* chunks){
 
 //todo
 chunk* region::getChunk(float x, float y){
-    for(int cpt=0; cpt<listChunk.size();cpt++){
+    for(unsigned int cpt=0; cpt<listChunk.size();cpt++){
         if(x>=listChunk.at(cpt).positionX && x<listChunk.at(cpt).positionX+16.0 &&
            y>=listChunk.at(cpt).positionY && y<listChunk.at(cpt).positionY+16.0)
             return &listChunk.at(cpt);

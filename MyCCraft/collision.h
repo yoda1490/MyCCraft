@@ -20,7 +20,7 @@ public:
     static bool* detectCollisions(field* afield, perso* aPerso, float futurX, float futurY, float futurZ);
 private:
     static bool* detectCollision(bloc* aBloc, perso* aPerso, float x, float y, float z, float futurX, float futurY, float futurZ);
-    static bool* detectCollisions(vector<bloc>* listBloc, perso* aPerso, float x, float y, float z, float futurX, float futurY, float futurZ);
+    static bool* detectCollisions(vector<bloc*>* listBloc, perso* aPerso, float x, float y, float z, float futurX, float futurY, float futurZ);
 
     
 };

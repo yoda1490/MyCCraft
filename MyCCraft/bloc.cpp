@@ -39,7 +39,9 @@ bloc::bloc(const bloc &source){
 
 }
 
-bloc::bloc(int idB, float x, float y, float z, float orientation){
+bloc::bloc(int idB, float x, float y, float z, float orientation):
+diff(DIFF), emi(EMI), spec(SPEC), shi(SHI), owner(NULL), visible(VISIBLE)
+{
     initialized = true;
     idBloc = idB;
     size = 1.0;
@@ -55,7 +57,8 @@ bloc::bloc(int idB, float x, float y, float z, float orientation){
     
 }
 
-bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize){
+bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA, float aSize):
+diff(DIFF), emi(EMI), spec(SPEC), shi(SHI), owner(NULL), visible(VISIBLE), idBloc(IDBLOC){
     initialized = true;
     size = aSize;
     positionX = x;
@@ -69,7 +72,8 @@ bloc::bloc(float x, float y, float z, float orientation, float colorX, float col
 }
 
 
-bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA){
+bloc::bloc(float x, float y, float z, float orientation, float colorX, float colorY, float colorZ, float colorA):
+idBloc(IDBLOC), diff(DIFF), emi(EMI), spec(SPEC), shi(SHI), owner(NULL), visible(VISIBLE), size(SIZEDEF){
     initialized = true;
     positionX = x;
     positionY = y;
@@ -89,7 +93,7 @@ void bloc::draw(float time, bool picking){
     glTranslatef(positionX,positionY,positionZ);
     //glRotatef(orient, 0.0, 1.0, 0.0); --> awfull to detect face if bloc can have orientation
     
-    float sizeDrawed = size;
+    float sizeDrawed = size-0.0001;
     
     
     static GLfloat n[6][3] =
@@ -127,7 +131,7 @@ void bloc::draw(float time, bool picking){
     }
     
 
-    for (i = 5; i >= 0; i-=2) {
+    for (i = 5; i >= 0; i--) {
         if(picking){
             glLoadName(i+1);
         }

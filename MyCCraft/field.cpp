@@ -14,7 +14,8 @@ static float chunkX;
 static float chunkY;
 
 
-field::field(string aFolder): folder(aFolder), aRegion(0,0){
+
+field::field(string aFolder): folder(aFolder), aRegion(0,0), time(STARTTIME), generating(false){
     
     
     
@@ -23,7 +24,7 @@ field::field(string aFolder): folder(aFolder), aRegion(0,0){
     cout << "Generating field: [";
     for(int cpt=-2; cpt<=2;cpt++){
         for(int cpt2=-2; cpt2<=2;cpt2++){
-            listChunk.push_back(*new chunk(chunkGenerator::generate("nothing yet", cpt*16,cpt2*16)));
+            listChunk.push_back(*new chunk(chunkGenerator::generate("nothing yet", (float)cpt*16,(float)cpt2*16)));
         }
     }
     
@@ -69,9 +70,9 @@ vector<chunk*>* field::getNearestChunk(float x, float y, float radius){
     //region* regTmp = getNearestRegion(x, y, radius);
     
     
-    for(int cpt=x-radius-1; cpt<=x+radius; cpt+=16){
-        for(int cpt2=y-radius-1; cpt2<=y+radius; cpt2+=16){
-            chunk* tmp = aRegion.getChunk(cpt, cpt2);
+    for(int cpt=(int)(x-radius-1.0f); cpt<=(int)(x+radius); cpt+=16){
+        for(int cpt2=(int)(y-radius-1.0f); cpt2<=(int)(y+radius); cpt2+=16){
+            chunk* tmp = aRegion.getChunk((float)cpt, (float)cpt2);
             if(tmp!= NULL){
                 nearestChunk->push_back( tmp );
             }else{
@@ -79,8 +80,8 @@ vector<chunk*>* field::getNearestChunk(float x, float y, float radius){
                 if(!generating){
                     
                     
-                    chunkX = cpt  -cpt %16;
-                    chunkY = cpt2 -cpt2%16;
+                    chunkX = (float)cpt  -cpt %16;
+                    chunkY = (float)cpt2 -cpt2%16;
                     
                     if(cpt < 0)
                         chunkX -=16;
@@ -105,9 +106,9 @@ vector<chunk*>* field::getNearestChunk(float x, float y, float radius){
 
 
 vector<chunk*>* field::getNearestFrontChunk(float x, float y, float angleVision, float radius){
-    float newX = x + (radius/2.0)*cos(angleVision) ;
-    float newZ = y + (radius/2.0)*sin(angleVision) ;
-    return getNearestChunk(newX, newZ, radius/2.0);
+    float newX =(float) x + (radius/2.0f)*cos(angleVision) ;
+    float newZ =(float) y + (radius/2.0f)*sin(angleVision) ;
+    return getNearestChunk(newX, newZ, radius/2.0f);
 }
 
 void* field::generate(void *){

@@ -26,9 +26,12 @@
 
 using namespace std;
 
+static float LIGHT0X = 0.0f, LIGHT0Y = 300.0f, LIGHT0Z = 0.0f;
+static float QUADATT0 = 0.000009f; //quadratic attenuation light 0
+
 class scene{
     
-    bool initialized = false;
+    bool initialized;
     
     //position of us
 
@@ -43,9 +46,9 @@ public:
     
     //lighting
     //light position
-    float light0X = 0.0, light0Y = 300.0, light0Z = 0.0;
+    float light0X, light0Y, light0Z;
     
-    float quadAtt0 = 0.000009; //quadratic attenuation light 0
+    float quadAtt0; //quadratic attenuation light 0
 };
 
 #endif /* defined(__MyCCraft__scene__) */

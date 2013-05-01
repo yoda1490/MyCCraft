@@ -10,12 +10,14 @@
 
 
 
-scene::scene(engine* anEngine){
+scene::scene(engine* anEngine):
+light0X(LIGHT0X), light0Y(LIGHT0Y), light0Z(LIGHT0Z), quadAtt0(QUADATT0), initialized(false)
+{
     eng = anEngine;
 }
 
 void scene::setup(){
-    glClearColor(0.1, 0.4, 0.5, 1.0);
+    glClearColor(0.1f, 0.4f, 0.5f, 1.0f);
     glEnable(GL_DEPTH_TEST); // Enable depth testing.
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -40,9 +42,9 @@ void scene::drawScene(bloc* detectFace){
 
     
     
-    eng->visionX = eng->player.positionX + 10 * cos(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
+    eng->visionX = eng->player.positionX + 10.0f * cos(eng->player.angleVision)+ (eng->player.tailleX+0.01f) * cos(eng->player.angleVision);
     eng->visionY = eng->player.positionY ;
-    eng->visionZ = eng->player.positionZ + 10 * sin(eng->player.angleVision)+ (eng->player.tailleX+0.01) * cos(eng->player.angleVision);
+    eng->visionZ = eng->player.positionZ + 10.0f * sin(eng->player.angleVision)+ (eng->player.tailleX+0.01f) * cos(eng->player.angleVision);
     if(eng->viewMode == 0){
     gluLookAt(
               eng->player.positionX,
@@ -92,17 +94,13 @@ void scene::drawScene(bloc* detectFace){
    
     
     
-    int radius = eng->visibility;
+    float radius = (float)eng->visibility;
     if(eng->isSelecting){
-        radius=eng->visibilitySelect;
+        radius=(float)eng->visibilitySelect;
     }
     vector<chunk*>* listC;
-    if(eng->isSelecting){
-        listC =  eng->aField->getNearestChunk(eng->player.positionX, eng->player.positionZ, radius);
-    }else{
-        listC =  eng->aField->getNearestFrontChunk(eng->player.positionX, eng->player.positionZ, eng->player.angleVision, radius);
-    }
-    
+    listC = eng->aField->getNearestFrontChunk(eng->player.positionX, eng->player.positionZ, eng->player.angleVision, radius);
+        
     if(detectFace!=NULL){
         if(detectFace->getChunk() != NULL){
             glPushMatrix();
@@ -112,24 +110,26 @@ void scene::drawScene(bloc* detectFace){
         }
     }else{
         glPushMatrix();
-        for(int cpt=0; cpt<listC->size(); cpt++){
+        for(unsigned int cpt=0; cpt<listC->size(); cpt++){
             glPushMatrix();
             glTranslatef(listC->at(cpt)->positionX, 0.0, listC->at(cpt)->positionY);
             
-            vector<bloc>* listB = (listC->at(cpt)->getListBloc());
+            vector<bloc*>* listB = (listC->at(cpt)->getListBloc());
             
             
             for(i=0;i< listB->size();i++){
-                if(eng->isSelecting){
-                    eng->pickedBloc[i+cpt] = &listB->at(i);
-                    glLoadName(i+cpt);
-                }
-                try{
-                    if(listB->at(i).getChunk() == NULL)  listB->at(i).setChunk(listC->at(cpt));
-                    listB->at(i).draw(eng->aField->time);
+				try{
+					if(eng->isSelecting){
+						eng->pickedBloc[i+cpt] = listB->at(i);
+						glLoadName(i+cpt);
+					}
+					
+                    if(listB->at(i)->getChunk() == NULL)  listB->at(i)->setChunk(listC->at(cpt));
+                    listB->at(i)->draw(eng->aField->time);
                 }catch(exception e){
                     cout << "Error ..." << endl;
-                }
+					
+				}
             }
             glPopMatrix();
         }

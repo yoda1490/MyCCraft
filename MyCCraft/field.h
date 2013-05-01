@@ -17,6 +17,7 @@
 
 using namespace std;
 
+static float STARTTIME = 10;
 
 class field{
 public:
@@ -26,7 +27,7 @@ public:
     
     region aRegion;
     
-    bool generating = false; //to allow only one generation simultaneously
+    bool generating; //to allow only one generation simultaneously
     
     string folder; //folder of this field;
     
@@ -34,7 +35,9 @@ public:
     
     
     //the current hour in this field (max 24, ex for 14h30 it will be 14.5)
-    float time = 10;
+    float time;
+
+	field();
     
     //load the 4nearest region
     void loadNearestRegion(float x, float y);

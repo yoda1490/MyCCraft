@@ -10,6 +10,44 @@
 
 static engine* currentInstance;
 
+
+engine::engine(){
+	futurX=0, futurY=0, futurZ=0;
+    visionX = 0, visionY = 0, visionZ = 0;
+    
+    godX=0, godY=50, godZ=0;
+    
+    gravity = 15.0;
+    
+    vitesse = 0.25;
+    state = 1;
+    
+    viewMode = 0; //0=FPS 1=fixed on 0:20:0 2=camera follow
+    viewModePressed = false; //to only change one time until touche is relached
+    
+    contextInitialized = false;//display and other things
+    
+    keyboardInitialized = false;
+    
+	lastLeftClic = 0;
+    lastRightClic = 0;
+    reloadTime = 250;
+
+	isSelecting = false; //selection picking mode
+    
+    
+    selectedFace=0;
+    
+    centerX = 400;
+    centerY = 300;
+    
+    centerMouse=0;
+    
+	mouseLeftClicked = false;
+    mouseRightClicked = false;
+    
+}
+
 void engine::setSession(class OpenGLSetup *aSession){
     session = aSession;
 }
@@ -27,8 +65,8 @@ void engine::start()
     
     currentInstance = this;
     
-    centerX = glutGet(GLUT_WINDOW_WIDTH) / 2;
-    centerY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+    //centerX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+    //centerY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
     
     // Permet d'exécuter le fonction maFonction en parallèle
     pthread_create(&thread, NULL, engine::run, NULL);
@@ -36,12 +74,24 @@ void engine::start()
 }
 
 void* engine::run(void*){
-    clock_t begin_time = clock();
+	while(!currentInstance->contextInitialized){
+		#ifdef _WIN32
+		Sleep(1000);
+        #else
+		sleep(1.0);
+        #endif
+   
+	}
+     unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
     while (currentInstance->state > 0) {
-        begin_time = clock();
+        startTime =  glutGet(GLUT_ELAPSED_TIME);
         currentInstance->perform(currentInstance->session->getKeys(), currentInstance->session->getKeysUp(), currentInstance->session->getKeysDown());
-        while(clock() < begin_time+(1500.0)){
-            sleep(1.0/60.0);
+        while((unsigned int) glutGet(GLUT_ELAPSED_TIME) < startTime+(1)){
+            #ifdef _WIN32
+			Sleep(1);
+			#else
+			sleep(0.01);
+			#endif
         }
     }
     
@@ -51,6 +101,7 @@ void* engine::run(void*){
 
 void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
+	
     unsigned int startTime = glutGet(GLUT_ELAPSED_TIME);
     
     //aField->time+=0.0001;
@@ -63,7 +114,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(mouseRightClicked){
-        lastRightClic = glutGet(GLUT_ELAPSED_TIME);
+        //lastRightClic = glutGet(GLUT_ELAPSED_TIME);
         
         chunk* c = NULL;
         
@@ -79,7 +130,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
             bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY+1,pickedBloc[selectedBloc]->positionZ);
             
             if(nBloc != NULL){
-            *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY+1, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+            *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY+1, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
             nBloc->setChunk(c);
             }
@@ -90,7 +141,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY-1,pickedBloc[selectedBloc]->positionZ);
             
              if(nBloc != NULL){   
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY-1, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY-1, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
                 nBloc->setChunk(c);
              }
@@ -101,7 +152,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ+1);
             
             if(nBloc != NULL){ 
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ+1, 0.0, 0.9, 0.05, 0.05, 1.0);
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ+1, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
                 nBloc->setChunk(c);
             }
@@ -112,7 +163,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ-1);
             
             if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ-1, 0.0, 0.9, 0.05, 0.05, 1.0);
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ-1, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
                 nBloc->setChunk(c);
             }
@@ -123,7 +174,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX-1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
             
             if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX-1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX-1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
                 nBloc->setChunk(c);
             }
@@ -133,7 +184,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         if(selectedFace == 3){
                 bloc* nBloc = c->getBloc(pickedBloc[selectedBloc]->positionX+1,pickedBloc[selectedBloc]->positionY,pickedBloc[selectedBloc]->positionZ);
             if(nBloc != NULL){
-                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX+1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0, 0.9, 0.05, 0.05, 1.0);
+                *nBloc =  bloc(pickedBloc[selectedBloc]->positionX+1, pickedBloc[selectedBloc]->positionY, pickedBloc[selectedBloc]->positionZ, 0.0f, 0.9f, 0.05f, 0.05f, 1.0f);
             
                 nBloc->setChunk(c);
             }
@@ -156,15 +207,15 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
             
             chunk* orC = blc->getChunk();
             
-            
+            cout << blc->positionX << ":" << blc->positionY << ":" << blc->positionZ << ":" << endl;
             
             if(orC != NULL){
                 vector<chunk*>* aL;
                 chunk* aC;
                 bloc*  aB;
                 
-                aL = aField->getNearestChunk(orC->positionX-1, orC->positionY, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX-1, orC->positionY, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
                         aB = aC->getBloc(blc->positionX-1,  blc->positionY,  blc->positionZ);
@@ -172,8 +223,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+1, orC->positionY, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX+1, orC->positionY, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
                         aB = aC->getBloc(blc->positionX+1,  blc->positionY,  blc->positionZ);
@@ -181,8 +232,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
                         aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
@@ -190,8 +241,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
                         aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
@@ -199,46 +250,31 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY-1, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY-1, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX,  blc->positionY-1,  blc->positionZ);
+                        aB = aC->getBloc(blc->positionX,  blc->positionY,  blc->positionZ-1);
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY+1, 2.0);
-                for(int cpt=0; cpt< aL->size(); cpt++){
+                aL = aField->getNearestChunk(orC->positionX, orC->positionY+1, 0.4);
+                for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX,  blc->positionY+1,  blc->positionZ);
+                        aB = aC->getBloc(blc->positionX,  blc->positionY,  blc->positionZ+1);
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
             }
             
-            *blc = air(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
+            *blc = bloc(0, blc->positionX, blc->positionY, blc->positionZ, 0.0);
             
         }
         
         
-        /*//set visible around bloc
-        if(blc->positionX < 256 && tmpSlct+1<size)
-            listBloc->at(tmpSlct+1).visible = true;
-        if(blc->positionY > 0 && tmpSlct>0 && tmpSlct-1<size)
-            listBloc->at(tmpSlct-1).visible = true;
-        
-        if(blc->positionZ < 15 && tmpSlct+256<size)
-            listBloc->at(tmpSlct+256).visible = true;
-        if(blc->positionZ > 0 && tmpSlct-256>0 && tmpSlct-256<size)
-            listBloc->at(tmpSlct-256).visible = true;
-        
-        if(indexX < 15 && tmpSlct+4096<size)
-            listBloc->at(tmpSlct+4096).visible = true;
-        
-        if(indexX > 0 && tmpSlct-4096>0 && tmpSlct-4096<size)
-            listBloc->at(tmpSlct-4096).visible = true; */
+        mouseLeftClicked = false;
         
     }
     
@@ -266,29 +302,29 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
     if (key[DOWN_ARROW]){
-        futurX = player.positionX - (vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ - (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
+        futurX = player.positionX - (vitesse * 0.015f)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ - (vitesse * 0.015f)*sin(player.angleVision)  *player.vitesse;
     }
     if( key[UP_ARROW]){
         
         
-        futurX = player.positionX + ( vitesse * 0.020)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ + (vitesse * 0.020)*sin(player.angleVision)  *player.vitesse;
+        futurX = player.positionX + ( vitesse * 0.020f)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ + (vitesse * 0.020f)*sin(player.angleVision)  *player.vitesse;
     }
     
-    futurY = (player.positionY-(0.001*gravity));
+    futurY = (player.positionY-(0.001f*gravity));
     
     
     bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
         player.positionY = futurY;
-        player.fall += (0.001*gravity); //don't forget in jump to remove jumped size
+        player.fall += (0.001f*gravity); //don't forget in jump to remove jumped size
     }else{
-        if(player.fall > 3.0){
-            player.fight(player.fall-3);
+        if(player.fall > 3.0f){
+            player.fight(player.fall-3.0f);
         }
-        player.fall = 0;
+        player.fall = 0.0f;
     }
 
     
@@ -311,16 +347,16 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         }
     }
     if (key[LEFT_ARROW]){
-        player.angleVision -= 0.005*vitesse *player.vitesse;
+        player.angleVision -= 0.005f*vitesse *player.vitesse;
     }
     if( key[RIGHT_ARROW]){
-        player.angleVision += 0.005*vitesse *player.vitesse;
+        player.angleVision += 0.005f*vitesse *player.vitesse;
     }
     if (key[GLUT_KEY_PAGE_DOWN]){
-        player.positionY -= 0.005*vitesse *player.vitesse;
+        player.positionY -= 0.005f*vitesse *player.vitesse;
     }
     if( key[GLUT_KEY_PAGE_UP]){
-        player.positionY += 0.005*vitesse *player.vitesse;
+        player.positionY += 0.005f*vitesse *player.vitesse;
     }
     
     
@@ -333,49 +369,49 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if( key[' '] && player.jump==0){
-        futurY = player.positionY-0.1;
+        futurY = player.positionY-0.1f;
         bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
         if(col[1]){
-          player.jump+=1.0; //to start log at 1
+          player.jump+=1.0f; //to start log at 1
         }
     }
     
     if(player.jump>0){
         player.jump+= 1*vitesse;
-        player.jumped += 0.008*log(player.jump) -(0.001*gravity);
+        player.jumped += 0.008f*log(player.jump) -(0.001f*gravity);
         
-        futurY = player.positionY + 0.008*log(player.jump);
+        futurY = player.positionY + 0.008f*log(player.jump);
         bool* col = collision::detectCollisions(aField, &player, player.positionX, futurY, player.positionZ);
         if(!col[1]){
             player.positionY = futurY;
-            player.fall -=  0.008*log(player.jump);
+            player.fall -=  0.008f*log(player.jump);
         }
         
         if(player.jumped>=player.jumpMax){
-            player.jumped = 0;
-            player.jump = -1.0;
+            player.jumped = 0.0f;
+            player.jump = -1.0f;
         }
     }
     
-    if( !key[' '] && player.jump == -1.0){
-        player.jump = 0;
+    if( !key[' '] && player.jump == -1.0f){
+        player.jump = 0.0f;
     }
     
     if( !key['z'])
-       godX-=0.1;
+       godX-=0.1f;
     if( !key['s'])
-        godX+=0.1;
+        godX+=0.1f;
     
     if( !key['a'])
-        godY+=0.1;
+        godY+=0.1f;
     if( !key['e'])
-        godY-=0.1;
+        godY-=0.1f;
     
     
     if( !key['q'])
-        godZ+=0.1;
+        godZ+=0.1f;
     if( !key['d'])
-        godZ-=0.1;
+        godZ-=0.1f;
     
     
        
@@ -392,8 +428,12 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     
-    while(glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
-        sleep(1.0/60.0);
+    while((unsigned int)glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1/fps)*1000 )){
+        #ifdef _WIN32
+		Sleep(1000/60);
+		#else
+		sleep(1.0/60.0);
+		#endif
     }
 
 }
@@ -410,8 +450,8 @@ void engine::simplePerform(Bool* key,Bool* keyUp,Bool* keyDown){
     if (key[DOWN_ARROW]){
         
         
-        futurX = player.positionX - (vitesse * 0.015)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ - (vitesse * 0.015)*sin(player.angleVision)  *player.vitesse;
+        futurX = player.positionX - (vitesse * 0.015f)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ - (vitesse * 0.015f)*sin(player.angleVision)  *player.vitesse;
         futurY = player.positionY;
         
         player.positionX = futurX;
@@ -421,8 +461,8 @@ void engine::simplePerform(Bool* key,Bool* keyUp,Bool* keyDown){
     if( key[UP_ARROW]){
         
         
-        futurX = player.positionX + ( vitesse * 0.020)*cos(player.angleVision)  *player.vitesse;
-        futurZ = player.positionZ + (vitesse * 0.020)*sin(player.angleVision)  *player.vitesse;
+        futurX = player.positionX + ( vitesse * 0.020f)*cos(player.angleVision)  *player.vitesse;
+        futurZ = player.positionZ + (vitesse * 0.020f)*sin(player.angleVision)  *player.vitesse;
         futurY = player.positionY;
         
         player.positionX = futurX;
@@ -430,10 +470,10 @@ void engine::simplePerform(Bool* key,Bool* keyUp,Bool* keyDown){
         
     }
     if (key[LEFT_ARROW]){
-        player.angleVision -= 0.005*vitesse *player.vitesse;
+        player.angleVision -= 0.005f*vitesse *player.vitesse;
     }
     if( key[RIGHT_ARROW]){
-        player.angleVision += 0.005*vitesse *player.vitesse;
+        player.angleVision += 0.005f*vitesse *player.vitesse;
     }
 }
 
