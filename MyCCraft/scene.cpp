@@ -37,6 +37,10 @@ void scene::drawScene(bloc* detectFace){
     
     glLoadIdentity();
     //gluPerspective(60.0, (float)width/(float)height, 0.01, 100.0);
+    
+    
+    
+   
    
     lighting();
 
@@ -87,6 +91,18 @@ void scene::drawScene(bloc* detectFace){
                   0.0);
         eng->player.draw();
     }
+    
+    
+    //display some information on screen
+    glPushMatrix();
+    
+    glLoadIdentity();
+    //glTranslatef(1.0, 1.0, 0);
+    glScalef(0.05f, 0.05f, 0.01f);
+    glDisable(GL_LIGHTING);
+    bloc(eng->player.selectedBloc, -5.0f, -6.0f, -60.0f, 0.0f).draw();
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
     
     
     int unsigned i=0;
@@ -172,9 +188,9 @@ void scene::lighting(void) {
     
     GLfloat light0_position[3] ;
     
-    light0_position[0] = light0X;
+    light0_position[0] = eng->player.positionX;
     light0_position[1] = light0Y;
-    light0_position[2] = light0Z;
+    light0_position[2] = eng->player.positionZ;
     
     
     // Light0 properties.
@@ -191,6 +207,8 @@ void scene::lighting(void) {
     
     // Light quadratic attenuation factor.
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quadAtt0);
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.01);
+    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.005);
     
     //draw a ball to simulate the  light
     glDisable(GL_LIGHTING);

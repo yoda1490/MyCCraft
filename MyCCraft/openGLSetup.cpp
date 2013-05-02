@@ -146,6 +146,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
     // OpenGL window reshape routine.
      void OpenGLSetup::resize(int w, int h)
     {
+        cout << glutGet(GLUT_WINDOW_WIDTH) << endl;
         currentInstance->width = w;
         currentInstance->height = h;
         glViewport(0, 0, (GLsizei)w, (GLsizei)h);

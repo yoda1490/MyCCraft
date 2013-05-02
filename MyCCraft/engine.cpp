@@ -17,7 +17,7 @@ engine::engine(){
     
     godX=0, godY=50, godZ=0;
     
-    gravity = 15.0;
+    gravity = 6.0;
     
     vitesse = 0.25;
     state = 1;
@@ -221,7 +221,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 chunk* aC;
                 bloc*  aB;
                 
-                aL = aField->getNearestChunk(orC->positionX-1, orC->positionY, 0.4);
+                aL = aField->getNearestChunk(orC->positionX-1.0f+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -230,7 +230,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+1, orC->positionY, 0.4);
+                aL = aField->getNearestChunk(orC->positionX+1.0f+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -239,7 +239,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 0.4);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -248,7 +248,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY, 0.4);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -257,7 +257,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY-1, 0.4);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY-1.0f+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -266,7 +266,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX, orC->positionY+1, 0.4);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+1.0f+blc->positionZ, 1.0f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -323,14 +323,46 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     futurY = (player.positionY-(0.001f*gravity));
     
     
+    
+    
+    
+    if( !key['v'] && viewModePressed){
+        viewModePressed = false;
+    }
+    if( key['v'] && !viewModePressed){
+        viewMode = (viewMode+1)%3;
+        viewModePressed = true;
+    }
+    
+    if( key[' '] && player.jump==0){
+        futurY = player.positionY-0.1f;
+        bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
+        if(col[1]){
+            player.jump+=1.0f; //to start log at 1
+        }
+    }
+    
+    if(player.jump>0){
+        player.jump+= 0.15*vitesse;
+        player.jumped += 0.008f*log(player.jump) ;
+        
+        futurY = player.positionY + 0.008f*log(player.jump);
+        
+        
+        if(player.jumped>=player.jumpMax){
+            player.jumped = 0.0f;
+            player.jump = -1.0f;
+        }
+    }
+    
     bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
         player.positionY = futurY;
         player.fall += (0.001f*gravity); //don't forget in jump to remove jumped size
     }else{
-        if(player.fall > 3.0f){
-            player.fight(player.fall-3.0f);
+        if(player.fall > 6.0f){
+            player.fight(player.fall-4.0f);
         }
         player.fall = 0.0f;
     }
@@ -365,40 +397,6 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     if( key[GLUT_KEY_PAGE_UP]){
         player.positionY += 0.005f*vitesse *player.vitesse;
-    }
-    
-    
-    if( !key['v'] && viewModePressed){
-        viewModePressed = false;
-    }
-    if( key['v'] && !viewModePressed){
-        viewMode = (viewMode+1)%3;
-        viewModePressed = true;
-    }
-    
-    if( key[' '] && player.jump==0){
-        futurY = player.positionY-0.1f;
-        bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
-        if(col[1]){
-            player.jump+=1.0f; //to start log at 1
-        }
-    }
-    
-    if(player.jump>0){
-        player.jump+= 1*vitesse;
-        player.jumped += 0.008f*log(player.jump) -(0.001f*gravity);
-        
-        futurY = player.positionY + 0.008f*log(player.jump);
-        bool* col = collision::detectCollisions(aField, &player, player.positionX, futurY, player.positionZ);
-        if(!col[1]){
-            player.positionY = futurY;
-            player.fall -=  0.008f*log(player.jump);
-        }
-        
-        if(player.jumped>=player.jumpMax){
-            player.jumped = 0.0f;
-            player.jump = -1.0f;
-        }
     }
     
     if( !key[' '] && player.jump == -1.0f){
