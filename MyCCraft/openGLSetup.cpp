@@ -68,7 +68,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         eng->contextInitialized = true;
 		cout << "loading texture:" ;
 		 #ifdef _WIN32
-			loadExternalTextures("C:\\Users\\WaWa-YoDa\\Desktop\\MyCCraftConsol\\textures\\herb.bmp");
+			loadExternalTextures("./textures/herb.bmp");
 		#else
 			loadExternalTextures("./herb.bmp");
         #endif
@@ -85,8 +85,9 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
         if(button == 0){
             
             if (state == GLUT_DOWN){
-                currentInstance->eng->selectedBlocNumber = currentInstance->pickFunction(x, y);
-                currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
+                currentInstance->eng->selectedBlocNumber = (unsigned int)currentInstance->pickFunction(x, y);
+				if(currentInstance->eng->selectedBlocNumber > 0 && currentInstance->eng->selectedBlocNumber < currentInstance->eng->pickedBloc.size())
+					currentInstance->eng->selectedBloc = currentInstance->eng->pickedBloc[currentInstance->eng->selectedBlocNumber];
                 currentInstance->eng->mouseLeftClicked = true;
             }else{
                 currentInstance->eng->mouseLeftClicked = false;
@@ -273,13 +274,15 @@ void OpenGLSetup::initKeyboardInput(void)
 // The mouse callback routine.
 unsigned int OpenGLSetup::pickFunction(int x, int y, bool face)
 {
-    int viewport[4]; // Viewport data.
-    
+	int viewport[4]; // Viewport data.
+        
     
     glGetIntegerv(GL_VIEWPORT, viewport); // Get viewport data.
     
-    unsigned int bufferPick[2000000]; // Hit buffer.
-    glSelectBuffer(2000000, bufferPick); // Specify buffer to write hit records in selection mode
+    unsigned int bufferPick[200]; // Hit buffer.
+    glSelectBuffer(200, bufferPick); // Specify buffer to write hit records in selection mode
+
+	
     glRenderMode(GL_SELECT); // Enter selection mode.
     
     // Save the viewing volume defined in the resize routine.

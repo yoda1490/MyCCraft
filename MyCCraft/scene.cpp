@@ -207,8 +207,8 @@ void scene::lighting(void) {
     
     // Light quadratic attenuation factor.
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quadAtt0);
-    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.01);
-    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.005);
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.01f);
+    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.005f);
     
     //draw a ball to simulate the  light
     glDisable(GL_LIGHTING);

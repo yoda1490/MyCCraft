@@ -90,9 +90,9 @@ public:
     bool isSelecting; //selection picking mode
     
     
-    int selectedBlocNumber;
+    unsigned int selectedBlocNumber;
     map<int, bloc*> pickedBloc;
-    int counterPicked;
+    unsigned int counterPicked;
     bloc* selectedBloc;
     int selectedFace;
     
