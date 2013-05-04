@@ -39,6 +39,12 @@ chunk::chunk(const chunk &source){
 }
 
 
+chunk::~chunk(){
+    for(int index=0; index<listBloc.size(); index++){
+            listBloc.at(index)->~bloc();
+    }
+}
+
 void chunk::setBlocs(vector<bloc*>* blocs){
     //listBloc.clear();
     for(unsigned int cpt=0; cpt<blocs->size(); cpt++){

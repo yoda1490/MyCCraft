@@ -43,6 +43,7 @@ void scene::drawScene(bloc* detectFace){
    
    
     lighting();
+    
 
     
     

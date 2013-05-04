@@ -66,7 +66,10 @@ public:
     
     float gravity;
     
+    float initVitesse;
     float vitesse;
+    unsigned int startTime;
+    
     class OpenGLSetup* session;
     class scene* scene;
     int state;
@@ -118,7 +121,7 @@ public:
     
 
     
-
+    bool fog;
 
 
     

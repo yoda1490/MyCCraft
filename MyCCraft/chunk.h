@@ -26,6 +26,7 @@ public:
     
     chunk(const chunk &source); //copy constructor
     chunk(float x, float y);
+    ~chunk();
     void setBlocs(vector<bloc*>* blocs);
     
     void setBloc(bloc* aBloc); //place a bloc at the right position in the vector
