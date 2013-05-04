@@ -17,6 +17,8 @@ engine::engine(){
     
     godX=0, godY=50, godZ=0;
     
+
+	initGravity = 18.0; //change this value to change the gravity and not gravity because gravity is performed with initGravity*vitesse
     gravity = 6.0;
     
     
@@ -116,6 +118,8 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
         vitesse =  initVitesse * (glutGet(GLUT_ELAPSED_TIME)-startTime)/((1.0/float(fps*10))*1000);
     }
     startTime = glutGet(GLUT_ELAPSED_TIME);
+
+	gravity = initGravity*vitesse;
     
     //aField->time+=0.0001;
     if(aField->time>=24.0){
@@ -365,10 +369,10 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     }
     
     if(player.jump>0){
-        player.jump+= 0.15*vitesse;
-        player.jumped += 0.008f*log(player.jump) ;
+        player.jump+= 1.0;
+        player.jumped += 0.008f*log(player.jump)*vitesse ;
         
-        futurY = player.positionY + 0.008f*log(player.jump);
+        futurY = player.positionY + 0.008f*log(player.jump)*vitesse;
         
         
         if(player.jumped>=player.jumpMax){
@@ -380,8 +384,10 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     bool* col = collision::detectCollisions(aField, &player, futurX, futurY, futurZ);
     
     if(!col[1]){
-        player.positionY = futurY;
-        player.fall += (0.001f*gravity); //don't forget in jump to remove jumped size
+		//to check if the map at this place is loaded ... else we will be blocked in a bloc when it will be
+		player.positionY = futurY;
+		player.fall += (0.001f*gravity); //don't forget in jump to remove jumped size
+		
     }else{
         if(player.fall > 6.0f){
             player.fight(player.fall-4.0f);

@@ -64,6 +64,8 @@ public:
     
     float godX, godY, godZ;
     
+
+	float initGravity;
     float gravity;
     
     float initVitesse;
