@@ -221,25 +221,25 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                 chunk* aC;
                 bloc*  aB;
                 
-                aL = aField->getNearestChunk(orC->positionX-1.0f+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX-1.0f+blc->positionX, orC->positionY+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX-1,  blc->positionY,  blc->positionZ);
+                        aB = aC->getBloc(((int)blc->positionX-1)%16,  blc->positionY,  blc->positionZ);
                         if(aB!=NULL) aB->visible = true;
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+1.0f+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX+1.0f+blc->positionX, orC->positionY+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX+1,  blc->positionY,  blc->positionZ);
+                        aB = aC->getBloc(((int)blc->positionX+1)%16,  blc->positionY,  blc->positionZ);
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -248,7 +248,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
@@ -257,20 +257,20 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY-1.0f+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY-1.0f+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX,  blc->positionY,  blc->positionZ-1);
+                        aB = aC->getBloc(blc->positionX,  blc->positionY,  ((int)blc->positionZ-1)%16);
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
                 
-                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+1.0f+blc->positionZ, 1.0f);
+                aL = aField->getNearestChunk(orC->positionX+blc->positionX, orC->positionY+1.0f+blc->positionZ, 0.2f);
                 for(unsigned int cpt=0; cpt< aL->size(); cpt++){
                     aC = aL->at(cpt);
                     if(aC!=NULL){
-                        aB = aC->getBloc(blc->positionX,  blc->positionY,  blc->positionZ+1);
+                        aB = aC->getBloc(blc->positionX,  blc->positionY,  ((int)blc->positionZ+1)%16);
                         if(aB!=NULL)aB->visible = true;
                     }
                 }
