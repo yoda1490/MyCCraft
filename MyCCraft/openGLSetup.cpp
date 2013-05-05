@@ -165,7 +165,7 @@ void OpenGLSetup::printInteraction(){
 	cout << "\t Press space to jump " << endl;
 	cout << "\t Left clic on a bloc to remove it" << endl;
 	cout << "\t Right clic on a face to put a new bloc at behind" << endl;
-    cout << "\t Press to change bloc to put" << endl;
+    cout << "\t Press Tab to change bloc to put" << endl;
 }
 
  
