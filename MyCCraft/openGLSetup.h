@@ -16,6 +16,8 @@
 
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
+#  include <mach-o/dyld.h>
+#  include <limits.h>
 #else
 #  include <GL/glut.h>
 #endif

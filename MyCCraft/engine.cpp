@@ -22,7 +22,7 @@ engine::engine(){
     gravity = 6.0;
     
     
-    initVitesse = 0.5;
+    initVitesse = 0.25;
     vitesse = 0.5; //don't change this value, it's compute with initVitesse and time between 2 perform actions
     startTime = -1.0f;
     state = 1;
@@ -115,7 +115,7 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     //set up the speed regarding time between 2 perform action
     
     if(startTime >= 0.0f){
-        vitesse =  initVitesse * (glutGet(GLUT_ELAPSED_TIME)-startTime)/((1.0/float(fps*10))*1000);
+        vitesse =  initVitesse * (glutGet(GLUT_ELAPSED_TIME)-startTime)/((1.0/float(fps*20))*1000);
     }
     startTime = glutGet(GLUT_ELAPSED_TIME);
 
@@ -474,9 +474,9 @@ void engine::perform(Bool* key,Bool* keyUp,Bool* keyDown){
     
     
     
-    while((unsigned int)glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1.0/(float)(fps*10))*1000 )){
+    while((unsigned int)glutGet(GLUT_ELAPSED_TIME) < startTime+(  (1.0/(float)(fps*20))*1000 )){
 #ifdef _WIN32
-		Sleep(1000.0f/60.0f);
+		Sleep(100.0f/60.0f);
 #else
 		sleep(1.0/60.0);
 #endif

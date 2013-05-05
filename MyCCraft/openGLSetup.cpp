@@ -70,7 +70,7 @@ void OpenGLSetup::setupWindow(int *argcp, char **argv){
 		 #ifdef _WIN32
 			loadExternalTextures("./textures/herb.bmp");
 		#else
-			loadExternalTextures("./herb.bmp");
+			loadExternalTextures("/herb.bmp");
         #endif
         cout << "ok" << endl;
 		glutMainLoop();
@@ -362,8 +362,31 @@ BitMapFile* OpenGLSetup::getBMPData(string filename)
     BitMapFile* bmp = new BitMapFile;
     unsigned int size, offset, headerSize;
     
+    string fullName;
+    
+    
+//needed on mac to locate the location of the executable and open the right file
+#ifdef __APPLE__
+    char buf [PATH_MAX];
+    uint32_t bufsize = PATH_MAX;
+    if(!_NSGetExecutablePath(buf, &bufsize)){
+        fullName = buf;
+        unsigned long found = fullName.find_last_of("/\\");
+        fullName = fullName.substr(0,found);
+    }
+#endif
+    
+    fullName.append(filename);
+    
+    cout << fullName;
     // Read input file name.
-    ifstream infile(filename.c_str(), ios::binary);
+    ifstream infile(fullName.c_str(), ios::binary);
+    
+    
+    if (!infile.is_open()){
+        cout << "texture not found:" << filename << endl;
+    }
+    
     
     // Get the starting point of the image data.
     infile.seekg(10);

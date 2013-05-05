@@ -26,7 +26,7 @@ static string NAME = "Player";
 static float SPEED = 1, LIFE=10.0, ARMUR=10.0;
 static float DIFFU = 0.1f, EMIS = 0.1f, SPECU = 1.0, SHIN = 30.0;
 static float SIZEX = 0.8f, SIZEY = 1.8f, SIZEZ = 0.5f, HITBOX = 0.4f;
-static float WALKMOVE = 0, FREQUENCYMOVE = 0.005f; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
+static float WALKMOVE = 0, FREQUENCYMOVE = 0.0025f; //speed of walkmove: we add sin(2PI*frequencyMove*walkMove) to y view
 static float JUMP = 0.0f, JUMPED = 0.0f, JUMPMAX = 1.8f, FALL = 0.0f; //height fallen
 
 
