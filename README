@@ -1,0 +1,36 @@
+[MyCcraft]
+
+[Description]
+MyCCraft is a simple copy of the game MineCraft in C++.
+
+For the moment you can:
+  - Move into a infinite map, generated randomly
+  - Remove any bloc in the map
+  - Put 4 type of bloc (Wood/Grass/Metal/Brick) anywhere
+
+But you cannot:
+  - save the map
+  - Craft anything
+  - Move head player with the mouse (Mouse cursor is independant of player moves)
+
+[Requirement]
+  [General]
+    - GCC
+    - OpenGL
+    - Glut / freeGlut
+
+  [Windows]
+    - lpThread
+    - Visual C++ [Optional*]
+
+  [Mac OS X]
+    - Xcode [Optional*]
+
+  [Linux]
+    //not yet, need to do a MakeFile
+
+
+  [Optional*]: Recomanded to compile easily the project
+
+[CopyLeft]
+  GPL v3 (see license file)
